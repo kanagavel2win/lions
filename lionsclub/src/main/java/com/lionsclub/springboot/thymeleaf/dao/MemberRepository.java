@@ -6,6 +6,6 @@ import com.lionsclub.springboot.thymeleaf.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 
-	// that's it ... no need to write any code LOL!
+	//public Member findByMember_ID(String member_ID); 
 	
 }

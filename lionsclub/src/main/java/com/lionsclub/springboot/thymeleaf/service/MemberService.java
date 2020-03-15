@@ -14,4 +14,6 @@ public interface MemberService {
 	
 	public void deleteById(int theId);
 	
+	public Member findByMember_ID(String Member_ID);
+	
 }

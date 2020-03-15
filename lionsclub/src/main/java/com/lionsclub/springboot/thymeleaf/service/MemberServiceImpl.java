@@ -51,6 +51,12 @@ public class MemberServiceImpl implements MemberService {
 		memberRepository.deleteById(theId);
 	}
 
+	@Override
+	public Member findByMember_ID(String Member_ID) {
+		
+		return null; //memberRepository.findBymemberID(Member_ID);
+	}
+
 }
 
 

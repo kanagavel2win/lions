@@ -90,24 +90,25 @@
                                             <table class="table zero-configuration">
                                                 <thead>
                                                     <tr>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Club</th>
-                                                        <th>Designation</th>
+                                                        <th>Member ID</th>
+                                                        <th>Name</th>
+                                                        <th>Membership_Type</th>
+                                                        <th>Spouse Name</th>
                                                         <th>Mobile No</th>                                                        
                                                         <th>Edit</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Member First Name </td>
-                                                        <td>Sample Last Name</td>
-                                                        <td>Coimbatore Central</td>
-                                                        <td>Treasurer</td>
-                                                        <td>9999988888</td>
-                                                        <td><a href=""><i class="bx bxs-edit-alt" style="font-size:26px"></i></a></td>
-                                                    </tr>
+                                                	<tr th:each="member : ${members}">
+													    <td th:text="${member['Member_ID']}"></td>
+                                                        <td th:text="${member['First_Name']} +' '+ ${member['Last_Name']}"></td>
+                                                        <td th:text="${member['Membership_Type']}"></td>
+                                                        <td th:text="${member['Spouse_Name']}"></td>
+                                                        <td th:text="${member['Cell_Phone']}"></td>
+                                                        <td><a th:href="'memberedit?id=' + @{{id} (id=${member['id']})}"><i class="bx bxs-edit-alt" style="font-size:26px"></i></a></td>	
+													</tr>
+                                                    
                                                    
                                                    
                                                 </tbody>

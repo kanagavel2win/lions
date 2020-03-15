@@ -66,269 +66,367 @@
                 </div>
             </div>
             <div class="content-body" style="border:solid #EBEBEB 2px;">
+              
                 <!-- Form wizard with icon tabs section start -->
                 <section id="icon-tabs">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">New Member Details</h4>
+                                    <h4 class="card-title">Member Info (As per International database)</h4>
+                                    
+                                  				
+                                  				<div th:if="${savestatus}" class="form-group">
+                                                    <button type="button" class="btn mb-1 btn-success btn-lg btn-block">Member Info Updated Successfully</button>
+                                                </div>
+                                                
+                                    
                                 </div>
                                 <div class="card-content mt-2">
                                     <div class="card-body">
-                                        <form action="#" class="wizard-horizontal">
-                                            <!-- Step 1 -->
-                                            <h6>
-                                                <i class="step-icon"></i>
-                                                <span class="fonticon-wrap">
-													<i class="bx bx-book-content" style="font-size:40px"></i>
-                                                </span>
-                                            </h6>
-                                            <!-- Step 1 end-->
+                                        <form th:action="@{/memberedit}"  th:object="${members}" method="POST" class="wizard-horizontal">
                                             <!-- body content step 1 -->
                                             <fieldset>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <h6 class="py-50">Enter Member Details</h6>
+                                                        <h6 class="py-50">Member Info</h6>
                                                     </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label for="first_name">First Name </label>
-                                                            <input type="text" class="form-control" id="firstName13" placeholder="Enter First Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Last Name</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Last Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Member ID</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Lions Member ID">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Zone</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Inaugration date">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Date Of Birth</label>
-                                                            <input type="date" class="form-control" placeholder="Enter date of birth">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Designation</label>
-                                                            <select name="designation" class="form-control">
-                                                                <option value="">Select</option>
-                                                                <option value="">Member</option>
-                                                                <option value="">President</option>
-                                                                <option value="">First Vice President</option>
-                                                                <option value="">Second Vice President</option>
-                                                                <option value="">Administrator</option>
-                                                                <option value="">Treasurer</option>
-                                                                <option value="">Membership Chairperson</option>
-                                                                <option value="">LCIF Coordinator</option>
-                                                                <option value="">Service Chairperson</option>
-                                                                <option value="">Marketing Communications Chairperson</option>
-                                                                <option value="">Director</option>
-                                                                
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Blood Group</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Blood Group">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Occupation</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Occupation">
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Address Line 1</label>
-                                                            <input type="text" class="form-control" placeholder="Enter House no./ Flate no.">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Address Line 2</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Society name/ Area name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>LandMark</label>
-                                                            <input type="text" class="form-control" placeholder="Enter A Landmark">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>TOWN/CITY</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Town/City">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>PINCODE</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Your Pincode">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Country</label>
-                                                            <select name="country" class="form-control">
-                                                                <option value="">Select</option>
-                                                                <option value="IN">India</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>State</label>
-                                                            <select name="country" class="form-control">
-                                                                <option value="">Select</option>
-                                                                <option>Tamil Nadu</option>
-                                                                <option>Andra Pradesh</option>
-                                                                <option>Arunachal Pradesh</option>
-                                                                <option>Assam</option>
-                                                                <option>Bihar</option>
-                                                                <option>Chhattisgarh</option>
-                                                                <option>Goa</option>
-                                                                <option>Gujarat</option>
-                                                                <option>Haryana</option>
-                                                                <option>Himachal Pradesh</option>
-                                                                <option>Jammu and Kashmir</option>
-                                                                <option>Jharkhand</option>
-                                                                <option>Karnataka</option>
-                                                                <option>Kerala</option>
-                                                                <option>Madya Pradesh</option>
-                                                                <option>Maharashtra</option>
-                                                                <option>Manipur</option>
-                                                                <option>Meghalaya</option>
-                                                                <option>Mizoram</option>
-                                                                <option>Nagaland</option>
-                                                                <option>Orissa</option>
-                                                                <option>Punjab</option>
-                                                                <option>Rajasthan</option>
-                                                                <option>Sikkim</option>
-                                                                <option>Telagana</option>
-                                                                <option>Tripura</option>
-                                                                <option>Uttaranchal</option>
-                                                                <option>Uttar Pradesh</option>
-                                                                <option>West Bengal</option>                                                            </select>
-                                                        </div>
-                                                    </div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Multiple District Name</label>
+ <input type="text" class="form-control" th:value="${members['Multiple_District_Name']}"  th:field="*{Multiple_District_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>District Name</label>
+ <input type="text" class="form-control" th:value="${members['District_Name']}"  th:field="*{District_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Region Name</label>
+ <input type="text" class="form-control" th:value="${members['Region_Name']}"  th:field="*{Region_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Zone Name</label>
+ <input type="text" class="form-control" th:value="${members['Zone_Name']}"  th:field="*{Zone_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Title</label>
+ <input type="text"class="form-control" th:value="${members['Title']}"  th:field="*{Title}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Club ID</label>
+ <input type="text" class="form-control" th:value="${members['Club_ID']}"  th:field="*{Club_ID}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Club Name</label>
+ <input type="text" class="form-control" th:value="${members['Club_Name']}"  th:field="*{Club_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member ID</label>
+ <input type="text" class="form-control" th:value="${members['Member_ID']}"  th:field="*{Member_ID}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Prefix</label>
+ <input type="text"class="form-control" th:value="${members['Prefix']}"  th:field="*{Prefix}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>First Name</label>
+ <input type="text" class="form-control" th:value="${members['First_Name']}"  th:field="*{First_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Middle Name</label>
+ <input type="text" class="form-control" th:value="${members['Middle_Name']}"  th:field="*{Middle_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Last Name</label>
+ <input type="text" class="form-control" th:value="${members['Last_Name']}"  th:field="*{Last_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Suffix</label>
+ <input type="text"class="form-control" th:value="${members['Suffix']}"  th:field="*{Suffix}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Invalid Member AddressFlag</label>
+ <input type="text" class="form-control" th:value="${members['Invalid_Member_Address_Flag']}"  th:field="*{Invalid_Member_Address_Flag}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member Address Line 1</label>
+ <input type="text" class="form-control" th:value="${members['Member_Address_Line_1']}"  th:field="*{Member_Address_Line_1}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member Address Line 2</label>
+ <input type="text" class="form-control" th:value="${members['Member_Address_Line_2']}"  th:field="*{Member_Address_Line_2}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member Address Line 3</label>
+ <input type="text" class="form-control" th:value="${members['Member_Address_Line_3']}"  th:field="*{Member_Address_Line_3}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member Address Line 4</label>
+ <input type="text" class="form-control" th:value="${members['Member_Address_Line_4']}"  th:field="*{Member_Address_Line_4}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member Address City</label>
+ <input type="text" class="form-control" th:value="${members['Member_Address_City']}"  th:field="*{Member_Address_City}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member Address State</label>
+ <input type="text" class="form-control" th:value="${members['Member_Address_State']}"  th:field="*{Member_Address_State}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member Address PostalCode</label>
+ <input type="text" class="form-control" th:value="${members['Member_Address_Postal_Code']}"  th:field="*{Member_Address_Postal_Code}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member Address Country</label>
+ <input type="text" class="form-control" th:value="${members['Member_Address_Country']}"  th:field="*{Member_Address_Country}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Invalid Officer AddressFlag</label>
+ <input type="text" class="form-control" th:value="${members['Invalid_Officer_Address_Flag']}"  th:field="*{Invalid_Officer_Address_Flag}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Officer Address Line 1</label>
+ <input type="text" class="form-control" th:value="${members['Officer_Address_Line_1']}"  th:field="*{Officer_Address_Line_1}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Officer Address Line 2</label>
+ <input type="text" class="form-control" th:value="${members['Officer_Address_Line_2']}"  th:field="*{Officer_Address_Line_2}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Officer Address Line 3</label>
+ <input type="text" class="form-control" th:value="${members['Officer_Address_Line_3']}"  th:field="*{Officer_Address_Line_3}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Officer Address Line 4</label>
+ <input type="text" class="form-control" th:value="${members['Officer_Address_Line_4']}"  th:field="*{Officer_Address_Line_4}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Officer Address City</label>
+ <input type="text" class="form-control" th:value="${members['Officer_Address_City']}"  th:field="*{Officer_Address_City}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Officer Address State</label>
+ <input type="text" class="form-control" th:value="${members['Officer_Address_State']}"  th:field="*{Officer_Address_State}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Officer Address PostalCode</label>
+ <input type="text" class="form-control" th:value="${members['Officer_Address_Postal_Code']}"  th:field="*{Officer_Address_Postal_Code}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Officer Address Country</label>
+ <input type="text" class="form-control" th:value="${members['Officer_Address_Country']}"  th:field="*{Officer_Address_Country}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Email</label>
+ <input type="text"class="form-control" th:value="${members['Email']}"  th:field="*{Email}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Home Phone</label>
+ <input type="text" class="form-control" th:value="${members['Home_Phone']}"  th:field="*{Home_Phone}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Cell Phone</label>
+ <input type="text" class="form-control" th:value="${members['Cell_Phone']}"  th:field="*{Cell_Phone}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Fax Number</label>
+ <input type="text" class="form-control" th:value="${members['Fax_Number']}"  th:field="*{Fax_Number}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Work Phone</label>
+ <input type="text" class="form-control" th:value="${members['Work_Phone']}"  th:field="*{Work_Phone}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Spouse Name</label>
+ <input type="text" class="form-control" th:value="${members['Spouse_Name']}"  th:field="*{Spouse_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Membership Type</label>
+ <input type="text" class="form-control" th:value="${members['Membership_Type']}"  th:field="*{Membership_Type}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Date of Birth</label>
+ <input type="text" class="form-control" th:value="${members['Date_of_Birth']}"  th:field="*{Date_of_Birth}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Gender</label>
+ <input type="text"class="form-control" th:value="${members['Gender']}"  th:field="*{Gender}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Nick Name</label>
+ <input type="text" class="form-control" th:value="${members['Nick_Name']}"  th:field="*{Nick_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Occupation</label>
+ <input type="text" class="form-control" th:value="${members['Occupation']}"  th:field="*{Occupation}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Join Date</label>
+ <input type="text" class="form-control" th:value="${members['Join_Date']}"  th:field="*{Join_Date}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Life Member</label>
+ <input type="text" class="form-control" th:value="${members['Life_Member']}"  th:field="*{Life_Member}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Family Unit</label>
+ <input type="text" class="form-control" th:value="${members['Family_Unit']}"  th:field="*{Family_Unit}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Sponsor Name</label>
+ <input type="text" class="form-control" th:value="${members['Sponsor_Name']}"  th:field="*{Sponsor_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Club Branch Name</label>
+ <input type="text" class="form-control" th:value="${members['Club_Branch_Name']}"  th:field="*{Club_Branch_Name}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>International Discount</label>
+ <input type="text" class="form-control" th:value="${members['International_Discount']}"  th:field="*{International_Discount}" readonly="readonly" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>International DiscountReason</label>
+ <input type="text" class="form-control" th:value="${members['International_Discount_Reason']}"  th:field="*{International_Discount_Reason}" readonly="readonly" />
+														</div>
+													</div>
+<input type="hidden" class="form-control" th:value="${members['id']}"  th:field="*{id}" readonly="readonly" />
+
+												</div>
 												<br/><br/><br/>
-                                            </fieldset>
-                                            <!-- body content step 1 end-->
-                                            <!-- Step 2 -->
-                                            <h6>
-                                                <i class="step-icon"></i>
-                                                <span class="fonticon-wrap">
-                                                    <i class="bx bxs-bookmark-star" style="font-size:40px"></i>
-                                                </span>
-                                            </h6>
-                                            <!-- Step 2 end-->
-                                            <!-- body content of step 2 -->
-                                            <fieldset>
+                                            
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <h6 class="py-50">Enter Lionism Details</h6>
+                                                        <h6 class="py-50">Additional information</h6>
                                                     </div>
-                                                    <div class="col-sm-6">
+                        							 <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Home Club</label>
-                                                            <select name="country" class="form-control">
-                                                                <option value="">Select</option>
-                                                                <option value="AF">Coimbatore</option>
-                                                                <option value="AF">Coimbatore North</option>
-                                                                <option value="AF">Coimbatore Center</option>
-                                                                <option value="AF">Coimbatore South</option>
-                                                                <option value="AF">Coimbatore East</option>
-                                                            </select>
+                                                            <label>Member BloodGroup
+                                                            </label>
+                                                            <input type="text" class="form-control" th:value="${members['Member_BloodGroup']}"   th:field="*{Member_BloodGroup}"/>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+ <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Lionism Join Date</label>
-                                                            <input type="date" class="form-control" placeholder="Enter Lionism Join Date">
+                                                            <label>Wedding Date</label>
+                                                            <input type="date" class="form-control" th:value="${members['WeddingDate']}"   th:field="*{WeddingDate}"/>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+ <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Lionism WD</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Lionism WD">
+                                                            <label>Spouse BloodGroup
+                                                            </label>
+                                                            <input type="text" class="form-control" th:value="${members['Spouse_BloodGroup']}"   th:field="*{Spouse_BloodGroup}" />
                                                         </div>
                                                     </div>
+ <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Spouse DOB</label>
+                                                            <input type="date" class="form-control" th:value="${members['Spouse_DOB']}"   th:field="*{Spouse_DOB}"/>
+                                                        </div>
+                                                    </div>
+                        							
+                                                    
                                                 </div>
 												<br/><br/><br/>                                                
                                             </fieldset>
                                             <!-- body content of step 2 end-->
-                                            <!-- Step 3 -->
-                                            <h6>
-                                                <i class="step-icon"></i>
-                                                <span class="fonticon-wrap">
-                                                    <i class="bx bxs-contact" style="font-size:40px"></i>
-                                                </span>
-                                            </h6>
-                                            <!-- Step 3 end-->
-                                            <!-- body content of Step 3 -->
-                                            <fieldset>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h6 class="py-50">Enter Contact Details</h6>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Email ID 1</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Contact Email ID 1">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Email ID 2</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Contact Email ID 2">
-                                                        </div>
-                                                    </div>
-													<div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Mobile No 1</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Contact Mobile No">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                             <label>Mobile No 2</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Contact Mobile No">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                             <label>Office Phone No 1</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Contact Office Phone No 1">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                             <label>Office Phone No 2</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Contact Office Phone No 2">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br/><br/><br/>
-                                            </fieldset>
-                                            <!-- body content of Step 3 end-->
+                                            <input type="submit" class="btn btn-primary mr-1 mb-1" value="Update" /> 
                                         </form>
                                     </div>
                                 </div>
@@ -337,6 +435,7 @@
                     </div>
                 </section>
                 <!-- Form wizard with number tabs section end -->
+               
             </div>
         </div>
     </div>

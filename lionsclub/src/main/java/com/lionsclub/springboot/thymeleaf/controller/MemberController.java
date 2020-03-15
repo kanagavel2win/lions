@@ -1,10 +1,13 @@
 package com.lionsclub.springboot.thymeleaf.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.lionsclub.springboot.thymeleaf.entity.Member;
 import com.lionsclub.springboot.thymeleaf.service.MemberService;
 
 @Controller
@@ -22,12 +25,12 @@ public class MemberController {
 	@GetMapping("/list")
 	public String listmembers(Model theModel) {
 		
-		/*// get members from db
-		List<member> themembers = memberService.findAll();
+		// get members from db
+		List<Member> themembers = memberService.findAll();
 		
 		// add to the spring model
 		theModel.addAttribute("members", themembers);
-		*/
+		
 		return "list-members";
 	}
 }
