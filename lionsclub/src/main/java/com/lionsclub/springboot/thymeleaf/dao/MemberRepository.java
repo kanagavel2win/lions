@@ -2,9 +2,9 @@ package com.lionsclub.springboot.thymeleaf.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.lionsclub.springboot.thymeleaf.entity.Employee;
+import com.lionsclub.springboot.thymeleaf.entity.Member;
 
-public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+public interface MemberRepository extends JpaRepository<Member, Integer> {
 
 	// that's it ... no need to write any code LOL!
 	
