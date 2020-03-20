@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="ICC">
+    <title>Club Add </title>
+    <link rel="apple-touch-icon" th:href="@{app-assets/images/ico/apple-icon-120.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{app-assets/images/ico/favicon.ico}">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/vendors/css/vendors.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/vendors/css/pickers/pickadate/pickadate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/vendors/css/pickers/daterange/daterangepicker.css}">
+
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/css/bootstrap-extended.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/css/colors.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/css/components.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/css/themes/dark-layout.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/css/themes/semi-dark-layout.css}">
+    <!-- END: Theme CSS-->
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/css/core/menu/menu-types/vertical-menu.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{app-assets/css/plugins/forms/wizard.css}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{assets/css/style.css}">
+    <!-- END: Custom CSS-->
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern boxicon-layout no-card-shadow 2-columns  navbar-sticky footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+
+       <!-- BEGIN: Header-->
+    <div th:insert="header">  </div>
+    <!-- END: Header-->
+
+
+    <!-- BEGIN: Main Menu-->
+	<div th:insert="menu">  </div>
+    <!-- END: Main Menu-->
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-12 mb-2 mt-1">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h5 class="content-header-title float-left pr-1 mb-0">Club Master</h5>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body" style="border:solid #EBEBEB 2px;">
+                <!-- Form wizard with icon tabs section start -->
+                <section id="icon-tabs">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-content mt-2">
+                                    <div class="card-body">
+                                        <form action="#" class="wizard-horizontal">
+                                            <!-- body content step 1 -->
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <iframe src="https://lci-auth-app-prod.azurewebsites.net/Account/Login" style="width:100%;height:100%"></iframe>
+                                                    </div>
+                                                 </div>                                                   
+		
+                                            </fieldset>
+                                            <!-- body content step 1 end-->
+                                         
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Form wizard with number tabs section end -->
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    
+
+    </div>
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light">
+        <p class="clearfix mb-0"><span class="float-left d-inline-block"></span><span class="float-right d-sm-inline-block d-none">Copy Right @ Lions Clubs - District 324 B1   | PRIVACY POLICY</span>
+            <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="bx bx-up-arrow-alt"></i></button>
+        </p>
+    </footer>
+    <!-- END: Footer-->
+
+
+    <!-- BEGIN: Vendor JS-->
+    <script th:src="@{app-assets/vendors/js/vendors.min.js}"></script>
+    <script th:src="@{app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js}"></script>
+    <script th:src="@{app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js}"></script>
+    <script th:src="@{app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js}"></script>
+     <script th:src="@{app-assets/vendors/js/pickers/pickadate/picker.js}"></script>
+    <script th:src="@{app-assets/vendors/js/pickers/pickadate/picker.date.js}"></script>
+    <script th:src="@{app-assets/vendors/js/pickers/pickadate/picker.time.js}"></script>
+    <script th:src="@{app-assets/vendors/js/pickers/pickadate/legacy.js}"></script>
+    <script th:src="@{app-assets/vendors/js/pickers/daterange/moment.min.js}"></script>
+    <script th:src="@{app-assets/vendors/js/pickers/daterange/daterangepicker.js}"></script>
+
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script th:src="@{app-assets/vendors/js/extensions/jquery.steps.min.js}"></script>
+    <script th:src="@{app-assets/vendors/js/forms/validation/jquery.validate.min.js}"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script th:src="@{app-assets/js/core/app-menu.js}"></script>
+    <script th:src="@{app-assets/js/core/app.js}"></script>
+    <script th:src="@{app-assets/js/scripts/components.js}"></script>
+    <script th:src="@{app-assets/js/scripts/footer.js}"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script th:src="@{app-assets/js/scripts/forms/wizard-steps.js}"></script>
+    <script th:src="@{app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js}"></script>
+    <!-- END: Page JS-->
+
+
+</body>
+<!-- END: Body-->
+
+</html>

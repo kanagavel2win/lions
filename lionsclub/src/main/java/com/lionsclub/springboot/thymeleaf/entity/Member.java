@@ -123,11 +123,33 @@ public class Member {
 	private String Spouse_BloodGroup;
 	@Column
 	private String Spouse_DOB;
+	@Column
+	private String Designation;
+	
+	@Column
+	private String ProfileImg;
+	
 
 	// define constructors
 
 	public Member() {
 
+	}
+
+	public String getDesignation() {
+		return Designation;
+	}
+
+	public void setDesignation(String designation) {
+		Designation = designation;
+	}
+
+	public String getProfileImg() {
+		return ProfileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		ProfileImg = profileImg;
 	}
 
 	public int getId() {
@@ -588,7 +610,7 @@ public class Member {
 				+ Club_Branch_Name + ", International_Discount=" + International_Discount
 				+ ", International_Discount_Reason=" + International_Discount_Reason + ", Member_BloodGroup="
 				+ Member_BloodGroup + ", WeddingDate=" + WeddingDate + ", Spouse_BloodGroup=" + Spouse_BloodGroup
-				+ ", Spouse_DOB=" + Spouse_DOB + "]";
+				+ ", Spouse_DOB=" + Spouse_DOB + ", Designation=" + Designation + ", ProfileImg=" + ProfileImg + "]";
 	}
 
 	public Member(int id, String multiple_District_Name, String district_Name, String region_Name, String zone_Name,
@@ -604,7 +626,7 @@ public class Member {
 			String date_of_Birth, String gender, String nick_Name, String occupation, String join_Date,
 			String life_Member, String family_Unit, String sponsor_Name, String club_Branch_Name,
 			String international_Discount, String international_Discount_Reason, String member_BloodGroup,
-			String weddingDate, String spouse_BloodGroup, String spouse_DOB) {
+			String weddingDate, String spouse_BloodGroup, String spouse_DOB, String designation, String profileImg) {
 		super();
 		this.id = id;
 		Multiple_District_Name = multiple_District_Name;
@@ -660,7 +682,11 @@ public class Member {
 		WeddingDate = weddingDate;
 		Spouse_BloodGroup = spouse_BloodGroup;
 		Spouse_DOB = spouse_DOB;
+		Designation = designation;
+		ProfileImg = profileImg;
 	}
+
+	
 
 	
 }

@@ -1,483 +1,632 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en" data-textdirection="ltr">
+<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en"
+	data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="ICC">
-    <title>Member Add </title>
-    <link rel="apple-touch-icon" th:href="@{/app-assets/images/ico/apple-icon-120.png}">
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/app-assets/images/ico/favicon.ico}">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="ICC">
+<title>Member Add</title>
+<link rel="apple-touch-icon"
+	th:href="@{/app-assets/images/ico/apple-icon-120.png}">
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/app-assets/images/ico/favicon.ico}">
+<link
+	href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700"
+	rel="stylesheet">
 
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/vendors/css/vendors.min.css}">
-    <!-- END: Vendor CSS-->
+<!-- BEGIN: Vendor CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/vendors/css/vendors.min.css}">
+<!-- END: Vendor CSS-->
 
-    <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/bootstrap.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/bootstrap-extended.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/colors.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/components.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/themes/dark-layout.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/themes/semi-dark-layout.css}">
-    <!-- END: Theme CSS-->
+<!-- BEGIN: Theme CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/bootstrap.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/bootstrap-extended.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/colors.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/components.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/themes/dark-layout.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/themes/semi-dark-layout.css}">
+<!-- END: Theme CSS-->
 
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/core/menu/menu-types/vertical-menu.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/app-assets/css/plugins/forms/wizard.css}">
-    <!-- END: Page CSS-->
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/core/menu/menu-types/vertical-menu.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/plugins/forms/wizard.css}">
+<!-- END: Page CSS-->
 
-    <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
-    <!-- END: Custom CSS-->
+<!-- BEGIN: Custom CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/style.css}">
+<!-- END: Custom CSS-->
 
 </head>
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern boxicon-layout no-card-shadow 2-columns  navbar-sticky footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+<body
+	class="vertical-layout vertical-menu-modern boxicon-layout no-card-shadow 2-columns  navbar-sticky footer-static  "
+	data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
-       <!-- BEGIN: Header-->
-    <div th:insert="header">  </div>
-    <!-- END: Header-->
+	<!-- BEGIN: Header-->
+	<div th:insert="header"></div>
+	<!-- END: Header-->
 
 
-    <!-- BEGIN: Main Menu-->
-	<div th:insert="menu">  </div>
-    <!-- END: Main Menu-->
+	<!-- BEGIN: Main Menu-->
+	<div th:insert="menu"></div>
+	<!-- END: Main Menu-->
 
-    <!-- BEGIN: Content-->
-    <div class="app-content content">
-        <div class="content-overlay"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-12 mb-2 mt-1">
-                    <div class="row breadcrumbs-top">
-                        <div class="col-12">
-                            <h5 class="content-header-title float-left pr-1 mb-0">Member Master</h5>                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="content-body" style="border:solid #EBEBEB 2px;">
-              
-                <!-- Form wizard with icon tabs section start -->
-                <section id="icon-tabs">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Member Info (As per International database)</h4>
-                                    
-                                  				
-                                  				<div th:if="${savestatus}" class="form-group">
-                                                    <button type="button" class="btn mb-1 btn-success btn-lg btn-block">Member Info Updated Successfully</button>
-                                                </div>
-                                                
-                                    
-                                </div>
-                                <div class="card-content mt-2">
-                                    <div class="card-body">
-                                        <form th:action="@{/memberedit}"  th:object="${members}" method="POST" class="wizard-horizontal">
-                                            <!-- body content step 1 -->
-                                            <fieldset>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h6 class="py-50">Member Info</h6>
-                                                    </div>
+	<!-- BEGIN: Content-->
+	<div class="app-content content">
+		<div class="content-overlay"></div>
+		<div class="content-wrapper">
+			<div class="content-header row">
+				<div class="content-header-left col-12 mb-2 mt-1">
+					<div class="row breadcrumbs-top">
+						<div class="col-12">
+							<h5 class="content-header-title float-left pr-1 mb-0">Member
+								Master</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content-body" style="border: solid #EBEBEB 2px;">
+
+				<!-- Form wizard with icon tabs section start -->
+				<section id="icon-tabs">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">Member Info (As per International
+										database)</h4>
+
+
+									<div th:if="${savestatus}" class="form-group">
+										<button type="button"
+											class="btn mb-1 btn-success btn-lg btn-block">Member
+											Info Updated Successfully</button>
+									</div>
+
+
+								</div>
+								<div class="card-content mt-2">
+									<div class="card-body">
+										<form th:action="@{/memberedit}" th:object="${members}"
+											method="POST" class="wizard-horizontal" enctype="multipart/form-data">
+											<!-- body content step 1 -->
+											<fieldset>
+												<div class="row">
+													<div class="col-12">
+														<img th:src="${members['ProfileImg']}"  style="width:100px;height:100px;" />
+														<br/><br/>&nbsp;
+													</div>
+													
+													
+													
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Multiple District Name</label>
- <input type="text" class="form-control" th:value="${members['Multiple_District_Name']}"  th:field="*{Multiple_District_Name}" readonly="readonly" />
+															<label>Multiple District Name</label> <input type="text"
+																class="form-control"
+																th:value="${members['Multiple_District_Name']}"
+																th:field="*{Multiple_District_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>District Name</label>
- <input type="text" class="form-control" th:value="${members['District_Name']}"  th:field="*{District_Name}" readonly="readonly" />
+															<label>District Name</label> <input type="text"
+																class="form-control"
+																th:value="${members['District_Name']}"
+																th:field="*{District_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Region Name</label>
- <input type="text" class="form-control" th:value="${members['Region_Name']}"  th:field="*{Region_Name}" readonly="readonly" />
+															<label>Region Name</label> <input type="text"
+																class="form-control"
+																th:value="${members['Region_Name']}"
+																th:field="*{Region_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Zone Name</label>
- <input type="text" class="form-control" th:value="${members['Zone_Name']}"  th:field="*{Zone_Name}" readonly="readonly" />
+															<label>Zone Name</label> <input type="text"
+																class="form-control" th:value="${members['Zone_Name']}"
+																th:field="*{Zone_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Title</label>
- <input type="text"class="form-control" th:value="${members['Title']}"  th:field="*{Title}" readonly="readonly" />
+															<label>Title</label> <input type="text"
+																class="form-control" th:value="${members['Title']}"
+																th:field="*{Title}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Club ID</label>
- <input type="text" class="form-control" th:value="${members['Club_ID']}"  th:field="*{Club_ID}" readonly="readonly" />
+															<label>Club ID</label> <input type="text"
+																class="form-control" th:value="${members['Club_ID']}"
+																th:field="*{Club_ID}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Club Name</label>
- <input type="text" class="form-control" th:value="${members['Club_Name']}"  th:field="*{Club_Name}" readonly="readonly" />
+															<label>Club Name</label> <input type="text"
+																class="form-control" th:value="${members['Club_Name']}"
+																th:field="*{Club_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Member ID</label>
- <input type="text" class="form-control" th:value="${members['Member_ID']}"  th:field="*{Member_ID}" readonly="readonly" />
+															<label>Member ID</label> <input type="text"
+																class="form-control" th:value="${members['Member_ID']}"
+																th:field="*{Member_ID}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Prefix</label>
- <input type="text"class="form-control" th:value="${members['Prefix']}"  th:field="*{Prefix}" readonly="readonly" />
+															<label>Prefix</label> <input type="text"
+																class="form-control" th:value="${members['Prefix']}"
+																th:field="*{Prefix}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>First Name</label>
- <input type="text" class="form-control" th:value="${members['First_Name']}"  th:field="*{First_Name}" readonly="readonly" />
+															<label>First Name</label> <input type="text"
+																class="form-control" th:value="${members['First_Name']}"
+																th:field="*{First_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Middle Name</label>
- <input type="text" class="form-control" th:value="${members['Middle_Name']}"  th:field="*{Middle_Name}" readonly="readonly" />
+															<label>Middle Name</label> <input type="text"
+																class="form-control"
+																th:value="${members['Middle_Name']}"
+																th:field="*{Middle_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Last Name</label>
- <input type="text" class="form-control" th:value="${members['Last_Name']}"  th:field="*{Last_Name}" readonly="readonly" />
+															<label>Last Name</label> <input type="text"
+																class="form-control" th:value="${members['Last_Name']}"
+																th:field="*{Last_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Suffix</label>
- <input type="text"class="form-control" th:value="${members['Suffix']}"  th:field="*{Suffix}" readonly="readonly" />
+															<label>Suffix</label> <input type="text"
+																class="form-control" th:value="${members['Suffix']}"
+																th:field="*{Suffix}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Invalid Member AddressFlag</label>
- <input type="text" class="form-control" th:value="${members['Invalid_Member_Address_Flag']}"  th:field="*{Invalid_Member_Address_Flag}" readonly="readonly" />
+															<label>Invalid Member AddressFlag</label> <input
+																type="text" class="form-control"
+																th:value="${members['Invalid_Member_Address_Flag']}"
+																th:field="*{Invalid_Member_Address_Flag}"
+																readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Member Address Line 1</label>
- <input type="text" class="form-control" th:value="${members['Member_Address_Line_1']}"  th:field="*{Member_Address_Line_1}" readonly="readonly" />
+															<label>Member Address Line 1</label> <input type="text"
+																class="form-control"
+																th:value="${members['Member_Address_Line_1']}"
+																th:field="*{Member_Address_Line_1}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Member Address Line 2</label>
- <input type="text" class="form-control" th:value="${members['Member_Address_Line_2']}"  th:field="*{Member_Address_Line_2}" readonly="readonly" />
+															<label>Member Address Line 2</label> <input type="text"
+																class="form-control"
+																th:value="${members['Member_Address_Line_2']}"
+																th:field="*{Member_Address_Line_2}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Member Address Line 3</label>
- <input type="text" class="form-control" th:value="${members['Member_Address_Line_3']}"  th:field="*{Member_Address_Line_3}" readonly="readonly" />
+															<label>Member Address Line 3</label> <input type="text"
+																class="form-control"
+																th:value="${members['Member_Address_Line_3']}"
+																th:field="*{Member_Address_Line_3}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Member Address Line 4</label>
- <input type="text" class="form-control" th:value="${members['Member_Address_Line_4']}"  th:field="*{Member_Address_Line_4}" readonly="readonly" />
+															<label>Member Address Line 4</label> <input type="text"
+																class="form-control"
+																th:value="${members['Member_Address_Line_4']}"
+																th:field="*{Member_Address_Line_4}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Member Address City</label>
- <input type="text" class="form-control" th:value="${members['Member_Address_City']}"  th:field="*{Member_Address_City}" readonly="readonly" />
+															<label>Member Address City</label> <input type="text"
+																class="form-control"
+																th:value="${members['Member_Address_City']}"
+																th:field="*{Member_Address_City}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Member Address State</label>
- <input type="text" class="form-control" th:value="${members['Member_Address_State']}"  th:field="*{Member_Address_State}" readonly="readonly" />
+															<label>Member Address State</label> <input type="text"
+																class="form-control"
+																th:value="${members['Member_Address_State']}"
+																th:field="*{Member_Address_State}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Member Address PostalCode</label>
- <input type="text" class="form-control" th:value="${members['Member_Address_Postal_Code']}"  th:field="*{Member_Address_Postal_Code}" readonly="readonly" />
+															<label>Member Address PostalCode</label> <input
+																type="text" class="form-control"
+																th:value="${members['Member_Address_Postal_Code']}"
+																th:field="*{Member_Address_Postal_Code}"
+																readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Member Address Country</label>
- <input type="text" class="form-control" th:value="${members['Member_Address_Country']}"  th:field="*{Member_Address_Country}" readonly="readonly" />
+															<label>Member Address Country</label> <input type="text"
+																class="form-control"
+																th:value="${members['Member_Address_Country']}"
+																th:field="*{Member_Address_Country}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Invalid Officer AddressFlag</label>
- <input type="text" class="form-control" th:value="${members['Invalid_Officer_Address_Flag']}"  th:field="*{Invalid_Officer_Address_Flag}" readonly="readonly" />
+															<label>Invalid Officer AddressFlag</label> <input
+																type="text" class="form-control"
+																th:value="${members['Invalid_Officer_Address_Flag']}"
+																th:field="*{Invalid_Officer_Address_Flag}"
+																readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Officer Address Line 1</label>
- <input type="text" class="form-control" th:value="${members['Officer_Address_Line_1']}"  th:field="*{Officer_Address_Line_1}" readonly="readonly" />
+															<label>Officer Address Line 1</label> <input type="text"
+																class="form-control"
+																th:value="${members['Officer_Address_Line_1']}"
+																th:field="*{Officer_Address_Line_1}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Officer Address Line 2</label>
- <input type="text" class="form-control" th:value="${members['Officer_Address_Line_2']}"  th:field="*{Officer_Address_Line_2}" readonly="readonly" />
+															<label>Officer Address Line 2</label> <input type="text"
+																class="form-control"
+																th:value="${members['Officer_Address_Line_2']}"
+																th:field="*{Officer_Address_Line_2}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Officer Address Line 3</label>
- <input type="text" class="form-control" th:value="${members['Officer_Address_Line_3']}"  th:field="*{Officer_Address_Line_3}" readonly="readonly" />
+															<label>Officer Address Line 3</label> <input type="text"
+																class="form-control"
+																th:value="${members['Officer_Address_Line_3']}"
+																th:field="*{Officer_Address_Line_3}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Officer Address Line 4</label>
- <input type="text" class="form-control" th:value="${members['Officer_Address_Line_4']}"  th:field="*{Officer_Address_Line_4}" readonly="readonly" />
+															<label>Officer Address Line 4</label> <input type="text"
+																class="form-control"
+																th:value="${members['Officer_Address_Line_4']}"
+																th:field="*{Officer_Address_Line_4}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Officer Address City</label>
- <input type="text" class="form-control" th:value="${members['Officer_Address_City']}"  th:field="*{Officer_Address_City}" readonly="readonly" />
+															<label>Officer Address City</label> <input type="text"
+																class="form-control"
+																th:value="${members['Officer_Address_City']}"
+																th:field="*{Officer_Address_City}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Officer Address State</label>
- <input type="text" class="form-control" th:value="${members['Officer_Address_State']}"  th:field="*{Officer_Address_State}" readonly="readonly" />
+															<label>Officer Address State</label> <input type="text"
+																class="form-control"
+																th:value="${members['Officer_Address_State']}"
+																th:field="*{Officer_Address_State}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Officer Address PostalCode</label>
- <input type="text" class="form-control" th:value="${members['Officer_Address_Postal_Code']}"  th:field="*{Officer_Address_Postal_Code}" readonly="readonly" />
+															<label>Officer Address PostalCode</label> <input
+																type="text" class="form-control"
+																th:value="${members['Officer_Address_Postal_Code']}"
+																th:field="*{Officer_Address_Postal_Code}"
+																readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Officer Address Country</label>
- <input type="text" class="form-control" th:value="${members['Officer_Address_Country']}"  th:field="*{Officer_Address_Country}" readonly="readonly" />
+															<label>Officer Address Country</label> <input type="text"
+																class="form-control"
+																th:value="${members['Officer_Address_Country']}"
+																th:field="*{Officer_Address_Country}"
+																readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Email</label>
- <input type="text"class="form-control" th:value="${members['Email']}"  th:field="*{Email}" readonly="readonly" />
+															<label>Email</label> <input type="text"
+																class="form-control" th:value="${members['Email']}"
+																th:field="*{Email}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Home Phone</label>
- <input type="text" class="form-control" th:value="${members['Home_Phone']}"  th:field="*{Home_Phone}" readonly="readonly" />
+															<label>Home Phone</label> <input type="text"
+																class="form-control" th:value="${members['Home_Phone']}"
+																th:field="*{Home_Phone}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Cell Phone</label>
- <input type="text" class="form-control" th:value="${members['Cell_Phone']}"  th:field="*{Cell_Phone}" readonly="readonly" />
+															<label>Cell Phone</label> <input type="text"
+																class="form-control" th:value="${members['Cell_Phone']}"
+																th:field="*{Cell_Phone}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Fax Number</label>
- <input type="text" class="form-control" th:value="${members['Fax_Number']}"  th:field="*{Fax_Number}" readonly="readonly" />
+															<label>Fax Number</label> <input type="text"
+																class="form-control" th:value="${members['Fax_Number']}"
+																th:field="*{Fax_Number}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Work Phone</label>
- <input type="text" class="form-control" th:value="${members['Work_Phone']}"  th:field="*{Work_Phone}" readonly="readonly" />
+															<label>Work Phone</label> <input type="text"
+																class="form-control" th:value="${members['Work_Phone']}"
+																th:field="*{Work_Phone}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Spouse Name</label>
- <input type="text" class="form-control" th:value="${members['Spouse_Name']}"  th:field="*{Spouse_Name}" readonly="readonly" />
+															<label>Spouse Name</label> <input type="text"
+																class="form-control"
+																th:value="${members['Spouse_Name']}"
+																th:field="*{Spouse_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Membership Type</label>
- <input type="text" class="form-control" th:value="${members['Membership_Type']}"  th:field="*{Membership_Type}" readonly="readonly" />
+															<label>Membership Type</label> <input type="text"
+																class="form-control"
+																th:value="${members['Membership_Type']}"
+																th:field="*{Membership_Type}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Date of Birth</label>
- <input type="text" class="form-control" th:value="${members['Date_of_Birth']}"  th:field="*{Date_of_Birth}" readonly="readonly" />
+															<label>Date of Birth</label> <input type="text"
+																class="form-control"
+																th:value="${members['Date_of_Birth']}"
+																th:field="*{Date_of_Birth}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Gender</label>
- <input type="text"class="form-control" th:value="${members['Gender']}"  th:field="*{Gender}" readonly="readonly" />
+															<label>Gender</label> <input type="text"
+																class="form-control" th:value="${members['Gender']}"
+																th:field="*{Gender}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Nick Name</label>
- <input type="text" class="form-control" th:value="${members['Nick_Name']}"  th:field="*{Nick_Name}" readonly="readonly" />
+															<label>Nick Name</label> <input type="text"
+																class="form-control" th:value="${members['Nick_Name']}"
+																th:field="*{Nick_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Occupation</label>
- <input type="text" class="form-control" th:value="${members['Occupation']}"  th:field="*{Occupation}" readonly="readonly" />
+															<label>Occupation</label> <input type="text"
+																class="form-control" th:value="${members['Occupation']}"
+																th:field="*{Occupation}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Join Date</label>
- <input type="text" class="form-control" th:value="${members['Join_Date']}"  th:field="*{Join_Date}" readonly="readonly" />
+															<label>Join Date</label> <input type="text"
+																class="form-control" th:value="${members['Join_Date']}"
+																th:field="*{Join_Date}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Life Member</label>
- <input type="text" class="form-control" th:value="${members['Life_Member']}"  th:field="*{Life_Member}" readonly="readonly" />
+															<label>Life Member</label> <input type="text"
+																class="form-control"
+																th:value="${members['Life_Member']}"
+																th:field="*{Life_Member}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Family Unit</label>
- <input type="text" class="form-control" th:value="${members['Family_Unit']}"  th:field="*{Family_Unit}" readonly="readonly" />
+															<label>Family Unit</label> <input type="text"
+																class="form-control"
+																th:value="${members['Family_Unit']}"
+																th:field="*{Family_Unit}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Sponsor Name</label>
- <input type="text" class="form-control" th:value="${members['Sponsor_Name']}"  th:field="*{Sponsor_Name}" readonly="readonly" />
+															<label>Sponsor Name</label> <input type="text"
+																class="form-control"
+																th:value="${members['Sponsor_Name']}"
+																th:field="*{Sponsor_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Club Branch Name</label>
- <input type="text" class="form-control" th:value="${members['Club_Branch_Name']}"  th:field="*{Club_Branch_Name}" readonly="readonly" />
+															<label>Club Branch Name</label> <input type="text"
+																class="form-control"
+																th:value="${members['Club_Branch_Name']}"
+																th:field="*{Club_Branch_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>International Discount</label>
- <input type="text" class="form-control" th:value="${members['International_Discount']}"  th:field="*{International_Discount}" readonly="readonly" />
+															<label>International Discount</label> <input type="text"
+																class="form-control"
+																th:value="${members['International_Discount']}"
+																th:field="*{International_Discount}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>International DiscountReason</label>
- <input type="text" class="form-control" th:value="${members['International_Discount_Reason']}"  th:field="*{International_Discount_Reason}" readonly="readonly" />
+															<label>International DiscountReason</label> <input
+																type="text" class="form-control"
+																th:value="${members['International_Discount_Reason']}"
+																th:field="*{International_Discount_Reason}"
+																readonly="readonly" />
 														</div>
 													</div>
-<input type="hidden" class="form-control" th:value="${members['id']}"  th:field="*{id}" readonly="readonly" />
+													<input type="hidden" class="form-control"
+														th:value="${members['id']}" th:field="*{id}"
+														readonly="readonly" />
 
 												</div>
-												<br/><br/><br/>
-                                            
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h6 class="py-50">Additional information</h6>
-                                                    </div>
-                        							 <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Member BloodGroup
-                                                            </label>
-                                                            <input type="text" class="form-control" th:value="${members['Member_BloodGroup']}"   th:field="*{Member_BloodGroup}"/>
-                                                        </div>
-                                                    </div>
- <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Wedding Date</label>
-                                                            <input type="date" class="form-control" th:value="${members['WeddingDate']}"   th:field="*{WeddingDate}"/>
-                                                        </div>
-                                                    </div>
- <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Spouse BloodGroup
-                                                            </label>
-                                                            <input type="text" class="form-control" th:value="${members['Spouse_BloodGroup']}"   th:field="*{Spouse_BloodGroup}" />
-                                                        </div>
-                                                    </div>
- <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Spouse DOB</label>
-                                                            <input type="date" class="form-control" th:value="${members['Spouse_DOB']}"   th:field="*{Spouse_DOB}"/>
-                                                        </div>
-                                                    </div>
-                        							
-                                                    
-                                                </div>
-												<br/><br/><br/>                                                
-                                            </fieldset>
-                                            <!-- body content of step 2 end-->
-                                            <input type="submit" class="btn btn-primary mr-1 mb-1" value="Update" /> 
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Form wizard with number tabs section end -->
-               
-            </div>
-        </div>
-    </div>
-    <!-- END: Content-->
+												<br />
+												<br />
+												<br />
 
-    
+												<div class="row">
+													<div class="col-12">
+														<h6 class="py-50">Additional information</h6>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member Designation</label> <input type="text"
+																class="form-control" th:value="${members['Designation']}"
+																th:field="*{Designation}" />
+														</div>
+													</div>
+													
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Member BloodGroup </label> <input type="text"
+																class="form-control"
+																th:value="${members['Member_BloodGroup']}"
+																th:field="*{Member_BloodGroup}" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Wedding Date</label> <input type="date"
+																class="form-control"
+																th:value="${members['WeddingDate']}"
+																th:field="*{WeddingDate}" />
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Spouse DOB</label> <input type="date"
+																class="form-control" th:value="${members['Spouse_DOB']}"
+																th:field="*{Spouse_DOB}" />
+														</div>
+													</div>
+													
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Spouse BloodGroup </label> <input type="text"
+																class="form-control"
+																th:value="${members['Spouse_BloodGroup']}"
+																th:field="*{Spouse_BloodGroup}" />
+														</div>
+													</div>
+													
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label>Profile Pic </label> <input type="file"	class="form-control" name="profilepicture"/>
+														</div>
+													</div>
+													
 
-    </div>
-    <div class="sidenav-overlay"></div>
-    <div class="drag-target"></div>
+												</div>
+												<br />
+												<br />
+												<br />
+											</fieldset>
+											<!-- body content of step 2 end-->
+											<input type="submit" class="btn btn-primary mr-1 mb-1"
+												value="Update" />
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- Form wizard with number tabs section end -->
 
-    <!-- BEGIN: Footer-->
-    <footer class="footer footer-static footer-light">
-        <p class="clearfix mb-0"><span class="float-left d-inline-block"></span><span class="float-right d-sm-inline-block d-none">Copy Right @ Lions Clubs - District 324 B1   | PRIVACY POLICY</span>
-            <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="bx bx-up-arrow-alt"></i></button>
-        </p>
-    </footer>
-    <!-- END: Footer-->
+			</div>
+		</div>
+	</div>
+	<!-- END: Content-->
 
 
-    <!-- BEGIN: Vendor JS-->
-    <script th:src="@{/app-assets/vendors/js/vendors.min.js}"></script>
-    <script th:src="@{/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js}"></script>
-    <script th:src="@{/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js}"></script>
-    <script th:src="@{/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js}"></script>
-    <!-- BEGIN Vendor JS-->
 
-    <!-- BEGIN: Page Vendor JS-->
-    <script th:src="@{/app-assets/vendors/js/extensions/jquery.steps.min.js}"></script>
-    <script th:src="@{/app-assets/vendors/js/forms/validation/jquery.validate.min.js}"></script>
-    <!-- END: Page Vendor JS-->
+	</div>
+	<div class="sidenav-overlay"></div>
+	<div class="drag-target"></div>
 
-    <!-- BEGIN: Theme JS-->
-    <script th:src="@{/app-assets/js/core/app-menu.js}"></script>
-    <script th:src="@{/app-assets/js/core/app.js}"></script>
-    <script th:src="@{/app-assets/js/scripts/components.js}"></script>
-    <script th:src="@{/app-assets/js/scripts/footer.js}"></script>
-    <!-- END: Theme JS-->
+	<!-- BEGIN: Footer-->
+	<footer class="footer footer-static footer-light">
+		<p class="clearfix mb-0">
+			<span class="float-left d-inline-block"></span><span
+				class="float-right d-sm-inline-block d-none">Copy Right @
+				Lions Clubs - District 324 B1 | PRIVACY POLICY</span>
+			<button class="btn btn-primary btn-icon scroll-top" type="button">
+				<i class="bx bx-up-arrow-alt"></i>
+			</button>
+		</p>
+	</footer>
+	<!-- END: Footer-->
 
-    <!-- BEGIN: Page JS-->
-    <script th:src="@{/app-assets/js/scripts/forms/wizard-steps.js}"></script>
-    <!-- END: Page JS-->
+
+	<!-- BEGIN: Vendor JS-->
+	<script th:src="@{/app-assets/vendors/js/vendors.min.js}"></script>
+	<script
+		th:src="@{/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js}"></script>
+	<script
+		th:src="@{/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js}"></script>
+	<script th:src="@{/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js}"></script>
+	<!-- BEGIN Vendor JS-->
+
+	<!-- BEGIN: Page Vendor JS-->
+	<script
+		th:src="@{/app-assets/vendors/js/extensions/jquery.steps.min.js}"></script>
+	<script
+		th:src="@{/app-assets/vendors/js/forms/validation/jquery.validate.min.js}"></script>
+	<!-- END: Page Vendor JS-->
+
+	<!-- BEGIN: Theme JS-->
+	<script th:src="@{/app-assets/js/core/app-menu.js}"></script>
+	<script th:src="@{/app-assets/js/core/app.js}"></script>
+	<script th:src="@{/app-assets/js/scripts/components.js}"></script>
+	<script th:src="@{/app-assets/js/scripts/footer.js}"></script>
+	<!-- END: Theme JS-->
+
+	<!-- BEGIN: Page JS-->
+	<script th:src="@{/app-assets/js/scripts/forms/wizard-steps.js}"></script>
+	<!-- END: Page JS-->
 
 </body>
 <!-- END: Body-->
