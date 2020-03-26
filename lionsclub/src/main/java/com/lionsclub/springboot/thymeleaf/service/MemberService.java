@@ -14,6 +14,7 @@ public interface MemberService {
 	
 	public void deleteById(int theId);
 	
-	public Member findByMember_ID(String Member_ID);
+	public List<Member> findByMemberID(String MemberID);
+	
 	
 }

@@ -32,7 +32,7 @@ public class Member {
 	@Column
 	private String Club_Name;
 	@Column
-	private String Member_ID;
+	private String MemberID;
 	@Column
 	private String Prefix;
 	@Column
@@ -125,15 +125,13 @@ public class Member {
 	private String Spouse_DOB;
 	@Column
 	private String Designation;
-	
+
 	@Column
 	private String ProfileImg;
-	
 
 	// define constructors
 
 	public Member() {
-
 	}
 
 	public String getDesignation() {
@@ -216,12 +214,12 @@ public class Member {
 		Club_Name = club_Name;
 	}
 
-	public String getMember_ID() {
-		return Member_ID;
+	public String getMemberID() {
+		return MemberID;
 	}
 
-	public void setMember_ID(String member_ID) {
-		Member_ID = member_ID;
+	public void setMemberID(String memberID) {
+		MemberID = memberID;
 	}
 
 	public String getPrefix() {
@@ -588,8 +586,8 @@ public class Member {
 	public String toString() {
 		return "Member [id=" + id + ", Multiple_District_Name=" + Multiple_District_Name + ", District_Name="
 				+ District_Name + ", Region_Name=" + Region_Name + ", Zone_Name=" + Zone_Name + ", Title=" + Title
-				+ ", Club_ID=" + Club_ID + ", Club_Name=" + Club_Name + ", Member_ID=" + Member_ID + ", Prefix="
-				+ Prefix + ", First_Name=" + First_Name + ", Middle_Name=" + Middle_Name + ", Last_Name=" + Last_Name
+				+ ", Club_ID=" + Club_ID + ", Club_Name=" + Club_Name + ", MemberID=" + MemberID + ", Prefix=" + Prefix
+				+ ", First_Name=" + First_Name + ", Middle_Name=" + Middle_Name + ", Last_Name=" + Last_Name
 				+ ", Suffix=" + Suffix + ", Invalid_Member_Address_Flag=" + Invalid_Member_Address_Flag
 				+ ", Member_Address_Line_1=" + Member_Address_Line_1 + ", Member_Address_Line_2="
 				+ Member_Address_Line_2 + ", Member_Address_Line_3=" + Member_Address_Line_3
@@ -614,7 +612,7 @@ public class Member {
 	}
 
 	public Member(int id, String multiple_District_Name, String district_Name, String region_Name, String zone_Name,
-			String title, String club_ID, String club_Name, String member_ID, String prefix, String first_Name,
+			String title, String club_ID, String club_Name, String memberID, String prefix, String first_Name,
 			String middle_Name, String last_Name, String suffix, String invalid_Member_Address_Flag,
 			String member_Address_Line_1, String member_Address_Line_2, String member_Address_Line_3,
 			String member_Address_Line_4, String member_Address_City, String member_Address_State,
@@ -636,7 +634,7 @@ public class Member {
 		Title = title;
 		Club_ID = club_ID;
 		Club_Name = club_Name;
-		Member_ID = member_ID;
+		MemberID = memberID;
 		Prefix = prefix;
 		First_Name = first_Name;
 		Middle_Name = middle_Name;
@@ -686,7 +684,4 @@ public class Member {
 		ProfileImg = profileImg;
 	}
 
-	
-
-	
 }

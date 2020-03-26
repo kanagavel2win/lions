@@ -52,9 +52,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member findByMember_ID(String Member_ID) {
+	public List<Member> findByMemberID(String MemberID) {
 		
-		return null; //memberRepository.findBymemberID(Member_ID);
+		//return null;
+		return memberRepository.getMemberID(MemberID);
 	}
 
 }

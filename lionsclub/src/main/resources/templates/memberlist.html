@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="ICC">
-    <title>Club List </title>
+    <title>Member List </title>
     <link rel="apple-touch-icon" th:href="@{/app-assets/images/ico/apple-icon-120.png}">
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/app-assets/images/ico/favicon.ico}">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
@@ -60,10 +60,10 @@
                 <div class="content-header-left col-12 mb-2 mt-1">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h5 class="content-header-title float-left pr-1 mb-0">Member</h5>
+                            <h5 class="content-header-title float-left pr-1 mb-0">Member Master List</h5>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb p-0 mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="bx bx-home-alt"></i></a>
+                                    <li class="breadcrumb-item"><a href="index"><i class="bx bx-home-alt"></i></a>
                                     </li>
                                     <li class="breadcrumb-item active">Member List
                                     </li>
@@ -81,7 +81,9 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Member Master List</h4>
+                                    <h4 class="card-title">
+                                    <span><a href="memberupload"> <i class="bx bx-upload"></i> &nbsp;&nbsp; Upload Latest Member Data</a></span>
+                                    </h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body card-dashboard">
@@ -101,7 +103,7 @@
                                                 </thead>
                                                 <tbody>
                                                 	<tr th:each="member : ${members}">
-													    <td th:text="${member['Member_ID']}"></td>
+													    <td th:text="${member['MemberID']}"></td>
                                                         <td th:text="${member['First_Name']} +' '+ ${member['Last_Name']}"></td>
                                                         <td th:text="${member['Membership_Type']}"></td>
                                                         <td th:text="${member['Spouse_Name']}"></td>
