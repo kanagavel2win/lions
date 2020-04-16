@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en" data-textdirection="ltr">
+
 <!-- BEGIN: Head-->
 
 <head>
@@ -99,6 +100,11 @@
 							<div class="card">
 								<div class="card-header">
 									<h4 class="card-title">Upload Member Details</h4>
+									<div th:if="${status}" class="form-group toast-header">
+											<span th:text="*{newMemberIDdetails}"></span>
+										  &nbsp; &nbsp; -&nbsp;&nbsp;  New Member details are added successfully 
+									</div>
+									
 								</div>
 								<div class="card-content">
 									<div class="card-body card-dashboard">
@@ -111,7 +117,7 @@
 													accept=".csv">
 												</p>
 											</div>
-											<button type="submit" class="btn btn-primary">Import Users</button>
+											<button type="submit" class="btn btn-primary">Import Member Details</button>
 										</form>
 									</div>
 								</div>
@@ -128,7 +134,7 @@
 
 
 
-	</div>
+	
 	<div class="sidenav-overlay"></div>
 	<div class="drag-target"></div>
 
