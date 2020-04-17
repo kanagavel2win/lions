@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.TextUtils;
 
 import com.lionsclub.springboot.thymeleaf.entity.Member;
 import com.lionsclub.springboot.thymeleaf.service.MemberService;
@@ -141,7 +143,7 @@ public class HomeController {
 				while ((line = br.readLine()) != null && !line.isEmpty()) {
 
 					// line=line.replace("\"", "");
-					String[] fields= new String[49];
+					String[] fields = new String[49];
 					fields = line.split(",");
 					String memberIDcvs = fields[7].replace("\"", "");
 					// ------------------------------------------------------------------------------------
@@ -195,10 +197,9 @@ public class HomeController {
 					String Sponsor_Name = fields[45].replace("\"", "");
 					String Club_Branch_Name = fields[46].replace("\"", "");
 					String International_Discount = fields[47].replace("\"", "");
-					String International_Discount_Reason = "" ;
-					if (fields.length==49)
-					{
-					 International_Discount_Reason = fields[48].replace("\"", "");
+					String International_Discount_Reason = "";
+					if (fields.length == 49) {
+						International_Discount_Reason = fields[48].replace("\"", "");
 					}
 
 					// ------------------------------------------------------------------------------------
@@ -206,11 +207,9 @@ public class HomeController {
 					Member newMember;
 					List<Member> editmemberDetails = memberService.findByMemberID(memberIDcvs);
 
-					
-
 					if (editmemberDetails.isEmpty()) {
 						newMember = new Member();
-						newMemberIDdetailsCount=newMemberIDdetailsCount+1;
+						newMemberIDdetailsCount = newMemberIDdetailsCount + 1;
 					} else {
 
 						newMember = editmemberDetails.get(0);
@@ -267,7 +266,6 @@ public class HomeController {
 					newMember.setInternational_Discount_Reason(International_Discount_Reason);
 					memberService.save(newMember);
 
-					
 				}
 
 				br.close();
@@ -285,12 +283,87 @@ public class HomeController {
 
 		return "memberuploadcsv";
 	}
-	
+
 	@GetMapping("MemberPendingInfo")
-	public String rptMemberPendingdetails(Model model)
-	{
-				
+	public String rptMemberPendingdetails(Model model) {
+		try
+		{
+		List<Member> NotfilledMandatoryFieldsmemberDetails = memberService.getNotfilledMandatoryFields();
+
+		/*ArrayList<String> emptyFieldList = new ArrayList<>();
+
+		for (int i = 0; i < NotfilledMandatoryFieldsmemberDetails.size(); i++) {
+			Member mDetails = NotfilledMandatoryFieldsmemberDetails.get(i);
+			String emptyFieldName="";
+			
+			if (String.valueOf(mDetails.getFirst_Name()) == "null" ||String.valueOf(mDetails.getFirst_Name()) == "" ) {
+				emptyFieldName= emptyFieldName + "First_Name, ";
+			}
+			if (String.valueOf(mDetails.getLast_Name()) == "null" ||mDetails.getLast_Name().isEmpty()) {
+				emptyFieldName= emptyFieldName + "Last_Name, ";
+			}
+			if (String.valueOf(mDetails.getDate_of_Birth()) == "null" ||String.valueOf(mDetails.getDate_of_Birth()) == "" ) {
+				emptyFieldName= emptyFieldName + "Date_of_Birth, ";
+			}
+			if (String.valueOf(mDetails.getJoin_Date()) == "null" ||String.valueOf(mDetails.getJoin_Date()) == "" ) {
+				emptyFieldName= emptyFieldName + "Join_Date, ";
+			}
+			if (String.valueOf(mDetails.getMember_Address_Country()) == "null" ||String.valueOf(mDetails.getMember_Address_Country()) == "" ) {
+				emptyFieldName= emptyFieldName + "Member_Address_Country, ";
+			}
+			if (String.valueOf(mDetails.getClub_Name()) == "null" ||String.valueOf(mDetails.getClub_Name()) == "" ) {
+				emptyFieldName= emptyFieldName + "Club_Name, ";
+			}
+			if (String.valueOf(mDetails.getMember_Address_Line_1()) == "null" ||String.valueOf(mDetails.getMember_Address_Line_1()) == "" ) {
+				emptyFieldName= emptyFieldName + "Member_Address_Line_1, ";
+			}
+			if (String.valueOf(mDetails.getMember_Address_Line_2()) == "null" ||String.valueOf(mDetails.getMember_Address_Line_2()) == "" ) {
+				emptyFieldName= emptyFieldName + "Member_Address_Line_2, ";
+			}
+			if (String.valueOf(mDetails.getMember_Address_Line_3()) == "null" ||String.valueOf(mDetails.getMember_Address_Line_3()) == "" ) {
+				emptyFieldName= emptyFieldName + "Member_Address_Line_3, ";
+			}
+			if (String.valueOf(mDetails.getMember_Address_City()) == "null" ||String.valueOf(mDetails.getMember_Address_City()) == "" ) {
+				emptyFieldName= emptyFieldName + "Member_Address_City, ";
+			}
+			if (String.valueOf(mDetails.getCell_Phone()) == "null" ||String.valueOf(mDetails.getCell_Phone()) == "" ) {
+				emptyFieldName= emptyFieldName + "Cell_Phone, ";
+			}
+			if (String.valueOf(mDetails.getEmail()) == "null" ||String.valueOf(mDetails.getEmail()) == "" ) {
+				emptyFieldName= emptyFieldName + "Email, ";
+			}
+			
+			if (String.valueOf(mDetails.getWeddingDate()) == "null" ||String.valueOf(mDetails.getWeddingDate()) == "" ) {
+				emptyFieldName= emptyFieldName + "WeddingDate, ";
+			}
+			if (String.valueOf(mDetails.getSponsor_Name()) == "null" ||String.valueOf(mDetails.getSponsor_Name()) == "" ) {
+				emptyFieldName= emptyFieldName + "Sponsor_Name, ";
+			}
+			if (String.valueOf(mDetails.getNoofDaughter()) == "null" || String.valueOf(mDetails.getNoofDaughter()) == "" ) {
+				emptyFieldName= emptyFieldName + "NoofDaughter, ";
+			}
+			if (String.valueOf(mDetails.getNoofSon()) == "null" ||String.valueOf(mDetails.getNoofSon()) == "" ) {
+				emptyFieldName= emptyFieldName + "NoofSon	, ";
+			}
+			if (String.valueOf(mDetails.getMember_BloodGroup()) == "null" ||String.valueOf(mDetails.getMember_BloodGroup()) == "" ) {
+				emptyFieldName= emptyFieldName + "Member_BloodGroup, ";
+			}
+			
+			emptyFieldList.add(emptyFieldName);
+			emptyFieldName="";
+		}
+		model.addAttribute("emptyFieldList", emptyFieldList);*/
+		model.addAttribute("NotfilledMandatoryFieldsmemberDetails", NotfilledMandatoryFieldsmemberDetails);
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 		return "rptMemberPendingdetails";
+		
+		
+	}
+	public static boolean compare(String str1, String str2) {
+	    return (str1 == null ? str2 == null : str1.equals(str2));
 	}
 
 }

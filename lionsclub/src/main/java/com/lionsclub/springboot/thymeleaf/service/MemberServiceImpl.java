@@ -58,6 +58,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.getMemberID(MemberID);
 	}
 
+	@Override
+	public List<Member> getNotfilledMandatoryFields() {
+		// TODO Auto-generated method stub
+		return memberRepository.getNotfilledMandatoryFields();
+	}
+
 }
 
 

@@ -16,5 +16,5 @@ public interface MemberService {
 	
 	public List<Member> findByMemberID(String MemberID);
 	
-	
+	public List<Member> getNotfilledMandatoryFields();
 }
