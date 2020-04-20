@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en"
+	data-textdirection="ltr">
+
+<!-- BEGIN: Head-->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="ICC">
+<title>Member Detailed Report</title>
+<link rel="apple-touch-icon"
+	th:href="@{/app-assets/images/ico/apple-icon-120.png}">
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/app-assets/images/ico/favicon.ico}">
+<link
+	href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700"
+	rel="stylesheet">
+
+<!-- BEGIN: Vendor CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/vendors/css/vendors.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/vendors/css/tables/datatable/datatables.min.css}">
+<!-- END: Vendor CSS-->
+
+<!-- BEGIN: Theme CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/bootstrap.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/bootstrap-extended.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/colors.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/components.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/themes/dark-layout.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/themes/semi-dark-layout.css}">
+<!-- END: Theme CSS-->
+
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/core/menu/menu-types/vertical-menu.css}">
+<!-- END: Page CSS-->
+
+<!-- BEGIN: Custom CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/style.css}">
+<!-- END: Custom CSS-->
+<style>
+	.rptHeaders
+	{
+		font-weight: bold;
+	}
+</style>
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body
+	class="vertical-layout vertical-menu-modern boxicon-layout no-card-shadow 2-columns  navbar-sticky footer-static  "
+	data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+
+	<!-- -->
+	<div style="width: 100%; min-height: 400px;">
+		<div class="pc1" style="" align="center">
+			<!---start------A4 page 595*842 ------------->
+			<div>
+				<br />
+				
+				<table border="1px" width="70%" align="center" cellspacing='0px'
+					style="margin-right: 100px; font-size: 16px; margin-left: 10px;">
+					<tr>
+						<td align="Center" width="200px" rowspan="60" valign="top">
+						<img
+							th:src="${member['ProfileImg']}"
+							style="width: 100px; height: 100px;" />
+						
+						<br/><br/><br/><br/>		
+						<a th:href="'memberedit?id=' + @{{id} (id=${member['id']})}">Edit Member Info <br/><i class="bx bxs-edit-alt" style="font-size:26px"></i></a>
+						<br/><br/><br/><br/>
+						<a href="memberlist">Back</a>
+						</td>
+						
+					</tr>
+					
+					
+					<tr>
+						<span th:if="${member['Title'] !=''}"><td
+							class="membertitle" align="center" th:text="${member['Title']}" colspan="2">District
+								Governer</td> </span>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Multiple District Name</td>
+						<td th:text="${member['Multiple_District_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">District Name</td>
+						<td th:text="${member['District_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Region Name</td>
+						<td th:text="${member['Region_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Zone Name</td>
+						<td th:text="${member['Zone_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Title</td>
+						<td th:text="${member['Title']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Club ID</td>
+						<td th:text="${member['Club_ID']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Club Name</td>
+						<td th:text="${member['Club_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">MemberID</td>
+						<td th:text="${member['MemberID']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Prefix</td>
+						<td th:text="${member['Prefix']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">First Name</td>
+						<td th:text="${member['First_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Middle Name</td>
+						<td th:text="${member['Middle_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Last Name</td>
+						<td th:text="${member['Last_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Suffix</td>
+						<td th:text="${member['Suffix']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Invalid Member Address Flag</td>
+						<td th:text="${member['Invalid_Member_Address_Flag']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Member Address Line 1</td>
+						<td th:text="${member['Member_Address_Line_1']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Member Address Line 2</td>
+						<td th:text="${member['Member_Address_Line_2']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Member Address Line 3</td>
+						<td th:text="${member['Member_Address_Line_3']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Member Address Line 4</td>
+						<td th:text="${member['Member_Address_Line_4']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Member Address City</td>
+						<td th:text="${member['Member_Address_City']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Member Address State</td>
+						<td th:text="${member['Member_Address_State']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Member Address Postal Code</td>
+						<td th:text="${member['Member_Address_Postal_Code']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Member Address Country</td>
+						<td th:text="${member['Member_Address_Country']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Invalid Officer Address Flag</td>
+						<td th:text="${member['Invalid_Officer_Address_Flag']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Officer Address Line 1</td>
+						<td th:text="${member['Officer_Address_Line_1']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Officer Address Line 2</td>
+						<td th:text="${member['Officer_Address_Line_2']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Officer Address Line 3</td>
+						<td th:text="${member['Officer_Address_Line_3']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Officer Address Line 4</td>
+						<td th:text="${member['Officer_Address_Line_4']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Officer Address City</td>
+						<td th:text="${member['Officer_Address_City']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Officer Address State</td>
+						<td th:text="${member['Officer_Address_State']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Officer Address Postal Code</td>
+						<td th:text="${member['Officer_Address_Postal_Code']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Officer Address Country</td>
+						<td th:text="${member['Officer_Address_Country']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Email</td>
+						<td th:text="${member['Email']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Home Phone</td>
+						<td th:text="${member['Home_Phone']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Cell Phone</td>
+						<td th:text="${member['Cell_Phone']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Fax Number</td>
+						<td th:text="${member['Fax_Number']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Work Phone</td>
+						<td th:text="${member['Work_Phone']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Spouse Name</td>
+						<td th:text="${member['Spouse_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Membership Type</td>
+						<td th:text="${member['Membership_Type']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Date of Birth</td>
+						<td th:text="${member['Date_of_Birth']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Gender</td>
+						<td th:text="${member['Gender']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Nick Name</td>
+						<td th:text="${member['Nick_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Occupation</td>
+						<td th:text="${member['Occupation']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Join Date</td>
+						<td th:text="${member['Join_Date']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Life Member</td>
+						<td th:text="${member['Life_Member']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Family Unit</td>
+						<td th:text="${member['Family_Unit']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Sponsor Name</td>
+						<td th:text="${member['Sponsor_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Club Branch Name</td>
+						<td th:text="${member['Club_Branch_Name']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">International Discount</td>
+						<td th:text="${member['International_Discount']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">International Discount Reason</td>
+						<td th:text="${member['International_Discount_Reason']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Member BloodGroup</td>
+						<td th:text="${member['Member_BloodGroup']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">WeddingDate</td>
+						<td th:text="${member['WeddingDate']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Spouse BloodGroup</td>
+						<td th:text="${member['Spouse_BloodGroup']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Spouse DOB</td>
+						<td th:text="${member['Spouse_DOB']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">Designation</td>
+						<td th:text="${member['Designation']}"></td>
+					</tr>
+					
+					<tr>
+						<td class="rptHeaders">NoofSon</td>
+						<td th:text="${member['NoofSon']}"></td>
+					</tr>
+					<tr>
+						<td class="rptHeaders">NoofDaughter</td>
+						<td th:text="${member['NoofDaughter']}"></td>
+					</tr>
+
+				</table>
+		
+	
+
+
+			</div>
+			<!---End------A4 page 595*842 ------------->
+
+		</div>
+
+
+	</div>
+	<!-- -->
+
+
+</body>
+<!-- END: Body-->
+
+</html>

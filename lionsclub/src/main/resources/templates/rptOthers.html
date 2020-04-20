@@ -61,20 +61,83 @@
                 <div class="content-header-left col-12 mb-2 mt-1">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h5 class="content-header-title float-left pr-1 mb-0">Other Type Of Reports</h5>
-                            
+                            <h5 class="content-header-title float-left pr-1 mb-0">Member Master List</h5>
+                            <div class="breadcrumb-wrapper col-12">
+                                <ol class="breadcrumb p-0 mb-0">
+                                    <li class="breadcrumb-item"><a href="index"><i class="bx bx-home-alt"></i></a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Member List
+                                    </li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="content-body" align="center">
-               <br/><br/><br/><br/>
-               	<button type="button" class="btn btn-primary mr-1 mb-1"> Day of Birth Report</button><br/><br/>
-               	
-               	<button type="button" class="btn btn-secondary mr-1 mb-1">Blood Group Report</button><br/><br/>
-               	
-               	<button type="button" class="btn btn-success mr-1 mb-1">Wedding Date Report</button><br/><br/>
-               	
+            <div class="content-body">
+               
+                <!-- Zero configuration table -->
+                <section id="basic-datatable">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                    <span><a href="memberupload"> <i class="bx bx-upload"></i> &nbsp;&nbsp; Upload Latest Member Data</a></span>
+                                    </h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body card-dashboard">
+                                        <p class="card-text"></p>
+                                        <div class="table-responsive">
+                                            <table class="table zero-configuration">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Member ID</th>
+                                                        <th>Name</th>
+                                                        <th>Membership_Type</th>
+                                                        <th>Spouse Name</th>
+                                                        <th>Mobile No</th>                                                        
+                                                        <th>Edit</th>
+                                                        <th>View</th>
+	
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                	<tr th:each="member : ${members}">
+													    <td th:text="${member['MemberID']}"></td>
+                                                        <td><a th:href="'memberview?id=' + @{{id} (id=${member['id']})}"><span th:text="${member['First_Name']} +' '+ ${member['Last_Name']}"></span></a></td>
+                                                        <td th:text="${member['Membership_Type']}"></td>
+                                                        <td th:text="${member['Spouse_Name']}"></td>
+                                                        <td th:text="${member['Cell_Phone']}"></td>
+                                                        <td><a th:href="'memberedit?id=' + @{{id} (id=${member['id']})}"><i class="bx bxs-edit-alt" style="font-size:26px"></i></a></td>
+                                                        	
+													</tr>
+                                                    
+                                                   
+                                                   
+                                                </tbody>
+                                                <tfoot>
+                                                     <tr>
+                                                        <th>First Name</th>
+                                                        <th>Last Name</th>
+                                                        <th>Club</th>
+                                                        <th>Designation</th>
+                                                        <th>Mobile No</th>                                                        
+                                                        <th>Edit</th>
+                                                        <th>View</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--/ Zero configuration table -->
+
             </div>
         </div>
     </div>
