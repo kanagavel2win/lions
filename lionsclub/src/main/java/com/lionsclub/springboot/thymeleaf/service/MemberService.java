@@ -17,4 +17,9 @@ public interface MemberService {
 	public List<Member> findByMemberID(String MemberID);
 	
 	public List<Member> getNotfilledMandatoryFields();
+	
+	public List<Member> getRptMemberDetails();
+	
+	public List<Member> getRptTopMemberDetails();
+	
 }

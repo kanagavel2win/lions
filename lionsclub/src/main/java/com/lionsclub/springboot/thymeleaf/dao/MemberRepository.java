@@ -16,4 +16,14 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
  @Query("Select m From Member m where m.First_Name is NULL or  m.First_Name = '' or m.Last_Name is NULL or  m.Last_Name = '' or m.Date_of_Birth is NULL or  m.Date_of_Birth = '' or m.Join_Date is NULL or  m.Join_Date = '' or m.Member_Address_Country is NULL or  m.Member_Address_Country = '' or m.Club_Name is NULL or  m.Club_Name = '' or m.Member_Address_Line_1 is NULL or  m.Member_Address_Line_1 = '' or m.Member_Address_Line_2 is NULL or  m.Member_Address_Line_2 = '' or m.Member_Address_Line_3 is NULL or  m.Member_Address_Line_3 = '' or m.Member_Address_City is NULL or  m.Member_Address_City = '' or m.Cell_Phone is NULL or  m.Cell_Phone = '' or m.Email is NULL or  m.Email = '' or m.WeddingDate is NULL or  m.WeddingDate = '' or m.Sponsor_Name is NULL or  m.Sponsor_Name = '' or m.NoofDaughter is NULL or  m.NoofDaughter = '' or m.NoofSon is NULL or  m.NoofSon = '' or m.Member_BloodGroup is NULL or  m.Member_BloodGroup = ''")
  public List<Member> getNotfilledMandatoryFields();
  
+ 
+ @Query("Select m From Member m where m.Title != '' Order By ReportPriorityOrder")
+ public List<Member> getRptTopMemberDetails();
+ 
+ @Query("Select m From Member m where m.Title = '' Order By First_Name asc")
+  public List<Member> getRptMemberDetails();
+ 
+ 
+ 
+ 
 }

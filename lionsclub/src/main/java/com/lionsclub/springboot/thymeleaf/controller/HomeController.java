@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import com.lionsclub.springboot.thymeleaf.entity.Member;
 import com.lionsclub.springboot.thymeleaf.service.MemberService;
 
 @Controller
+
 public class HomeController {
 
 	@Autowired
@@ -52,6 +54,7 @@ public class HomeController {
 	public String internationalLions() {
 		return "internationlionssite";
 	}
+
 	@GetMapping("/memberview")
 	public String rptMemberview(@RequestParam("id") int memberid, Model theModel) {
 		Member editmemberDetails = memberService.findById(memberid);
@@ -59,7 +62,6 @@ public class HomeController {
 		return "rptMemberview";
 	}
 
-	
 	@GetMapping("/memberedit")
 	public String memberadd(@RequestParam("id") int memberid, Model theModel) {
 
@@ -207,6 +209,9 @@ public class HomeController {
 						International_Discount_Reason = fields[48].replace("\"", "");
 					}
 
+					// Report Priority Order
+					int ReportPriorityOrder = Integer.parseInt(MemberID);
+
 					// ------------------------------------------------------------------------------------
 					// ------------------------------------------------------------------------------------
 					Member newMember;
@@ -269,6 +274,15 @@ public class HomeController {
 					newMember.setClub_Branch_Name(Club_Branch_Name);
 					newMember.setInternational_Discount(International_Discount);
 					newMember.setInternational_Discount_Reason(International_Discount_Reason);
+
+					if (newMember.getReportPriorityOrder() == 0) {
+						newMember.setReportPriorityOrder(ReportPriorityOrder);
+					}
+					if (newMember.getTitleColorValue()=="" || newMember.getTitleColorValue()==null)
+					{
+						newMember.setTitleColorValue("#FFFFF");
+					}
+					
 					memberService.save(newMember);
 
 				}
@@ -373,7 +387,12 @@ public class HomeController {
 		try {
 
 			List<Member> ReportAllmemberdetails = memberService.findAll();
-			model.addAttribute("ReportAllmemberdetails" ,ReportAllmemberdetails);
+			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
+			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
+			
+			model.addAttribute("ReportAllmemberdetails", ReportAllmemberdetails);
+			model.addAttribute("RptMemberDetails", RptMemberDetails);
+			model.addAttribute("RptTopMemberDetails", RptTopMemberDetails);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -381,5 +400,10 @@ public class HomeController {
 			return "rptMemberFullDetails";
 		}
 
+	}
+
+	@GetMapping("ReportOthers")
+	public String ReportOthers(Model model) {
+		return "rptOthers";
 	}
 }

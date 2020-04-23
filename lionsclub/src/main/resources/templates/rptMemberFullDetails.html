@@ -58,64 +58,94 @@
 
 <!-- BEGIN: Body-->
 
-<body
-	class="vertical-layout vertical-menu-modern boxicon-layout no-card-shadow 2-columns  navbar-sticky footer-static  "
-	data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+<body>
 
 	<!-- -->
 	<div style="width: 100%; min-height: 400px;">
 		<div class="pc1" style="" align="center">
 			<!---start------A4 page 595*842 ------------->
-			<div>
-				<br /> <span th:each="member : ${ReportAllmemberdetails}">
-					<table border="1px" width="98%" align="left" cellspacing='0px'
-						style="margin-right: 100px; font-size: 16px; margin-left: 10px;">
-						<tr>
-							<td align="Center" width="200px" rowspan="3"><img
-								th:src="${member['ProfileImg']}"
-								style="width: 100px; height: 100px;" /></td>
-						</tr>
-						<tr>
-							<span th:if="${member['Title'] !=''}"><td class="membertitle" align="center"
-								th:text="${member['Title']}">District Governer</td>
-							</span>
-						</tr>
-						<tr>
-							<td><span class="memberName"> <br /> <span
-									th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">V.Vijayakumar
-								</span><br /></span> 
-								
-								<span class="memberaddline1" th:if="${member['Member_Address_Line_1'] !=''}"><span
-									th:text="${member['Member_Address_Line_1']}"> Address
-										Line 1 </span><br /></span> 
-										
-								<span class="memberaddressLine2" th:if="${member['Member_Address_Line_2'] !=''}"><span
-									th:text="${member['Member_Address_Line_2']}">Address
-										Line 2 </span><br /></span> 
-								
-								<span class="membercityPincode" th:if="${member['Member_Address_City'] !=''}"><span
-									th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
-										- Pincode </span><br /></span>
-										
-								 <span class="membermoboff_no" th:if="${member['Cell_Phone'] !=''}"><span
-									th:text="${member['Cell_Phone']}">Mobile NUmber- Office
-										Number</span> <br /></span> 
-								<span class="memberemail" th:if="${member['Email'] !=''}"><span
-									th:text="${member['Email']}">Email </span><br /></span>
-									 <br />
-									</td>
-						</tr>
-					</table>
-				</span>
 
-
-
-			</div>
-			<!---End------A4 page 595*842 ------------->
+			<br /> <span th:each="member : ${RptTopMemberDetails}">
+				<table border="1px" width="98%" align="left" cellspacing='0px'
+					style="font-size: 16px; margin-left: 10px;">
+					<tr>
+						<td align="Center" width="200px" rowspan="3"><img
+							th:src="${member['ProfileImg']}"
+							style="width: 100px; height: 100px;" /></td>
+					</tr>
+					<tr>
+						<span th:if="${member['Title'] !=''}"><td
+							class="membertitle" align="center" th:text="${member['Title']}" th:style="'background-color:' + @{${member['TitleColorValue']}} +' ;'">District
+								Governer</td> </span>
+					</tr>
+					<tr>
+						<td><span class="memberName"> <br /> <span
+								th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">V.Vijayakumar
+							</span><br /></span> <span class="memberaddline1"
+							th:if="${member['Member_Address_Line_1'] !=''}"><span
+								th:text="${member['Member_Address_Line_1']}"> Address
+									Line 1 </span><br /></span> <span class="memberaddressLine2"
+							th:if="${member['Member_Address_Line_2'] !=''}"><span
+								th:text="${member['Member_Address_Line_2']}">Address Line
+									2 </span><br /></span> <span class="membercityPincode"
+							th:if="${member['Member_Address_City'] !=''}"><span
+								th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
+									- Pincode </span><br /></span> <span class="membermoboff_no"
+							th:if="${member['Cell_Phone'] !=''}"><span
+								th:text="${member['Cell_Phone']}">Mobile NUmber- Office
+									Number</span> <br /></span> <span class="memberemail"
+							th:if="${member['Email'] !=''}"><span
+								th:text="${member['Email']}">Email </span><br /></span> <br /></td>
+					</tr>
+				</table>
+			</span>
 
 		</div>
 	</div>
-	<!-- -->
+	
+	<div align="center" style="margin-left: 15px;">
+
+		<h3><br/><br/><br/> Regular Member Details</h3>
+		<span th:each="member : ${RptMemberDetails}">
+
+			<table border="1px" width="49%" cellspacing='0px'
+				style="font-size: 16px; float: left; min-height: 180px;" >
+				
+				<tr>
+					<td align="Center" width="200px"><img
+						th:src="${member['ProfileImg']}"
+						style="width: 100px; height: 100px;" /></td>
+					<td><span class="memberName"> <br /> <span
+							th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">V.Vijayakumar
+						</span><br /></span> <span class="memberaddline1"
+						th:if="${member['Member_Address_Line_1'] !=''}"><span
+							th:text="${member['Member_Address_Line_1']}"> Address Line
+								1 </span><br /></span> <span class="memberaddressLine2"
+						th:if="${member['Member_Address_Line_2'] !=''}"><span
+							th:text="${member['Member_Address_Line_2']}">Address Line
+								2 </span><br /></span> <span class="membercityPincode"
+						th:if="${member['Member_Address_City'] !=''}"><span
+							th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
+								- Pincode </span><br /></span> <span class="membermoboff_no"
+						th:if="${member['Cell_Phone'] !=''}"><span
+							th:text="${member['Cell_Phone']}">Mobile NUmber- Office
+								Number</span> <br /></span> <span class="memberemail"
+						th:if="${member['Email'] !=''}"><span
+							th:text="${member['Email']}">Email </span><br /></span> <br /></td>
+				</tr>
+			</table>
+
+
+		</span>
+
+
+
+	</div>
+	<!---End------A4 page 595*842 ------------->
+
+
+
+
 
 
 </body>

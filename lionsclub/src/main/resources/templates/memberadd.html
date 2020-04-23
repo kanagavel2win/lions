@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en" data-textdirection="ltr">
+<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en"
+	data-textdirection="ltr">
 <!-- BEGIN: Head-->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,7 +10,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="ICC">
-<title>Member Add</title>
+<title>Member Detail Edit</title>
 <link rel="apple-touch-icon"
 	th:href="@{/app-assets/images/ico/apple-icon-120.png}">
 <link rel="shortcut icon" type="image/x-icon"
@@ -105,17 +106,40 @@
 								<div class="card-content mt-2">
 									<div class="card-body">
 										<form th:action="@{/memberedit}" th:object="${members}"
-											method="POST" class="wizard-horizontal" enctype="multipart/form-data">
+											method="POST" class="wizard-horizontal"
+											enctype="multipart/form-data">
 											<!-- body content step 1 -->
 											<fieldset>
 												<div class="row">
 													<div class="col-12">
-														<img th:src	="${members['ProfileImg']}"  style="width:100px;height:100px;" />
-														<br/><br/>&nbsp;
+														<img th:src="${members['ProfileImg']}"
+															style="width: 100px; height: 100px;" /> <br />
+														<br />&nbsp;
+														
+															
+														
 													</div>
-													
-													
-													
+
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label Style="Color: #B22222">Order Number to Display in the Report</label> 
+																<input type="text"
+																	class="form-control" th:value="${members['ReportPriorityOrder']}"
+																	th:field="*{ReportPriorityOrder}" 
+																	
+																/>
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label  Style="Color: #B22222">Member Title Color</label>
+															 <input type="text"
+																class="form-control"
+																th:value="${members['TitleColorValue']}"
+																th:field="*{TitleColorValue}"  />
+														</div>
+													</div>
+
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label>Multiple District Name</label> <input type="text"
@@ -163,9 +187,10 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color:#B22222">Club Name  *</label> <input type="text"
-																class="form-control" th:value="${members['Club_Name']}"
-																th:field="*{Club_Name}"  />
+															<label Style="Color: #B22222">Club Name *</label> <input
+																type="text" class="form-control"
+																th:value="${members['Club_Name']}"
+																th:field="*{Club_Name}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -184,9 +209,10 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color:#B22222">First Name  *</label> <input type="text"
-																class="form-control" th:value="${members['First_Name']}"
-																th:field="*{First_Name}"  />
+															<label Style="Color: #B22222">First Name *</label> <input
+																type="text" class="form-control"
+																th:value="${members['First_Name']}"
+																th:field="*{First_Name}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -199,8 +225,9 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color:#B22222">Last Name  *</label> <input type="text"
-																class="form-control" th:value="${members['Last_Name']}"
+															<label Style="Color: #B22222">Last Name *</label> <input
+																type="text" class="form-control"
+																th:value="${members['Last_Name']}"
 																th:field="*{Last_Name}" />
 														</div>
 													</div>
@@ -222,26 +249,26 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color:#B22222">Member Address Line 1		*</label> <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">Member Address Line
+																1 *</label> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Line_1']}"
-																th:field="*{Member_Address_Line_1}"  />
+																th:field="*{Member_Address_Line_1}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color:#B22222">Member Address Line 2		*</label> <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">Member Address Line
+																2 *</label> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Line_2']}"
-																th:field="*{Member_Address_Line_2}"  />
+																th:field="*{Member_Address_Line_2}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label	 Style="Color:#B22222">Member Address Line 3		*</label> <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">Member Address Line
+																3 *</label> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Line_3']}"
-																th:field="*{Member_Address_Line_3}"  />
+																th:field="*{Member_Address_Line_3}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -254,8 +281,8 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color:#B22222">Member Address City		*</label> <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">Member Address City
+																*</label> <input type="text" class="form-control"
 																th:value="${members['Member_Address_City']}"
 																th:field="*{Member_Address_City}" />
 														</div>
@@ -279,10 +306,10 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color:#B22222">Member Address Country		*</label> <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">Member Address
+																Country *</label> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Country']}"
-																th:field="*{Member_Address_Country}"  />
+																th:field="*{Member_Address_Country}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -362,9 +389,9 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color:#B22222">Email		*</label> <input type="text"
-																class="form-control" th:value="${members['Email']}"
-																th:field="*{Email}" />
+															<label Style="Color: #B22222">Email *</label> <input
+																type="text" class="form-control"
+																th:value="${members['Email']}" th:field="*{Email}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -376,9 +403,10 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color:#B22222">Cell Phone		*</label> <input type="text"
-																class="form-control" th:value="${members['Cell_Phone']}"
-																th:field="*{Cell_Phone}"  />
+															<label Style="Color: #B22222">Cell Phone *</label> <input
+																type="text" class="form-control"
+																th:value="${members['Cell_Phone']}"
+																th:field="*{Cell_Phone}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -397,10 +425,10 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color:#B22222">Spouse Name		*</label> <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">Spouse Name *</label> <input
+																type="text" class="form-control"
 																th:value="${members['Spouse_Name']}"
-																th:field="*{Spouse_Name}"  />
+																th:field="*{Spouse_Name}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -413,10 +441,10 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color:#B22222">Date of Birth  *</label> <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">Date of Birth *</label> <input
+																type="text" class="form-control"
 																th:value="${members['Date_of_Birth']}"
-																th:field="*{Date_of_Birth}"  />
+																th:field="*{Date_of_Birth}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -442,8 +470,9 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color:#B22222">Join Date		*</label> <input type="text"
-																class="form-control" th:value="${members['Join_Date']}"
+															<label Style="Color: #B22222">Join Date *</label> <input
+																type="text" class="form-control"
+																th:value="${members['Join_Date']}"
 																th:field="*{Join_Date}" />
 														</div>
 													</div>
@@ -468,7 +497,7 @@
 															<label>Sponsor Name</label> <input type="text"
 																class="form-control"
 																th:value="${members['Sponsor_Name']}"
-																th:field="*{Sponsor_Name}"  readonly="readonly"/>
+																th:field="*{Sponsor_Name}" readonly="readonly" />
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -501,9 +530,7 @@
 														readonly="readonly" />
 
 												</div>
-												<br />
-												<br />
-												<br />
+												<br /> <br /> <br />
 
 												<div class="row">
 													<div class="col-12">
@@ -512,23 +539,24 @@
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label>Member Designation</label> <input type="text"
-																class="form-control" th:value="${members['Designation']}"
+																class="form-control"
+																th:value="${members['Designation']}"
 																th:field="*{Designation}" />
 														</div>
 													</div>
-													
+
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color:#B22222">Member BloodGroup 		*</label> <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">Member BloodGroup *</label>
+															<input type="text" class="form-control"
 																th:value="${members['Member_BloodGroup']}"
 																th:field="*{Member_BloodGroup}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color:#B22222">Wedding Date		*</label> <input type="date"
-																class="form-control"
+															<label Style="Color: #B22222">Wedding Date *</label> <input
+																type="date" class="form-control"
 																th:value="${members['WeddingDate']}"
 																th:field="*{WeddingDate}" />
 														</div>
@@ -540,7 +568,7 @@
 																th:field="*{Spouse_DOB}" />
 														</div>
 													</div>
-													
+
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label>Spouse BloodGroup </label> <input type="text"
@@ -549,34 +577,33 @@
 																th:field="*{Spouse_BloodGroup}" />
 														</div>
 													</div>
-													
+
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Profile Pic </label> <input type="file"	class="form-control" name="profilepicture"/>
+															<label>Profile Pic </label> <input type="file"
+																class="form-control" name="profilepicture" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label	 Style="Color:#B22222">No.of Sons		*</label> <input type="text"
-																class="form-control" th:value="${members['NoofSon']}"
-																th:field="*{NoofSon}" />
+															<label Style="Color: #B22222">No.of Sons *</label> <input
+																type="text" class="form-control"
+																th:value="${members['NoofSon']}" th:field="*{NoofSon}" />
 														</div>
 													</div>
-													
+
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color:#B22222">No.of Daughter 		*</label> <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">No.of Daughter *</label> <input
+																type="text" class="form-control"
 																th:value="${members['NoofDaughter']}"
 																th:field="*{NoofDaughter}" />
 														</div>
 													</div>
-													
-			
+
+
 												</div>
-												<br />
-												<br />
-												<br />
+												<br /> <br /> <br />
 											</fieldset>
 											<!-- body content of step 2 end-->
 											<input type="submit" class="btn btn-primary mr-1 mb-1"
@@ -597,7 +624,7 @@
 
 
 
-	
+
 	<div class="sidenav-overlay"></div>
 	<div class="drag-target"></div>
 
