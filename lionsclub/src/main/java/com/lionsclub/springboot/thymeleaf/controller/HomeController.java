@@ -410,6 +410,7 @@ public class HomeController {
 		return "rptOthers";
 	}
 	
+	
 	@GetMapping("Color")
 	public String Color(Model model) {
 		return "Color";
