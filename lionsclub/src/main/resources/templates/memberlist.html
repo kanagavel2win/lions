@@ -95,7 +95,6 @@
                                                     <tr>
                                                         <th>S.No (OrderID)</th>
                                                         <th>Name</th>
-                                                        <th>Membership_Type</th>
                                                         <th>Spouse Name</th>
                                                         <th>Mobile No</th>                                                        
                                                         <th>Edit</th>
@@ -107,7 +106,6 @@
                                                 	<tr th:each="member : ${members}">
 													    <td th:text="${member['ReportPriorityOrder']}"></td>
                                                         <td><a th:href="'memberview?id=' + @{{id} (id=${member['id']})}"><span th:text="${member['First_Name']} +' '+ ${member['Last_Name']} + '(' + ${member['MemberID']} +')'"></span></a></td>
-                                                        <td th:text="${member['Membership_Type']}"></td>
                                                         <td th:text="${member['Spouse_Name']}"></td>
                                                         <td th:text="${member['Cell_Phone']}"></td>
                                                         <td><a th:href="'memberedit?id=' + @{{id} (id=${member['id']})}"><i class="bx bxs-edit-alt" style="font-size:26px"></i></a></td>
@@ -121,7 +119,6 @@
                                                      <tr>
                                                         <th>S.No</th>
                                                         <th>Name</th>
-                                                        <th>Membership_Type</th>
                                                         <th>Spouse Name</th>
                                                         <th>Mobile No</th>                                                        
                                                         <th>Edit</th>
