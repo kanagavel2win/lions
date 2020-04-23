@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Value;
-
 @Entity
 @Table(name = "member")
 public class Member {
@@ -141,7 +139,10 @@ public class Member {
 	private int ReportPriorityOrder = 0;
 
 	@Column(nullable = false)
-	private String TitleColorValue;
+	private String bgColorValue;
+
+	@Column(nullable = false)
+	private String TextColorValue;
 
 	// ------------------------------------------------------------------------------
 	// ------------------------------------------------------------------------------
@@ -622,12 +623,20 @@ public class Member {
 		ReportPriorityOrder = reportPriorityOrder;
 	}
 
-	public String getTitleColorValue() {
-		return TitleColorValue;
+	public String getBgColorValue() {
+		return bgColorValue;
 	}
 
-	public void setTitleColorValue(String titleColorValue) {
-		TitleColorValue = titleColorValue;
+	public void setBgColorValue(String bgColorValue) {
+		this.bgColorValue = bgColorValue;
+	}
+
+	public String getTextColorValue() {
+		return TextColorValue;
+	}
+
+	public void setTextColorValue(String textColorValue) {
+		TextColorValue = textColorValue;
 	}
 
 	@Override
@@ -658,7 +667,7 @@ public class Member {
 				+ Member_BloodGroup + ", WeddingDate=" + WeddingDate + ", Spouse_BloodGroup=" + Spouse_BloodGroup
 				+ ", Spouse_DOB=" + Spouse_DOB + ", Designation=" + Designation + ", ProfileImg=" + ProfileImg
 				+ ", NoofSon=" + NoofSon + ", NoofDaughter=" + NoofDaughter + ", ReportPriorityOrder="
-				+ ReportPriorityOrder + ", TitleColorValue=" + TitleColorValue + "]";
+				+ ReportPriorityOrder + ", bgColorValue=" + bgColorValue + ", TextColorValue=" + TextColorValue + "]";
 	}
 
 	public Member(int id, String multiple_District_Name, String district_Name, String region_Name, String zone_Name,
@@ -675,7 +684,7 @@ public class Member {
 			String life_Member, String family_Unit, String sponsor_Name, String club_Branch_Name,
 			String international_Discount, String international_Discount_Reason, String member_BloodGroup,
 			String weddingDate, String spouse_BloodGroup, String spouse_DOB, String designation, String profileImg,
-			String noofSon, String noofDaughter, int reportPriorityOrder, String titleColorValue) {
+			String noofSon, String noofDaughter, int reportPriorityOrder, String bgColorValue, String textColorValue) {
 		super();
 		this.id = id;
 		Multiple_District_Name = multiple_District_Name;
@@ -736,7 +745,8 @@ public class Member {
 		NoofSon = noofSon;
 		NoofDaughter = noofDaughter;
 		ReportPriorityOrder = reportPriorityOrder;
-		TitleColorValue = titleColorValue;
+		this.bgColorValue = bgColorValue;
+		TextColorValue = textColorValue;
 	}
 
 }

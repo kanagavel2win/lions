@@ -22,7 +22,7 @@
 <!-- BEGIN: Vendor CSS-->
 <link rel="stylesheet" type="text/css"
 	th:href="@{/app-assets/vendors/css/vendors.min.css}">
-	
+
 
 <!-- END: Vendor CSS-->
 
@@ -132,17 +132,26 @@
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Member Title Color</label>
-															<a href="Color"> &nbsp;&nbsp;&nbsp;Click here - Color
-																Name and Code</a> 
-																 <input type="text" class="form-control"
-																th:value="${members['TitleColorValue']}"
-																th:field="*{TitleColorValue}" />
- 
+															<label Style="Color: #B22222">Member Backgroud
+																Color / Text Color</label>
+															<!-- <a href="Color"> &nbsp;&nbsp;&nbsp;Click here - Color
+																Name and Code</a> -->
 
-														
-														
-																							<!-- ----------------------------------------------- -->
+
+															<input type="color" class="form-control" style="width:49%;float:left;"
+																th:value="${members['bgColorValue']}"
+																th:field="*{bgColorValue}"  /> 
+															
+															<select class="form-control"
+																id="basicSelect" th:field="*{TextColorValue}"  style="width:49%;float:left;">
+																<option value="Black">Black</option>
+																<option value="White">White</option>
+															</select>
+
+
+
+
+															<!-- ----------------------------------------------- -->
 															<!-- ----------------------------------------------- -->
 														</div>
 													</div>
@@ -555,9 +564,19 @@
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member BloodGroup *</label>
-															<input type="text" class="form-control"
-																th:value="${members['Member_BloodGroup']}"
-																th:field="*{Member_BloodGroup}" />
+
+															<select class="form-control" id="basicSelect"
+																th:field="*{Member_BloodGroup}">
+																<option value=""></option>
+																<option value="A+">A+</option>
+																<option value="B+">B+</option>
+																<option value="AB+">AB+</option>
+																<option value="O+">O+</option>
+																<option value="A-">A-</option>
+																<option value="B-">B-</option>
+																<option value="AB-">AB-</option>
+																<option value="O-">O-</option>
+															</select>
 														</div>
 													</div>
 													<div class="col-sm-6">
@@ -578,20 +597,21 @@
 
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Spouse BloodGroup </label> 
-															
-															<!-- <input type="text"
-																class="form-control"
-																th:value="${members['Spouse_BloodGroup']}"
-																th:field="*{Spouse_BloodGroup}" />-->
-																
-																<select class="form-control" id="basicSelect">
-                                                        <option>IT</option>
-                                                        <option>Blade Runner</option>
-                                                        <option>Thor Ragnarok</option>
-                                                    </select>
-																
-																
+															<label>Spouse BloodGroup </label> <select
+																class="form-control" id="basicSelect"
+																th:field="*{Spouse_BloodGroup}">
+																<option value=""></option>
+																<option value="A+">A+</option>
+																<option value="B+">B+</option>
+																<option value="AB+">AB+</option>
+																<option value="O+">O+</option>
+																<option value="A-">A-</option>
+																<option value="B-">B-</option>
+																<option value="AB-">AB-</option>
+																<option value="O-">O-</option>
+															</select>
+
+
 														</div>
 													</div>
 

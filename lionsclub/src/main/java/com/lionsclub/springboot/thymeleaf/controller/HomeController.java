@@ -12,7 +12,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -278,11 +277,15 @@ public class HomeController {
 					if (newMember.getReportPriorityOrder() == 0) {
 						newMember.setReportPriorityOrder(ReportPriorityOrder);
 					}
-					if (newMember.getTitleColorValue()=="" || newMember.getTitleColorValue()==null)
+					if (newMember.getBgColorValue() =="" || newMember.getBgColorValue()==null)
 					{
-						newMember.setTitleColorValue("#FFFFF");
+						newMember.setBgColorValue("#FFFFF");
 					}
 					
+					if (newMember.getTextColorValue() =="" || newMember.getTextColorValue()==null)
+					{
+						newMember.setTextColorValue("Black");
+					}
 					memberService.save(newMember);
 
 				}
