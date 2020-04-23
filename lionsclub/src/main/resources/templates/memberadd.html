@@ -22,6 +22,8 @@
 <!-- BEGIN: Vendor CSS-->
 <link rel="stylesheet" type="text/css"
 	th:href="@{/app-assets/vendors/css/vendors.min.css}">
+	
+
 <!-- END: Vendor CSS-->
 
 <!-- BEGIN: Theme CSS-->
@@ -113,30 +115,35 @@
 												<div class="row">
 													<div class="col-12">
 														<img th:src="${members['ProfileImg']}"
-															style="width: 100px; height: 100px;" /> <br />
-														<br />&nbsp;
-														
-															
-														
+															style="width: 100px; height: 100px;" /> <br /> <br />&nbsp;
+
+
+
 													</div>
 
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Order Number to Display in the Report</label> 
-																<input type="text"
-																	class="form-control" th:value="${members['ReportPriorityOrder']}"
-																	th:field="*{ReportPriorityOrder}" 
-																	
-																/>
+															<label Style="Color: #B22222">Order Number to
+																Display in the Report</label> <input type="text"
+																class="form-control"
+																th:value="${members['ReportPriorityOrder']}"
+																th:field="*{ReportPriorityOrder}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label  Style="Color: #B22222">Member Title Color</label>
-															 <input type="text"
-																class="form-control"
+															<label Style="Color: #B22222">Member Title Color</label>
+															<a href="Color"> &nbsp;&nbsp;&nbsp;Click here - Color
+																Name and Code</a> 
+																 <input type="text" class="form-control"
 																th:value="${members['TitleColorValue']}"
-																th:field="*{TitleColorValue}"  />
+																th:field="*{TitleColorValue}" />
+ 
+
+														
+														
+																							<!-- ----------------------------------------------- -->
+															<!-- ----------------------------------------------- -->
 														</div>
 													</div>
 

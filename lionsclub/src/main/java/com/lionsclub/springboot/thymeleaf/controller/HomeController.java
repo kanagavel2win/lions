@@ -406,4 +406,9 @@ public class HomeController {
 	public String ReportOthers(Model model) {
 		return "rptOthers";
 	}
+	
+	@GetMapping("Color")
+	public String Color(Model model) {
+		return "Color";
+	}
 }
