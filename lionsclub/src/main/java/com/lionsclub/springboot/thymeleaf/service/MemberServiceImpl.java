@@ -82,6 +82,18 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.getRptMemberDetailsDOB(dobDate);
 	}
 
+	@Override
+	public List<Member> findWOBReport(String wobDate) {
+		// TODO Auto-generated method stub
+		return memberRepository.getRptMemberDetailsWOB(wobDate);
+	}
+
+	@Override
+	public List<Member> findBloodGReport(String bloodGroup) {
+		// TODO Auto-generated method stub
+		return memberRepository.getRptMemberDetailsBloodGroup(bloodGroup);
+	}
+
 }
 
 

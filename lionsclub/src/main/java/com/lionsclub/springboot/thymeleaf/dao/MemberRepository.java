@@ -28,7 +28,9 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
  @Query("Select m From Member m where m.Date_of_Birth LIKE CONCAT('%' ,:dobDate, '%')")
  public List<Member> getRptMemberDetailsDOB(@Param("dobDate") String dobDate);
  
- //public List<Member> findByDate_of_BirthContaining(String dobDate);
+ @Query("Select m From Member m where m.WeddingDate LIKE CONCAT('%' ,:wobDate, '%')")
+ public List<Member> getRptMemberDetailsWOB(@Param("wobDate") String wobDate);
  
- 
+ @Query("Select m From Member m where m.Member_BloodGroup LIKE CONCAT('%' ,:bloodGroup, '%')")
+ public List<Member> getRptMemberDetailsBloodGroup(@Param("bloodGroup") String bloodGroup); 
 }

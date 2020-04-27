@@ -24,4 +24,8 @@ public interface MemberService {
 	
 	public List<Member> findDOBReport(String dobDate);
 	
+	public List<Member> findWOBReport(String wobDate);
+	
+	public List<Member> findBloodGReport(String bloodGroup);
+	
 }

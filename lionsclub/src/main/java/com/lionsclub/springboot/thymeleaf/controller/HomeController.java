@@ -429,17 +429,13 @@ public class HomeController {
 		// dobDate="1/1";
 		List<Member> membersDOBlist = memberService.findDOBReport(dobDate);
 		model.addAttribute("members", membersDOBlist);
-		model.addAttribute("dobDate",java.time.LocalDate.now());
+		model.addAttribute("dobDate", java.time.LocalDate.now());
 		return "rptMemberDOB";
 	}
 
 	@PostMapping("ReportDOB")
 	public String rptMemberDOBPost(Model model, @RequestParam("DOB") String dobDate) {
 
-		// 2020-04-27
-		// String[] splitDateMonth = dobDate.split("-");
-
-		// dobDate = splitDateMonth[1] + "/" + splitDateMonth[2];
 		// ----------------------------------------
 		Date date1;
 		try {
@@ -448,13 +444,70 @@ public class HomeController {
 			String dobDateStr = dateFormat.format(date1);
 			List<Member> membersDOBlist = memberService.findDOBReport(dobDateStr);
 			model.addAttribute("members", membersDOBlist);
-			model.addAttribute("dobDate",dobDate);
-			
+			model.addAttribute("dobDate", dobDate);
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// ----------------------------------------
 		return "rptMemberDOB";
+	}
+
+	@GetMapping("ReportWedd")
+	public String rptMemberWedding(Model model) {
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("M-d");
+
+		String wobDate = dateFormat.format(new Date());
+		// dobDate="1/1";
+		List<Member> membersWOBlist = memberService.findWOBReport(wobDate);
+		model.addAttribute("members", membersWOBlist);
+		model.addAttribute("wobDate", java.time.LocalDate.now());
+		return "rptMemberWedding";
+	}
+
+	@PostMapping("ReportWedd")
+	public String rptMemberWeddingPost(Model model, @RequestParam("WOD") String wobDate) {
+		// ----------------------------------------
+		Date date1;
+		try {
+			date1 = new SimpleDateFormat("yyyy-MM-dd").parse(wobDate);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("M-d");
+			String wobDateStr = dateFormat.format(date1);
+			List<Member> membersWOBlist = memberService.findWOBReport(wobDateStr);
+			model.addAttribute("members", membersWOBlist);
+			model.addAttribute("wobDate", wobDate);
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// ----------------------------------------
+		return "rptMemberWedding";
+	}
+
+	@GetMapping("ReportBloodGroup")
+	public String rptMemberBloodGrp(Model model) {
+
+
+		return "rptMemberBloodGrp";
+	}
+	
+	@PostMapping("ReportBloodGroup")
+	public String rptMemberBloodGrpPost(Model model, @RequestParam("bloodGroup") String bloodGroup) {
+
+		try {
+
+			List<Member> membersWOBlist = memberService.findBloodGReport(bloodGroup);
+			model.addAttribute("members", membersWOBlist);
+			model.addAttribute("bloodGroup", bloodGroup);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// ----------------------------------------
+		return "rptMemberBloodGrp";
 	}
 }
