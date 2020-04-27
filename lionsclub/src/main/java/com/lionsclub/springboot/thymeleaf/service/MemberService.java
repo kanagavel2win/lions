@@ -22,4 +22,6 @@ public interface MemberService {
 	
 	public List<Member> getRptTopMemberDetails();
 	
+	public List<Member> findDOBReport(String dobDate);
+	
 }

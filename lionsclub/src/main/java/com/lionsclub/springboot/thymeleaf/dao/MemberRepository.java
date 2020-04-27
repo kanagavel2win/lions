@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.lionsclub.springboot.thymeleaf.entity.Member;
 
@@ -24,6 +25,10 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
   public List<Member> getRptMemberDetails();
  
  
+ @Query("Select m From Member m where m.Date_of_Birth LIKE CONCAT('%' ,:dobDate, '%')")
+ public List<Member> getRptMemberDetailsDOB(@Param("dobDate") String dobDate);
+ 
+ //public List<Member> findByDate_of_BirthContaining(String dobDate);
  
  
 }

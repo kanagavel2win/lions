@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -224,6 +227,10 @@ public class HomeController {
 						newMember = editmemberDetails.get(0);
 					}
 
+					// - Remove 12:00:00 AM time from Date of birth
+
+					Date_of_Birth = Date_of_Birth.replaceAll("12:00:00 AM", "");
+					// ------------------------------------------------------
 					newMember.setMultiple_District_Name(Multiple_District_Name);
 					newMember.setDistrict_Name(District_Name);
 					newMember.setRegion_Name(Region_Name);
@@ -277,13 +284,11 @@ public class HomeController {
 					if (newMember.getReportPriorityOrder() == 0) {
 						newMember.setReportPriorityOrder(ReportPriorityOrder);
 					}
-					if (newMember.getBgColorValue() =="" || newMember.getBgColorValue()==null)
-					{
+					if (newMember.getBgColorValue() == "" || newMember.getBgColorValue() == null) {
 						newMember.setBgColorValue("#FFFFF");
 					}
-					
-					if (newMember.getTextColorValue() =="" || newMember.getTextColorValue()==null)
-					{
+
+					if (newMember.getTextColorValue() == "" || newMember.getTextColorValue() == null) {
 						newMember.setTextColorValue("Black");
 					}
 					memberService.save(newMember);
@@ -392,7 +397,7 @@ public class HomeController {
 			List<Member> ReportAllmemberdetails = memberService.findAll();
 			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
 			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
-			
+
 			model.addAttribute("ReportAllmemberdetails", ReportAllmemberdetails);
 			model.addAttribute("RptMemberDetails", RptMemberDetails);
 			model.addAttribute("RptTopMemberDetails", RptTopMemberDetails);
@@ -409,10 +414,47 @@ public class HomeController {
 	public String ReportOthers(Model model) {
 		return "rptOthers";
 	}
-	
-	
+
 	@GetMapping("Color")
 	public String Color(Model model) {
 		return "Color";
+	}
+
+	@GetMapping("ReportDOB")
+	public String rptMemberDOB(Model model) {
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("M/d");
+
+		String dobDate = dateFormat.format(new Date());
+		// dobDate="1/1";
+		List<Member> membersDOBlist = memberService.findDOBReport(dobDate);
+		model.addAttribute("members", membersDOBlist);
+		model.addAttribute("dobDate",java.time.LocalDate.now());
+		return "rptMemberDOB";
+	}
+
+	@PostMapping("ReportDOB")
+	public String rptMemberDOBPost(Model model, @RequestParam("DOB") String dobDate) {
+
+		// 2020-04-27
+		// String[] splitDateMonth = dobDate.split("-");
+
+		// dobDate = splitDateMonth[1] + "/" + splitDateMonth[2];
+		// ----------------------------------------
+		Date date1;
+		try {
+			date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dobDate);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("M/d");
+			String dobDateStr = dateFormat.format(date1);
+			List<Member> membersDOBlist = memberService.findDOBReport(dobDateStr);
+			model.addAttribute("members", membersDOBlist);
+			model.addAttribute("dobDate",dobDate);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// ----------------------------------------
+		return "rptMemberDOB";
 	}
 }

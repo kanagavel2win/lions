@@ -76,6 +76,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.getRptTopMemberDetails();
 	}
 
+	@Override
+	public List<Member> findDOBReport(String dobDate) {
+		// TODO Auto-generated method stub
+		return memberRepository.getRptMemberDetailsDOB(dobDate);
+	}
+
 }
 
 
