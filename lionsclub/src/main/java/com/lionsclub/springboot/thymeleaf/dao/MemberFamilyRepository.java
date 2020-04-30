@@ -13,4 +13,6 @@ public interface MemberFamilyRepository extends JpaRepository<MemberFamily, Inte
 	
 	@Query("Select m From MemberFamily m Where m.houseofHeadMemberID = :memberid")
 	public List<MemberFamily> FamilymemberSpecific(@Param("memberid") String memberid);
+
+	
  }

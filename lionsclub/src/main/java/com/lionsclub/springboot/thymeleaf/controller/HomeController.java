@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -389,7 +390,16 @@ public class HomeController {
 
 			// Start Member Details process--------------------------------------------
 			// --------------------------------------------------------------------------
-
+			List<Member> houseHolder = memberService.getHouseholderdetails();
+			
+			TreeMap<Member,List<MemberFamily>> Familymap=new TreeMap<Member,List<MemberFamily>>();      
+			for(int hhi=0 ; hhi<houseHolder.size(); hhi++)
+			{
+				List<MemberFamily> MemberFamilyList= memberFamilyService.FamilymemberSpecific(houseHolder.get(hhi).getMemberID());
+				Familymap.put(houseHolder.get(hhi), MemberFamilyList);
+				
+			}
+			
 			// End Member Details process----------------------------------------------
 			// --------------------------------------------------------------------------
 			model.addAttribute("ReportAllmemberdetails", ReportAllmemberdetails);

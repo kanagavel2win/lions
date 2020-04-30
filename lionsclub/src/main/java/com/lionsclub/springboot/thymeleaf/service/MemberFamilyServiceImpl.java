@@ -57,6 +57,8 @@ public class MemberFamilyServiceImpl implements MemberFamilyService {
 		return memberFamilyRepository.FamilymemberSpecific(memberid);
 	}
 
+	
+
 		
 }
 

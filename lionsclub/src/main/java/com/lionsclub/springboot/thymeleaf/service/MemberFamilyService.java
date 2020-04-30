@@ -15,5 +15,7 @@ public interface MemberFamilyService {
 	public void deleteById(int theId);
 	
 	public  List<MemberFamily> FamilymemberSpecific(String memberid);
+
+	
 	
 }

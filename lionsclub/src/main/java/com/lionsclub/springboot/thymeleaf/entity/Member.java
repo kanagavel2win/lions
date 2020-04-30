@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "member")
-public class Member {
+public class Member implements Comparable<Member> {
 
 	// define fields
 	@Id
@@ -747,6 +747,14 @@ public class Member {
 		ReportPriorityOrder = reportPriorityOrder;
 		this.bgColorValue = bgColorValue;
 		TextColorValue = textColorValue;
+	}
+
+	@Override
+	public int compareTo(Member o) {
+		// TODO Auto-generated method stub
+
+		return (this.getReportPriorityOrder() - o.getReportPriorityOrder());
+
 	}
 
 }

@@ -30,4 +30,6 @@ public interface MemberService {
 	
 	public List<Member> findFamilyMemberDetails(String MemberID);
 	
+	public List<Member> getHouseholderdetails();
+	
 }
