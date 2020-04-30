@@ -131,7 +131,7 @@ $(document).ready(function () {
 
   // Slide Down / Slide Up
   $('#slide-toast').on('click', function () {
-    toastr.success('I do not think that word means what you think it means.', 'Slide Down / Slide Up!', { "showMethod": "slideDown", "hideMethod": "slideUp", timeOut: 2000 });
+    toastr.success('Family Member Removed successfully', '', { "showMethod": "slideDown", "hideMethod": "slideUp", timeOut: 2000 });
   });
 
   // Fade In / Fade Out

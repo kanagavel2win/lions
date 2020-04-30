@@ -1,38 +1,29 @@
 package com.lionsclub.springboot.thymeleaf.controller;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lionsclub.springboot.thymeleaf.entity.Member;
-import com.lionsclub.springboot.thymeleaf.service.MemberService;
+import com.lionsclub.springboot.thymeleaf.service.MemberFamilyService;
 
 @Controller
-@RequestMapping("/members")
 public class MemberController {
 
-	private MemberService memberService;
-	
-	public MemberController(MemberService thememberService) {
-		memberService = thememberService;
-	}
-	
-	// add mapping for "/list"
+	@Autowired
+	MemberFamilyService  memberFamilyService;
 
-	@GetMapping("/list")
-	public String listmembers(Model theModel) {
+	@PostMapping("memberFamilyDelete")
+	@ResponseBody
+	public String MemberFamilyDelete(@RequestParam("deleteId") int deleteId)
+	{
+		memberFamilyService.deleteById(deleteId);
+		return " Family Member Removed Successfully";
 		
-		// get members from db
-		List<Member> themembers = memberService.findAll();
-		
-		// add to the spring model
-		theModel.addAttribute("members", themembers);
-		
-		return "list-members";
 	}
+	
+	
 }
 
 

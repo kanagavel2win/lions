@@ -94,6 +94,13 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.getRptMemberDetailsBloodGroup(bloodGroup);
 	}
 
+	@Override
+	public List<Member> findFamilyMemberDetails(String MemberID) {
+		
+		return memberRepository.getFamilyMemberDetails(MemberID);
+	}
+
+	
 }
 
 

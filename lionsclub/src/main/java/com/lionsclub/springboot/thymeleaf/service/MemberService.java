@@ -28,4 +28,6 @@ public interface MemberService {
 	
 	public List<Member> findBloodGReport(String bloodGroup);
 	
+	public List<Member> findFamilyMemberDetails(String MemberID);
+	
 }

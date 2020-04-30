@@ -22,7 +22,8 @@
 <!-- BEGIN: Vendor CSS-->
 <link rel="stylesheet" type="text/css"
 	th:href="@{/app-assets/vendors/css/vendors.min.css}">
-
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/vendors/css/extensions/toastr.css}">
 
 <!-- END: Vendor CSS-->
 
@@ -46,6 +47,9 @@
 	th:href="@{/app-assets/css/core/menu/menu-types/vertical-menu.css}">
 <link rel="stylesheet" type="text/css"
 	th:href="@{/app-assets/css/plugins/forms/wizard.css}">
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/plugins/extensions/toastr.css}">
 <!-- END: Page CSS-->
 
 <!-- BEGIN: Custom CSS-->
@@ -138,12 +142,13 @@
 																Name and Code</a> -->
 
 
-															<input type="color" class="form-control" style="width:49%;float:left;"
+															<input type="color" class="form-control"
+																style="width: 49%; float: left;"
 																th:value="${members['bgColorValue']}"
-																th:field="*{bgColorValue}"  /> 
-															
-															<select class="form-control"
-																id="basicSelect" th:field="*{TextColorValue}"  style="width:49%;float:left;">
+																th:field="*{bgColorValue}" /> <select
+																class="form-control" id="basicSelect"
+																th:field="*{TextColorValue}"
+																style="width: 49%; float: left;">
 																<option value="Black">Black</option>
 																<option value="White">White</option>
 															</select>
@@ -638,6 +643,122 @@
 														</div>
 													</div>
 
+													<input type="text" name="fa_member_id" hidden="">
+													<input type="text" name="fa_member_relation" hidden="">
+													<input type="number" name="fa_member_orderid" value="0" hidden="">
+
+
+												</div>
+
+												<div class="row"
+													th:if="${members['Family_Unit']}=='Head of Household'">
+													<div class="col-12">
+														<h6 class="py-50">Family information</h6>
+														<span type="button" id="slide-toast"></span>
+														<div id="result"
+															style="width: 100%; min-width: 300px; overflow: auto;">
+
+														</div>
+														<datalist id="familydetails">
+															<option th:each="famDetails :${FamilymemberDetails}"
+																th:value="${famDetails.First_Name+' '+famDetails.Last_Name +' -' +famDetails.MemberID  } "></option>
+
+														</datalist>
+
+														<div class="table-responsive">
+															<table class="table zero-configuration">
+																<thead>
+																	<tr style="background: #E8E8E8">
+																		<th>S.No</th>
+																		<th>Name</th>
+																		<th>Relation</th>
+																		<th>OrderID</th>
+																		<th>Remove</th>
+
+
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr
+																		th:each="member,iterationStatus  : ${FamilymemberSpecific}">
+																		<td th:text="${iterationStatus.count}"></td>
+																		<td th:text="${member['MemberID']}"></td>
+																		<td th:text="${member['relationship']}"></td>
+																		<td th:text="${member['orderID']}"></td>
+																		<td><i class="bx bxs-trash removeFmember"
+																			th:id="${member['mFamilyid']}"
+																			style="font-size: 26px; cursor: pointer;"></i></a></td>
+																	</tr>
+
+
+
+																</tbody>
+															</table>
+														</div>
+													</div>
+													<div class="col-12" align="center">
+														<div class="table-responsive">
+															<table class="table zero-configuration" id="add_fields"
+																style="background: #E8E8E8; min-width: 700px;">
+																<thead>
+																	<tr>
+																		<th style="width: 10px;"></th>
+																		<th>Name</th>
+																		<th>Relation</th>
+																		<th>OrderID</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td><input class="form-check" type="checkbox">
+																		</td>
+																		<td>
+																			<div class="form" style="height: 45px;">
+																				<input type="text" list="familydetails"
+																					autocomplete='off' name="fa_member_id"
+																					class="form-control"
+																					style="height: 45px; width: 100%" required>
+																			</div>
+																		</td>
+																		<td><select class="form-control" id="basicSelect"
+																			name="fa_member_relation">
+																				<option value="Child">Child</option>
+																				<option value="Spouse">Spouse</option>
+																				<option value="In-law">In-law</option>
+																				<option value="Child">Sibling</option>
+																				<option value="Child">Parent</option>
+																				<option value="Others">Others</option>
+																		</select></td>
+
+																		<td><select class="form-control" id="basicSelect"
+																			name="fa_member_orderid">
+																				<option value="1">1</option>
+																				<option value="2">2</option>
+																				<option value="3">3</option>
+																				<option value="4">4</option>
+																				<option value="5">5</option>
+																				<option value="6">6</option>
+																				<option value="7">7</option>
+																				<option value="8">8</option>
+																				<option value="9">9</option>
+																				<option value="10"10></option>
+
+																		</select></td>
+
+																	</tr>
+																</tbody>
+															</table>
+															<p align="left">
+																<button type="button" id="addrows"
+																	class="btn btn-primary" style="cursor: pointer;">+</button>
+																<button type="button" id="removerows"
+																	class="btn btn-danger" style="cursor: pointer;">-</button>
+															</p>
+
+
+														</div>
+
+													</div>
 
 												</div>
 												<br /> <br /> <br />
@@ -693,6 +814,8 @@
 		th:src="@{/app-assets/vendors/js/extensions/jquery.steps.min.js}"></script>
 	<script
 		th:src="@{/app-assets/vendors/js/forms/validation/jquery.validate.min.js}"></script>
+
+	<script th:src="@{/app-assets/vendors/js/extensions/toastr.min.js}"></script>
 	<!-- END: Page Vendor JS-->
 
 	<!-- BEGIN: Theme JS-->
@@ -704,8 +827,57 @@
 
 	<!-- BEGIN: Page JS-->
 	<script th:src="@{/app-assets/js/scripts/forms/wizard-steps.js}"></script>
+	<script th:src="@{/app-assets/js/scripts/extensions/toastr.js}"></script>
 	<!-- END: Page JS-->
 
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+
+							var i = 1;
+							$('#table_row_count').val(i);
+							//--------------------------------------------------------------------------------------------------------------------------------------		 
+							//--------------------------------------------------------------------------------------------------------------------------------------		 		
+							$('#addrows')
+									.click(
+											function() {
+												i++;
+												$('#add_fields')
+														.append(
+																'<tr id="row'+i+'"><td><input class="form-check" type="checkbox"/></td><td><div class="form" style="height:45px;"><input type="text" list="familydetails" autocomplete="off"  name="fa_member_id" class="form-control" style="height:45px;" required /></div></td><td><select class="form-control" id="basicSelect" name="fa_member_relation"><option value="Child">Child</option>					<option value="Spouse">Spouse</option>					<option value="In-law">In-law</option>					<option value="Child">Sibling</option>					<option value="Child">Parent</option>					<option value="Others">Others</option>			</select></td>						<td>				<select class="form-control" id="basicSelect" name="fa_member_orderid">					<option value="1">1</option>					<option value="2">2</option>					<option value="3">3</option>					<option value="4">4</option>					<option value="5">5</option>					<option value="6">6</option>/					<option value="7">7</option>					<option value="8">8</option>					<option value="9">9</option>					<option value="10"10></option>									</select>			</td></tr>');
+												$('#table_row_count').val(i);
+											});
+							//--------------------------------------------------------------------------------------------------------------------------------------		 
+							//--------------------------------------------------------------------------------------------------------------------------------------		 		
+							$("#removerows").on(
+									'click',
+									function() {
+										$('.form-check:checkbox:checked')
+												.parents("tr").remove();
+										$('#check_all').prop("checked", false);
+
+									});
+
+							//--------------------------------------------------------------------------------------------------------------------------------------		 
+							//--------------------------------------------------------------------------------------------------------------------------------------		 		
+
+							$(".removeFmember").click(function() {
+								var deleteId = $(this).attr('id');
+								$.post('memberFamilyDelete', {
+									deleteId : deleteId
+								}, function(output) {
+									//$('#result').append(output).show();
+								});
+
+								var tr = $(this).closest('tr');
+								tr.remove();
+
+								$('#slide-toast').click();
+
+							});
+						});
+	</script>
 </body>
 <!-- END: Body-->
 

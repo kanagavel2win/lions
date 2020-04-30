@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lionsclub.springboot.thymeleaf.entity.Member;
+import com.lionsclub.springboot.thymeleaf.entity.MemberFamily;
+import com.lionsclub.springboot.thymeleaf.service.MemberFamilyService;
 import com.lionsclub.springboot.thymeleaf.service.MemberService;
 
 @Controller
@@ -34,6 +36,8 @@ public class HomeController {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	private MemberFamilyService memberFamilyService;
 	// create a mapping for "/hello"
 
 	@GetMapping("/")
@@ -68,6 +72,19 @@ public class HomeController {
 	public String memberadd(@RequestParam("id") int memberid, Model theModel) {
 
 		Member editmemberDetails = memberService.findById(memberid);
+		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(editmemberDetails.getMemberID());
+		theModel.addAttribute("FamilymemberDetails", FamilymemberDetails);
+
+		List<MemberFamily> FamilymemberSpecific = memberFamilyService
+				.FamilymemberSpecific(editmemberDetails.getMemberID());
+
+		for (int fmsi = 0; fmsi < FamilymemberSpecific.size(); fmsi++) {
+			String tempMemberID = FamilymemberSpecific.get(fmsi).getMemberID();
+			String tempname = memberService.findByMemberID(tempMemberID).get(0).getFirst_Name() + ' '
+					+ memberService.findByMemberID(tempMemberID).get(0).getLast_Name() + " (" + tempMemberID + ")";
+			FamilymemberSpecific.get(fmsi).setMemberID(tempname);
+		}
+		theModel.addAttribute("FamilymemberSpecific", FamilymemberSpecific);
 
 		theModel.addAttribute("members", editmemberDetails);
 		theModel.addAttribute("savestatus", false);
@@ -77,8 +94,12 @@ public class HomeController {
 
 	@PostMapping("/memberedit")
 	public String membersave(HttpServletRequest request, @ModelAttribute("members") Member member,
-			@RequestParam("profilepicture") MultipartFile profilepicture, Model themodel) {
+			@RequestParam("profilepicture") MultipartFile profilepicture,
+			@RequestParam("fa_member_id") String[] fa_member_id,
+			@RequestParam("fa_member_relation") String[] fa_member_relation,
+			@RequestParam("fa_member_orderid") int[] fa_member_orderid, Model themodel) {
 
+		// Start image Upload area----------------------------------------
 		String uploadRootPath = request.getServletContext().getRealPath("profilepic");
 		System.out.println("uploadRootPath=" + uploadRootPath);
 
@@ -98,12 +119,41 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// End image Upload area----------------------------------------
+		// Start family Member Details adding---------------------------
 
-		System.out.println(fileNameandPath);
+		for (int farr = 0; farr < fa_member_id.length; farr++) {
+			if (fa_member_id[farr].length() > 0) {
+				MemberFamily memFamliy = new MemberFamily();
+				memFamliy.setHouseofHeadMemberID((member.getMemberID()));
+				String[] tempFamilymemberID = fa_member_id[farr].split("-");
+				memFamliy.setMemberID(tempFamilymemberID[1]);
+				memFamliy.setRelationship(fa_member_relation[farr]);
+				memFamliy.setOrderID(fa_member_orderid[farr]);
+				memberFamilyService.save(memFamliy);
+			}
+		}
+		// End family Member Details adding---------------------------
+		// -------------------------------------------------------------
+		// System.out.println(fileNameandPath);
 		member.setProfileImg("profilepic/" + filename);
 		memberService.save(member);
 		themodel.addAttribute("members", member);
 		themodel.addAttribute("savestatus", true);
+
+		List<MemberFamily> FamilymemberSpecific = memberFamilyService.FamilymemberSpecific(member.getMemberID());
+
+		for (int fmsi = 0; fmsi < FamilymemberSpecific.size(); fmsi++) {
+			String tempMemberID = FamilymemberSpecific.get(fmsi).getMemberID();
+			String tempname = memberService.findByMemberID(tempMemberID).get(0).getFirst_Name() + ' '
+					+ memberService.findByMemberID(tempMemberID).get(0).getLast_Name() + " (" + tempMemberID + ")";
+			FamilymemberSpecific.get(fmsi).setMemberID(tempname);
+		}
+		themodel.addAttribute("FamilymemberSpecific", FamilymemberSpecific);
+
+		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(String.valueOf(member.getMemberID()));
+		themodel.addAttribute("FamilymemberDetails", FamilymemberDetails);
+
 		return "memberadd";
 	}
 
@@ -316,67 +366,6 @@ public class HomeController {
 		try {
 			List<Member> NotfilledMandatoryFieldsmemberDetails = memberService.getNotfilledMandatoryFields();
 
-			/*
-			 * ArrayList<String> emptyFieldList = new ArrayList<>();
-			 * 
-			 * for (int i = 0; i < NotfilledMandatoryFieldsmemberDetails.size(); i++) {
-			 * Member mDetails = NotfilledMandatoryFieldsmemberDetails.get(i); String
-			 * emptyFieldName="";
-			 * 
-			 * if (String.valueOf(mDetails.getFirst_Name()) == "null"
-			 * ||String.valueOf(mDetails.getFirst_Name()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "First_Name, "; } if
-			 * (String.valueOf(mDetails.getLast_Name()) == "null"
-			 * ||mDetails.getLast_Name().isEmpty()) { emptyFieldName= emptyFieldName +
-			 * "Last_Name, "; } if (String.valueOf(mDetails.getDate_of_Birth()) == "null"
-			 * ||String.valueOf(mDetails.getDate_of_Birth()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "Date_of_Birth, "; } if
-			 * (String.valueOf(mDetails.getJoin_Date()) == "null"
-			 * ||String.valueOf(mDetails.getJoin_Date()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "Join_Date, "; } if
-			 * (String.valueOf(mDetails.getMember_Address_Country()) == "null"
-			 * ||String.valueOf(mDetails.getMember_Address_Country()) == "" ) {
-			 * emptyFieldName= emptyFieldName + "Member_Address_Country, "; } if
-			 * (String.valueOf(mDetails.getClub_Name()) == "null"
-			 * ||String.valueOf(mDetails.getClub_Name()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "Club_Name, "; } if
-			 * (String.valueOf(mDetails.getMember_Address_Line_1()) == "null"
-			 * ||String.valueOf(mDetails.getMember_Address_Line_1()) == "" ) {
-			 * emptyFieldName= emptyFieldName + "Member_Address_Line_1, "; } if
-			 * (String.valueOf(mDetails.getMember_Address_Line_2()) == "null"
-			 * ||String.valueOf(mDetails.getMember_Address_Line_2()) == "" ) {
-			 * emptyFieldName= emptyFieldName + "Member_Address_Line_2, "; } if
-			 * (String.valueOf(mDetails.getMember_Address_Line_3()) == "null"
-			 * ||String.valueOf(mDetails.getMember_Address_Line_3()) == "" ) {
-			 * emptyFieldName= emptyFieldName + "Member_Address_Line_3, "; } if
-			 * (String.valueOf(mDetails.getMember_Address_City()) == "null"
-			 * ||String.valueOf(mDetails.getMember_Address_City()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "Member_Address_City, "; } if
-			 * (String.valueOf(mDetails.getCell_Phone()) == "null"
-			 * ||String.valueOf(mDetails.getCell_Phone()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "Cell_Phone, "; } if (String.valueOf(mDetails.getEmail()) ==
-			 * "null" ||String.valueOf(mDetails.getEmail()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "Email, "; }
-			 * 
-			 * if (String.valueOf(mDetails.getWeddingDate()) == "null"
-			 * ||String.valueOf(mDetails.getWeddingDate()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "WeddingDate, "; } if
-			 * (String.valueOf(mDetails.getSponsor_Name()) == "null"
-			 * ||String.valueOf(mDetails.getSponsor_Name()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "Sponsor_Name, "; } if
-			 * (String.valueOf(mDetails.getNoofDaughter()) == "null" ||
-			 * String.valueOf(mDetails.getNoofDaughter()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "NoofDaughter, "; } if
-			 * (String.valueOf(mDetails.getNoofSon()) == "null"
-			 * ||String.valueOf(mDetails.getNoofSon()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "NoofSon	, "; } if
-			 * (String.valueOf(mDetails.getMember_BloodGroup()) == "null"
-			 * ||String.valueOf(mDetails.getMember_BloodGroup()) == "" ) { emptyFieldName=
-			 * emptyFieldName + "Member_BloodGroup, "; }
-			 * 
-			 * emptyFieldList.add(emptyFieldName); emptyFieldName=""; }
-			 * model.addAttribute("emptyFieldList", emptyFieldList);
-			 */
 			model.addAttribute("NotfilledMandatoryFieldsmemberDetails", NotfilledMandatoryFieldsmemberDetails);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -398,6 +387,11 @@ public class HomeController {
 			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
 			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
 
+			// Start Member Details process--------------------------------------------
+			// --------------------------------------------------------------------------
+
+			// End Member Details process----------------------------------------------
+			// --------------------------------------------------------------------------
 			model.addAttribute("ReportAllmemberdetails", ReportAllmemberdetails);
 			model.addAttribute("RptMemberDetails", RptMemberDetails);
 			model.addAttribute("RptTopMemberDetails", RptTopMemberDetails);
@@ -490,10 +484,9 @@ public class HomeController {
 	@GetMapping("ReportBloodGroup")
 	public String rptMemberBloodGrp(Model model) {
 
-
 		return "rptMemberBloodGrp";
 	}
-	
+
 	@PostMapping("ReportBloodGroup")
 	public String rptMemberBloodGrpPost(Model model, @RequestParam("bloodGroup") String bloodGroup) {
 
@@ -510,4 +503,11 @@ public class HomeController {
 		// ----------------------------------------
 		return "rptMemberBloodGrp";
 	}
+
+	@GetMapping("login")
+	public String login(Model model) {
+
+		return "login";
+	}
+
 }
