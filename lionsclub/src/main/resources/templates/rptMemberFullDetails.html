@@ -69,11 +69,11 @@
 				<table border="1px" width="98%" align="left" cellspacing='0px'
 					style="font-size: 16px; margin-left: 10px;">
 					<tr>
-						<td align="Center" width="200px" rowspan="3"><img
+						<td align="Center" rowspan="3" style="max-width:200px; width:200px;"><img
 							th:src="${member['ProfileImg']}"
 							style="width: 100px; height: 100px;" /></td>
 
-						<td><span class="memberName"> <br /> <span
+						<td style="min-width:300px;"><span class="memberName"> <br /> <span
 								th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">
 							</span><br /></span> <span class="memberaddline1"
 							th:if="${member['Member_Address_Line_1'] !=''}"><span
@@ -97,8 +97,8 @@
 								th:text="${member['Spouse_Name']}">Spouse_Name </span><br />
 						</span> <br /></td>
 
-						<td width="20%"
-							th:style="'background-color:' + @{${member['bgColorValue']}} +' ;'">
+						<td 
+							th:style="'background-color:' + @{${member['bgColorValue']}} +' ;min-width:200px;width:20%;'">
 							<table
 								style="width: 90%; margin-left: 5%; background: #fff; color: #000; margin-top: 5px;">
 								<tr>
@@ -157,7 +157,7 @@
 				</tr>
 				<tr>
 
-					<td><span class="memberName"> <span
+					<td style="min-width: 300px;"><span class="memberName"> <span
 							class="memberaddline1"
 							th:if="${member['Member_Address_Line_1'] !=''}"><span
 								th:text="${member['Member_Address_Line_1']}"> Address
@@ -189,7 +189,7 @@
 						</span> <br /></td>
 
 					<td width="40%"
-						th:style="'background-color:' + @{${member['bgColorValue']}} +' ;'">
+						th:style="'background-color:' + @{${member['bgColorValue']}} +' ;min-width:150px;'">
 						<table
 							style="width: 90%; margin-left: 5%; background: #fff; color: #000; margin-top: 5px;">
 							<tr>

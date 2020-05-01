@@ -36,6 +36,28 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
     <!-- END: Custom CSS-->
+    
+    <style type="text/css">
+    
+    .table
+    {
+    	font-family: calibri;
+    }
+    .table td
+    {
+    	padding: 5px;
+    	text-align: left;
+    	color: #104E8B;    	
+    }
+    .table thead th {
+    
+    background: #E0E0E0;
+    font-weight: normal;
+    color: #8B7E66;
+    text-align: left;	
+    }
+    
+    </style>
 
 </head>
 <!-- END: Head-->
@@ -93,10 +115,12 @@
                                             <table class="table zero-configuration">
                                                 <thead>
                                                     <tr>
-                                                        <th>S.No (OrderID)</th>
+                                                        <th>OrderID</th>
                                                         <th>Name</th>
+                                                        <th>Designation</th>
                                                         <th>Spouse Name</th>
-                                                        <th>Mobile No</th>                                                        
+                                                        <th>Mobile No</th>
+                                                        <th>View</th>                                                                                                             
                                                         <th>Edit</th>
                                                         
 	
@@ -105,10 +129,12 @@
                                                 <tbody>
                                                 	<tr th:each="member : ${members}">
 													    <td th:text="${member['ReportPriorityOrder']}"></td>
-                                                        <td><a th:href="'memberview?id=' + @{{id} (id=${member['id']})}"><span th:text="${member['First_Name']} +' '+ ${member['Last_Name']} + '(' + ${member['MemberID']} +')'"></span></a></td>
+													    <td><span th:text="${member['First_Name']} +' '+ ${member['Last_Name']} + '(' + ${member['MemberID']} +')'"></span></td>
+                                                        <td th:text="${member['Title']}"></td>
                                                         <td th:text="${member['Spouse_Name']}"></td>
                                                         <td th:text="${member['Cell_Phone']}"></td>
-                                                        <td><a th:href="'memberedit?id=' + @{{id} (id=${member['id']})}"><i class="bx bxs-edit-alt" style="font-size:26px"></i></a></td>
+                                                        <td style="text-align: center"> <a th:href="'memberview?id=' + @{{id} (id=${member['id']})}"><i class="bx bx-search" style="font-size:26px"></i></a></td>
+                                                        <td style="text-align: center"><a th:href="'memberedit?id=' + @{{id} (id=${member['id']})}"><i class="bx bxs-edit-alt" style="font-size:26px"></i></a></td>
                                                         	
 													</tr>
                                                     
@@ -119,8 +145,10 @@
                                                      <tr>
                                                         <th>S.No</th>
                                                         <th>Name</th>
+                                                        <th>Designation</th>
                                                         <th>Spouse Name</th>
-                                                        <th>Mobile No</th>                                                        
+                                                        <th>Mobile No</th>   
+                                                        <th>View</th>                                                     
                                                         <th>Edit</th>
                                                         
 	
