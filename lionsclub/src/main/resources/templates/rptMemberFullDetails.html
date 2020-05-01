@@ -79,7 +79,7 @@
 
 <!-- BEGIN: Body-->
 
-<body style="color: #000;">
+<body style="color: #000; background: #004b93;">
 
 	<!-- -->
 	<div style="width: 100%; min-height: 400px;">
@@ -88,7 +88,7 @@
 
 			<br /> <span th:each="member : ${RptTopMemberDetails}">
 				<table border="1px" width="98%" align="left" cellspacing='0px'
-					style="font-size: 16px; margin-left: 10px;">
+					style="font-size: 16px; margin-left: 10px;background: #fff;">
 					<tr>
 						<td align="Center" rowspan="3" style="max-width:200px; width:200px;"><img
 							th:src="${member['ProfileImg']}"
@@ -169,7 +169,7 @@
 		<span th:each="member : ${RptMemberDetails}">
 
 			<table border="1px" width="49%" cellspacing='0px'
-				style="font-size: 16px; float: left; min-height: 230px;">
+				style="font-size: 16px; float: left; min-height: 230px;background: #fff;">
 
 				<tr>
 					<td colspan="2" style="height: 30px;"><span
