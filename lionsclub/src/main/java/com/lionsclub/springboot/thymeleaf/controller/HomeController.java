@@ -336,11 +336,11 @@ public class HomeController {
 						newMember.setReportPriorityOrder(ReportPriorityOrder);
 					}
 					if (newMember.getBgColorValue() == "" || newMember.getBgColorValue() == null) {
-						newMember.setBgColorValue("#FFFFF");
+						newMember.setBgColorValue("#004b93");
 					}
 
 					if (newMember.getTextColorValue() == "" || newMember.getTextColorValue() == null) {
-						newMember.setTextColorValue("Black");
+						newMember.setTextColorValue("White");
 					}
 					memberService.save(newMember);
 

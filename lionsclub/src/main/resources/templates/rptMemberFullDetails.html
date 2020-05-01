@@ -58,11 +58,16 @@
     table
     {
     	font-family: calibri;
+    	border-color: #004b93;
+    	
     }
     table td
     {
+    	font-family: calibri;
     	padding: 5px;
     	color: #104E8B;    	
+    	border-color: #004b93;
+    	
     }
     table thead th {
     
@@ -71,7 +76,33 @@
     color: #8B7E66;
     	
     }
-    
+    .memberstyle
+    {
+    	color:#CD2626;
+    	font-size: 20px;
+    	font-weight: bold;
+    }
+    .memberstyle1
+    {
+    	color:#CD2626;
+    	font-size: 18px;
+    	font-weight: bold;
+    }
+    .regulermemberNameColor
+    {
+    	font-size: 18px;
+    	font-weight: bold;
+    	
+    }
+    .topmembertabletd
+    {
+    	border-bottom-color: #fff;
+    }
+    .membertitle
+    {
+    	font-family: calibri;
+    	font-weight: bold;
+    }
     </style>
     
 </head>
@@ -79,7 +110,7 @@
 
 <!-- BEGIN: Body-->
 
-<body style="color: #000; background: #004b93;">
+<body style="background: #EDEDED;">
 
 	<!-- -->
 	<div style="width: 100%; min-height: 400px;">
@@ -94,7 +125,7 @@
 							th:src="${member['ProfileImg']}"
 							style="width: 100px; height: 100px;" /></td>
 
-						<td style="min-width:300px;"><span class="memberName"> <br /> <span
+						<td style="min-width:300px;"><span class="memberstyle"> <br /> <span
 								th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">
 							</span><br /></span> <span class="memberaddline1"
 							th:if="${member['Member_Address_Line_1'] !=''}"><span
@@ -105,27 +136,33 @@
 									2 </span><br /></span> <span class="membercityPincode"
 							th:if="${member['Member_Address_City'] !=''}"><span
 								th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
-									- Pincode </span><br /></span> <span class="membermoboff_no"
+									- Pincode </span><br /></span> 
+									
+									<b>
+									<span class="membermoboff_no"
 							th:if="${member['Cell_Phone'] !=''}"> <i
 								class="bx bx-phone-call"></i> &nbsp; <span
 								th:text="${member['Cell_Phone']}">Mobile NUmber- Office
-									Number</span> <br /></span> <span class="memberemail"
+									Number</span> <br /></span> 
+									</b>
+									
+									<span class="memberemail"
 							th:if="${member['Email'] !=''}"> <i
-								class="bx bx-mail-send"></i> &nbsp; <span
+								class="bx bx-mail-send" style="color:#CD2626;"></i> &nbsp; <span
 								th:text="${member['Email']}">Email </span><br /></span> <span
 							class="memberemail" th:if="${member['Spouse_Name'] !=''}">
-								<i class="bx bxs-group"></i> &nbsp; <span
+								<i class="bx bxs-group" style="color:#CD2626;"></i> &nbsp; <span
 								th:text="${member['Spouse_Name']}">Spouse_Name </span><br />
 						</span> <br /></td>
 
-						<td 
+						<td  class="topmembertabletd"
 							th:style="'background-color:' + @{${member['bgColorValue']}} +' ;min-width:200px;width:20%;'">
 							<table
 								style="width: 90%; margin-left: 5%; background: #fff; color: #000; margin-top: 5px;">
 								<tr>
-									<td>M.No</td>
-									<td>:</td>
-									<td><span th:text="${member['MemberID']}"> </span></td>
+									<td class="memberstyle1">M.No</td>
+									<td class="memberstyle1">:</td>
+									<td class="memberstyle1"><span th:text="${member['MemberID']}"> </span></td>
 								</tr>
 								<tr>
 									<td>DOB</td>
@@ -138,7 +175,7 @@
 									<td><span th:text="${member['WeddingDate']}"> </span></td>
 								</tr>
 								<tr>
-									<td><i class="bx bxs-droplet"></i></td>
+									<td style="color:#CD2626;"><i class="bx bxs-droplet"></i></td>
 									<td>:</td>
 									<td><span th:text="${member['Member_BloodGroup']}">
 									</span></td>
@@ -172,7 +209,7 @@
 				style="font-size: 16px; float: left; min-height: 230px;background: #fff;">
 
 				<tr>
-					<td colspan="2" style="height: 30px;"><span
+					<td class="regulermemberNameColor" colspan="2" th:style="'background-color:' + @{${member['bgColorValue']}} +'; color:' + @{${member['TextColorValue']}} +' ;min-width:150px;height: 30px;'"><span
 						th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">
 					</span></td>
 				</tr>
@@ -191,12 +228,13 @@
 									- Pincode </span><br /></span> <span class="memberemail"
 							th:if="${member['Email'] !=''}"> <i
 								class="bx bx-mail-send"></i> &nbsp; <span
-								th:text="${member['Email']}">Email </span><br /></span> <span
-							class="memberemail" th:if="${member['Date_of_Birth'] !=''}">D/B
-								&nbsp; <span th:text="${member['Date_of_Birth']}">Date_of_Birth
+								th:text="${member['Email']}">Email </span><br /></span>
+								 <span
+							class="memberemail" th:if="${member['Date_of_Birth'] !=''}" >D/B
+							&nbsp;:&nbsp; <span th:text="${member['Date_of_Birth']}">Date_of_Birth
 							</span>
 						</span> <span class="memberemail" th:if="${member['WeddingDate'] !=''}">
-								W/D &nbsp; <span th:text="${member['WeddingDate']}">WeddingDate
+								W/D &nbsp;:&nbsp; <span th:text="${member['WeddingDate']}">WeddingDate
 							</span>
 						</span> <br /> <span
 							th:if="${member['Member_BloodGroup'] !=''}"> <i
@@ -210,7 +248,7 @@
 						</span> <br /></td>
 
 					<td width="40%"
-						th:style="'background-color:' + @{${member['bgColorValue']}} +' ;min-width:150px;'">
+						style="min-width:150px;">
 						<table
 							style="width: 90%; margin-left: 5%; background: #fff; color: #000; margin-top: 5px;">
 							<tr>
