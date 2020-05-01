@@ -53,6 +53,27 @@
 	th:href="@{/assets/css/style.css}">
 <!-- END: Custom CSS-->
 
+ <style type="text/css">
+    
+    table
+    {
+    	font-family: calibri;
+    }
+    table td
+    {
+    	padding: 5px;
+    	color: #104E8B;    	
+    }
+    table thead th {
+    
+    background: #E0E0E0;
+    font-weight: normal;
+    color: #8B7E66;
+    	
+    }
+    
+    </style>
+    
 </head>
 <!-- END: Head-->
 
@@ -148,7 +169,7 @@
 		<span th:each="member : ${RptMemberDetails}">
 
 			<table border="1px" width="49%" cellspacing='0px'
-				style="font-size: 16px; float: left; min-height: 200px;">
+				style="font-size: 16px; float: left; min-height: 230px;">
 
 				<tr>
 					<td colspan="2" style="height: 30px;"><span
