@@ -121,6 +121,7 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		// End image Upload area----------------------------------------
 		// Start family Member Details adding---------------------------
 
@@ -283,6 +284,31 @@ public class HomeController {
 
 					Date_of_Birth = Date_of_Birth.replaceAll("12:00:00 AM", "");
 					Join_Date = Join_Date.replaceAll("12:00:00 AM", "");
+					// Cell Numb
+					
+					// name Upper Case
+					if (First_Name.length() > 1) {
+						First_Name = First_Name.substring(0, 1).toUpperCase() + First_Name.substring(1).toLowerCase();
+					}
+					if (Middle_Name.length() > 1) {
+						Middle_Name = Middle_Name.substring(0, 1).toUpperCase() + Middle_Name.substring(1).toLowerCase();
+					}
+					if (Last_Name.length() > 1) {
+						Last_Name = Last_Name.substring(0, 1).toUpperCase() + Last_Name.substring(1).toLowerCase();
+					}
+					if (Spouse_Name.length() > 1) {
+						Spouse_Name = First_Name.substring(0, 1).toUpperCase() + Spouse_Name.substring(1).toLowerCase();
+					}
+					if (Sponsor_Name.length() > 1) {
+						Sponsor_Name = First_Name.substring(0, 1).toUpperCase() + Sponsor_Name.substring(1).toLowerCase();
+					}
+
+					
+					
+					
+					
+					
+
 					// ------------------------------------------------------
 					newMember.setMultiple_District_Name(Multiple_District_Name);
 					newMember.setDistrict_Name(District_Name);
@@ -428,22 +454,20 @@ public class HomeController {
 			// Start Member Details process--------------------------------------------
 			// --------------------------------------------------------------------------
 			// List<Member> houseHolder = memberService.getHouseholderdetails();
-			
 
 			TreeMap<Member, List<Member>> Familymap = new TreeMap<Member, List<Member>>();
 			for (int hhi = 0; hhi < RptTopMemberDetails.size(); hhi++) {
 				List<MemberFamily> MemberFamilyList = memberFamilyService
 						.FamilymemberSpecific(RptTopMemberDetails.get(hhi).getMemberID());
-				
+
 				ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
-				
+
 				for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
 					MemberFamilyListDetails
 							.add(memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0));
 				}
 
 				Familymap.put(RptTopMemberDetails.get(hhi), MemberFamilyListDetails);
-				
 
 			}
 
