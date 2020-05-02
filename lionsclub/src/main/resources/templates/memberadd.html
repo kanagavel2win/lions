@@ -555,7 +555,9 @@
 
 												<div class="row">
 													<div class="col-12">
-														<h6 class="py-50"><b>Additional information</b></h6>
+														<h6 class="py-50">
+															<b>Additional information</b>
+														</h6>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
@@ -643,9 +645,9 @@
 														</div>
 													</div>
 
-													<input type="text" name="fa_member_id" hidden="">
-													<input type="text" name="fa_member_relation" hidden="">
-													<input type="number" name="fa_member_orderid" value="0" hidden="">
+													<input type="text" name="fa_member_id" hidden=""> <input
+														type="text" name="fa_member_relation" hidden=""> <input
+														type="number" name="fa_member_orderid" value="0" hidden="">
 
 
 												</div>
@@ -653,8 +655,10 @@
 												<div class="row"
 													th:if="${members['Family_Unit']}=='Head of Household'">
 													<div class="col-12">
-													
-														<h6 class="py-50"><b>Family information </b></h6>
+
+														<h6 class="py-50">
+															<b>Family information </b>
+														</h6>
 														<span type="button" id="slide-toast"></span>
 														<div id="result"
 															style="width: 100%; min-width: 300px; overflow: auto;">
@@ -726,8 +730,8 @@
 																				<option value="Child">Child</option>
 																				<option value="Spouse">Spouse</option>
 																				<option value="In-law">In-law</option>
-																				<option value="Child">Sibling</option>
-																				<option value="Child">Parent</option>
+																				<option value="Sibling">Sibling</option>
+																				<option value="Parent">Parent</option>
 																				<option value="Others">Others</option>
 																		</select></td>
 
@@ -846,7 +850,7 @@
 												i++;
 												$('#add_fields')
 														.append(
-																'<tr id="row'+i+'"><td><input class="form-check" type="checkbox"/></td><td><div class="form" style="height:45px;"><input type="text" list="familydetails" autocomplete="off"  name="fa_member_id" class="form-control" style="height:45px;" required /></div></td><td><select class="form-control" id="basicSelect" name="fa_member_relation"><option value="Child">Child</option>					<option value="Spouse">Spouse</option>					<option value="In-law">In-law</option>					<option value="Child">Sibling</option>					<option value="Child">Parent</option>					<option value="Others">Others</option>			</select></td>						<td>				<select class="form-control" id="basicSelect" name="fa_member_orderid">					<option value="1">1</option>					<option value="2">2</option>					<option value="3">3</option>					<option value="4">4</option>					<option value="5">5</option>					<option value="6">6</option>/					<option value="7">7</option>					<option value="8">8</option>					<option value="9">9</option>					<option value="10"10></option>									</select>			</td></tr>');
+																'<tr id="row'+i+'"><td><input class="form-check" type="checkbox"/></td><td><div class="form" style="height:45px;"><input type="text" list="familydetails" autocomplete="off"  name="fa_member_id" class="form-control" style="height:45px;" required /></div></td><td><select class="form-control" id="basicSelect" name="fa_member_relation"><option value="Child">Child</option>					<option value="Spouse">Spouse</option>					<option value="In-law">In-law</option>					<option value="Sibling">Sibling</option>					<option value="Parent">Parent</option>					<option value="Others">Others</option>			</select></td>						<td>				<select class="form-control" id="basicSelect" name="fa_member_orderid">					<option value="1">1</option>					<option value="2">2</option>					<option value="3">3</option>					<option value="4">4</option>					<option value="5">5</option>					<option value="6">6</option>/					<option value="7">7</option>					<option value="8">8</option>					<option value="9">9</option>					<option value="10"10></option>									</select>			</td></tr>');
 												$('#table_row_count').val(i);
 											});
 							//--------------------------------------------------------------------------------------------------------------------------------------		 

@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -281,6 +282,7 @@ public class HomeController {
 					// - Remove 12:00:00 AM time from Date of birth
 
 					Date_of_Birth = Date_of_Birth.replaceAll("12:00:00 AM", "");
+					Join_Date = Join_Date.replaceAll("12:00:00 AM", "");
 					// ------------------------------------------------------
 					newMember.setMultiple_District_Name(Multiple_District_Name);
 					newMember.setDistrict_Name(District_Name);
@@ -391,15 +393,15 @@ public class HomeController {
 			// Start Member Details process--------------------------------------------
 			// --------------------------------------------------------------------------
 			List<Member> houseHolder = memberService.getHouseholderdetails();
-			
-			TreeMap<Member,List<MemberFamily>> Familymap=new TreeMap<Member,List<MemberFamily>>();      
-			for(int hhi=0 ; hhi<houseHolder.size(); hhi++)
-			{
-				List<MemberFamily> MemberFamilyList= memberFamilyService.FamilymemberSpecific(houseHolder.get(hhi).getMemberID());
+
+			TreeMap<Member, List<MemberFamily>> Familymap = new TreeMap<Member, List<MemberFamily>>();
+			for (int hhi = 0; hhi < houseHolder.size(); hhi++) {
+				List<MemberFamily> MemberFamilyList = memberFamilyService
+						.FamilymemberSpecific(houseHolder.get(hhi).getMemberID());
 				Familymap.put(houseHolder.get(hhi), MemberFamilyList);
-				
+
 			}
-			
+
 			// End Member Details process----------------------------------------------
 			// --------------------------------------------------------------------------
 			model.addAttribute("ReportAllmemberdetails", ReportAllmemberdetails);
@@ -410,6 +412,52 @@ public class HomeController {
 			e.printStackTrace();
 		} finally {
 			return "rptMemberFullDetails";
+		}
+
+	}
+
+	@SuppressWarnings("finally")
+	@GetMapping("ReportAllmemberdetailswithFamily")
+	public String ReportAllmemberdetailswithFamily1(Model model) {
+		try {
+
+			List<Member> ReportAllmemberdetails = memberService.findAll();
+			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
+			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
+
+			// Start Member Details process--------------------------------------------
+			// --------------------------------------------------------------------------
+			// List<Member> houseHolder = memberService.getHouseholderdetails();
+			
+
+			TreeMap<Member, List<Member>> Familymap = new TreeMap<Member, List<Member>>();
+			for (int hhi = 0; hhi < RptTopMemberDetails.size(); hhi++) {
+				List<MemberFamily> MemberFamilyList = memberFamilyService
+						.FamilymemberSpecific(RptTopMemberDetails.get(hhi).getMemberID());
+				
+				ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
+				
+				for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
+					MemberFamilyListDetails
+							.add(memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0));
+				}
+
+				Familymap.put(RptTopMemberDetails.get(hhi), MemberFamilyListDetails);
+				
+
+			}
+
+			// End Member Details process----------------------------------------------
+			// --------------------------------------------------------------------------
+			model.addAttribute("ReportAllmemberdetails", ReportAllmemberdetails);
+			model.addAttribute("RptMemberDetails", RptMemberDetails);
+			model.addAttribute("RptTopMemberDetails", RptTopMemberDetails);
+			model.addAttribute("Familymap", Familymap);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			return "rptMemberFullDetailsWithfamily";
 		}
 
 	}
