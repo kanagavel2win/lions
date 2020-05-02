@@ -57,7 +57,7 @@ public class HomeController {
 
 		return "index";
 	}
-
+	
 	@GetMapping("/internationallionsclub")
 	public String internationalLions() {
 		return "internationlionssite";
@@ -463,8 +463,11 @@ public class HomeController {
 				ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
 
 				for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
+					
+					Member m1=memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
+					m1.setSpouse_Name(MemberFamilyList.get(hhif).getRelationship());
 					MemberFamilyListDetails
-							.add(memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0));
+							.add(m1);
 				}
 
 				Familymap.put(RptTopMemberDetails.get(hhi), MemberFamilyListDetails);

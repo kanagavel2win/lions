@@ -11,7 +11,7 @@ import com.lionsclub.springboot.thymeleaf.entity.MemberFamily;
 public interface MemberFamilyRepository extends JpaRepository<MemberFamily, Integer> {
 
 	
-	@Query("Select m From MemberFamily m Where m.houseofHeadMemberID = :memberid")
+	@Query("Select m From MemberFamily m Where m.houseofHeadMemberID = :memberid Order By orderID")
 	public List<MemberFamily> FamilymemberSpecific(@Param("memberid") String memberid);
 
 	
