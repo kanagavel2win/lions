@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "memberinternational")
-public class MemberAsperInternational {
+public class MemberAsperInternational implements  Comparable<MemberAsperInternational> {
 
 	// define fields
 	@Id
@@ -611,6 +611,12 @@ public class MemberAsperInternational {
 				+ ", Family_Unit=" + Family_Unit + ", Sponsor_Name=" + Sponsor_Name + ", Club_Branch_Name="
 				+ Club_Branch_Name + ", International_Discount=" + International_Discount
 				+ ", International_Discount_Reason=" + International_Discount_Reason + "]";
+	}
+
+	@Override
+	public int compareTo(MemberAsperInternational o) {
+		
+		return (this.getId() - o.getId());
 	}
 
 }
