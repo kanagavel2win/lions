@@ -311,10 +311,10 @@ public class HomeController {
 						Last_Name = Last_Name.substring(0, 1).toUpperCase() + Last_Name.substring(1).toLowerCase();
 					}
 					if (Spouse_Name.length() > 1) {
-						Spouse_Name = First_Name.substring(0, 1).toUpperCase() + Spouse_Name.substring(1).toLowerCase();
+						Spouse_Name = Spouse_Name.substring(0, 1).toUpperCase() + Spouse_Name.substring(1).toLowerCase();
 					}
 					if (Sponsor_Name.length() > 1) {
-						Sponsor_Name = First_Name.substring(0, 1).toUpperCase()
+						Sponsor_Name = Spouse_Name.substring(0, 1).toUpperCase()
 								+ Sponsor_Name.substring(1).toLowerCase();
 					}
 
