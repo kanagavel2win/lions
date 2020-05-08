@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sound.sampled.Line;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lionsclub.springboot.thymeleaf.entity.Member;
+import com.lionsclub.springboot.thymeleaf.entity.MemberAsperInternational;
 import com.lionsclub.springboot.thymeleaf.entity.MemberFamily;
+import com.lionsclub.springboot.thymeleaf.service.MemberAsperInternationalService;
 import com.lionsclub.springboot.thymeleaf.service.MemberFamilyService;
 import com.lionsclub.springboot.thymeleaf.service.MemberService;
 
@@ -40,6 +43,10 @@ public class HomeController {
 
 	@Autowired
 	private MemberFamilyService memberFamilyService;
+
+	@Autowired
+	private MemberAsperInternationalService memberInternationalService;
+
 	// create a mapping for "/hello"
 
 	@GetMapping("/")
@@ -57,7 +64,7 @@ public class HomeController {
 
 		return "index";
 	}
-	
+
 	@GetMapping("/internationallionsclub")
 	public String internationalLions() {
 		return "internationlionssite";
@@ -200,6 +207,8 @@ public class HomeController {
 			model.addAttribute("status", false);
 		} else {
 
+			memberInternationalService.deleteAll();
+
 			try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 				String line = br.readLine(); // Reading header, Ignoring
 				while ((line = br.readLine()) != null && !line.isEmpty()) {
@@ -285,13 +294,14 @@ public class HomeController {
 					Date_of_Birth = Date_of_Birth.replaceAll("12:00:00 AM", "");
 					Join_Date = Join_Date.replaceAll("12:00:00 AM", "");
 					// Cell Numb
-					
+
 					// name Upper Case
 					if (First_Name.length() > 1) {
 						First_Name = First_Name.substring(0, 1).toUpperCase() + First_Name.substring(1).toLowerCase();
 					}
 					if (Middle_Name.length() > 1) {
-						Middle_Name = Middle_Name.substring(0, 1).toUpperCase() + Middle_Name.substring(1).toLowerCase();
+						Middle_Name = Middle_Name.substring(0, 1).toUpperCase()
+								+ Middle_Name.substring(1).toLowerCase();
 					}
 					if (Last_Name.length() > 1) {
 						Last_Name = Last_Name.substring(0, 1).toUpperCase() + Last_Name.substring(1).toLowerCase();
@@ -300,14 +310,9 @@ public class HomeController {
 						Spouse_Name = First_Name.substring(0, 1).toUpperCase() + Spouse_Name.substring(1).toLowerCase();
 					}
 					if (Sponsor_Name.length() > 1) {
-						Sponsor_Name = First_Name.substring(0, 1).toUpperCase() + Sponsor_Name.substring(1).toLowerCase();
+						Sponsor_Name = First_Name.substring(0, 1).toUpperCase()
+								+ Sponsor_Name.substring(1).toLowerCase();
 					}
-
-					
-					
-					
-					
-					
 
 					// ------------------------------------------------------
 					newMember.setMultiple_District_Name(Multiple_District_Name);
@@ -371,6 +376,7 @@ public class HomeController {
 						newMember.setTextColorValue("White");
 					}
 					memberService.save(newMember);
+					addInterNationalMember(newMember);
 
 				}
 
@@ -388,6 +394,61 @@ public class HomeController {
 		model.addAttribute("savestatus", false);
 
 		return "memberuploadcsv";
+	}
+
+	public void addInterNationalMember(Member newMember) {
+		MemberAsperInternational mInter = new MemberAsperInternational();
+
+		mInter.setMultiple_District_Name(newMember.getMultiple_District_Name());
+		mInter.setDistrict_Name(newMember.getDistrict_Name());
+		mInter.setRegion_Name(newMember.getRegion_Name());
+		mInter.setZone_Name(newMember.getZone_Name());
+		mInter.setTitle(newMember.getTitle());
+		mInter.setClub_ID(newMember.getClub_ID());
+		mInter.setClub_Name(newMember.getClub_Name());
+		mInter.setMemberID(newMember.getMemberID());
+		mInter.setPrefix(newMember.getPrefix());
+		mInter.setFirst_Name(newMember.getFirst_Name());
+		mInter.setMiddle_Name(newMember.getMiddle_Name());
+		mInter.setLast_Name(newMember.getLast_Name());
+		mInter.setSuffix(newMember.getSuffix());
+		mInter.setInvalid_Member_Address_Flag(newMember.getInvalid_Member_Address_Flag());
+		mInter.setMember_Address_Line_1(newMember.getMember_Address_Line_1());
+		mInter.setMember_Address_Line_2(newMember.getMember_Address_Line_2());
+		mInter.setMember_Address_Line_3(newMember.getMember_Address_Line_3());
+		mInter.setMember_Address_Line_4(newMember.getMember_Address_Line_4());
+		mInter.setMember_Address_City(newMember.getMember_Address_City());
+		mInter.setMember_Address_State(newMember.getMember_Address_State());
+		mInter.setMember_Address_Postal_Code(newMember.getMember_Address_Postal_Code());
+		mInter.setMember_Address_Country(newMember.getMember_Address_Country());
+		mInter.setInvalid_Officer_Address_Flag(newMember.getInvalid_Officer_Address_Flag());
+		mInter.setOfficer_Address_Line_1(newMember.getOfficer_Address_Line_1());
+		mInter.setOfficer_Address_Line_2(newMember.getOfficer_Address_Line_2());
+		mInter.setOfficer_Address_Line_3(newMember.getOfficer_Address_Line_3());
+		mInter.setOfficer_Address_Line_4(newMember.getOfficer_Address_Line_4());
+		mInter.setOfficer_Address_City(newMember.getOfficer_Address_City());
+		mInter.setOfficer_Address_State(newMember.getOfficer_Address_State());
+		mInter.setOfficer_Address_Postal_Code(newMember.getOfficer_Address_Postal_Code());
+		mInter.setOfficer_Address_Country(newMember.getOfficer_Address_Country());
+		mInter.setEmail(newMember.getEmail());
+		mInter.setHome_Phone(newMember.getHome_Phone());
+		mInter.setCell_Phone(newMember.getCell_Phone());
+		mInter.setFax_Number(newMember.getFamily_Unit());
+		mInter.setWork_Phone(newMember.getWork_Phone());
+		mInter.setSpouse_Name(newMember.getSpouse_Name());
+		mInter.setMembership_Type(newMember.getMembership_Type());
+		mInter.setDate_of_Birth(newMember.getDate_of_Birth());
+		mInter.setGender(newMember.getGender());
+		mInter.setNick_Name(newMember.getNick_Name());
+		mInter.setOccupation(newMember.getOccupation());
+		mInter.setJoin_Date(newMember.getJoin_Date());
+		mInter.setLife_Member(newMember.getLife_Member());
+		mInter.setFamily_Unit(newMember.getFamily_Unit());
+		mInter.setSponsor_Name(newMember.getSponsor_Name());
+		mInter.setClub_Branch_Name(newMember.getClub_Branch_Name());
+		mInter.setInternational_Discount(newMember.getInternational_Discount());
+		mInter.setInternational_Discount_Reason(newMember.getInternational_Discount_Reason());
+		memberInternationalService.save(mInter);
 	}
 
 	@GetMapping("MemberPendingInfo")
@@ -463,11 +524,10 @@ public class HomeController {
 				ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
 
 				for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
-					
-					Member m1=memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
+
+					Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
 					m1.setSpouse_Name(MemberFamilyList.get(hhif).getRelationship());
-					MemberFamilyListDetails
-							.add(m1);
+					MemberFamilyListDetails.add(m1);
 				}
 
 				Familymap.put(RptTopMemberDetails.get(hhi), MemberFamilyListDetails);
