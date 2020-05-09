@@ -314,7 +314,7 @@ public class HomeController {
 						Spouse_Name = Spouse_Name.substring(0, 1).toUpperCase() + Spouse_Name.substring(1).toLowerCase();
 					}
 					if (Sponsor_Name.length() > 1) {
-						Sponsor_Name = Spouse_Name.substring(0, 1).toUpperCase()
+						Sponsor_Name = Sponsor_Name.substring(0, 1).toUpperCase()
 								+ Sponsor_Name.substring(1).toLowerCase();
 					}
 
