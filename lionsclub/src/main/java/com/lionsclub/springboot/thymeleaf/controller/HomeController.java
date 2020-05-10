@@ -15,9 +15,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sound.sampled.Line;
 
-import org.hibernate.loader.plan.build.spi.MetamodelDrivenLoadPlanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,7 +72,21 @@ public class HomeController {
 	@GetMapping("/memberview")
 	public String rptMemberview(@RequestParam("id") int memberid, Model theModel) {
 		Member editmemberDetails = memberService.findById(memberid);
+		
+		List<MemberFamily> MemberFamilyList = memberFamilyService
+				.FamilymemberSpecific(editmemberDetails.getMemberID());
+
+		ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
+
+		for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
+
+			Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
+			m1.setSpouse_Name(MemberFamilyList.get(hhif).getRelationship());
+			MemberFamilyListDetails.add(m1);
+		}
+		
 		theModel.addAttribute("member", editmemberDetails);
+		theModel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
 		return "rptMemberview";
 	}
 
