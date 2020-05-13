@@ -4,14 +4,17 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import com.lionsclub.springboot.thymeleaf.constraint.FieldMatch;
 
+@FieldMatch.List({
+    @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
+    @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
+})
 public class UserRegistrationDto {
 
     @NotEmpty
-    private String firstName;
+    private String memberID;
 
-    @NotEmpty
-    private String lastName;
 
     @NotEmpty
     private String password;
@@ -30,21 +33,14 @@ public class UserRegistrationDto {
     @AssertTrue
     private Boolean terms;
 
-    public String getFirstName() {
-        return firstName;
+    public String getMemberID() {
+        return memberID;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setMemberID(String memberID) {
+        this.memberID = memberID;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getPassword() {
         return password;
