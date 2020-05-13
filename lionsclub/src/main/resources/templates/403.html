@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="ICC">
-<title>Lions Club - Login</title>
+<title>Access - Denied</title>
 <link rel="apple-touch-icon"
 	th:href="@{/app-assets/images/ico/apple-icon-120.png}">
 <link rel="shortcut icon" type="image/x-icon"
@@ -89,55 +89,21 @@ width: 100px;
 
 <!-- BEGIN: Body-->
 
-<body
-	class="vertical-layout vertical-menu-modern boxicon-layout no-card-shadow 1-columns  navbar-sticky footer-static  "
-	data-open="click" data-menu="vertical-menu-modern" data-col="1-columns">
+<body>
 
 
 
 	<!-- BEGIN: Content-->
-	<div class="app-content content"
-		style="background: #004b93; font-family: calibri" align="center">
+	<div class=""
+		style="background: #fff; font-family: calibri" align="center">
 		<img th:src="@{/app-assets/images/svg/logo-color.svg}" alt="LionsClub"
 			height="200" width="200">
 		<p style="color: #fff; font-size: 30px;">
 			<b>Welcome to your Lions Account</b>
 		</p>
-		<p style="color: #D1D1D1; font-size: 17px; line-height: 10px;">
-			We have a new <span style="color: #FFD700;"> Member, MyClub,
-				District</span> Login System.
-		</p>
-		<p style="color: #D1D1D1; font-size: 17px; line-height: 10px;">Your
-			MyClub Account Usernameand password allows you access</p>
-		<p style="color: #D1D1D1; font-size: 17px; line-height: 15px;">to
-			all Lions Information and service Insights.</p>
-		<p style="color: #D1D1D1; font-size: 14px; line-height: 15px;">(Lions
-			Club users who do not have a MyClub username and password - Redister
-			for Your Account Today.)</p>
-
-
+		
 		<hr style="border-style: dashed; width: 80%;" />
-		<p style="color: #FFD700;">
-			<input type="radio" class="radio radio-glow" name="radioGlow"
-				checked="" value="MEMBER"> &nbsp;&nbsp;MEMBER <input
-				type="radio" class="radiobtn" name="radioGlow" value="CLUB">&nbsp;&nbsp;
-			CLUB <input type="radio" class="radiobtn" name="radioGlow"
-				value="DISTRICT"> &nbsp;&nbsp;DISTRICT
-		</p>
-		<hr style="border-style: dashed; width: 80%;" />
-		<p style="color:#fff;">SIGN IN</p>
-		<form th:action="@{/login}" method="post">
-		<div th:if="${param.error}">
-						<div class="alert alert-danger">Invalid username or
-							password.</div>
-					</div>
-					<div th:if="${param.logout}">
-						<div class="alert alert-info">You have been logged out.</div>
-					</div>
-		<input type="text" class="txtbox"   name="username"  placeholder="Username : Ln_123456" /><br/><br/>
-		<input type="text" class="txtbox"   name="password"  placeholder="Passsword : 123456" /><br/><br/>
-		<input type="submit"   value="SIGN IN" class="btn_login" />
-		</form>
+		<p style="color:red;font-size: 40px;">Access Denied</p>
 	<hr style="border-style: dashed; width: 80%;" />
 	<br/><br/><br/><br/>
 
@@ -149,17 +115,7 @@ width: 100px;
 	<div class="sidenav-overlay"></div>
 	<div class="drag-target"></div>
 
-	<!-- BEGIN: Footer-->
-	<footer class="footer footer-static footer-light">
-		<p class="clearfix mb-0">
-			<span class="float-left d-inline-block"></span><span
-				class="float-right d-sm-inline-block d-none">Copy Right @
-				Lions Clubs - District 324 B1 | PRIVACY POLICY</span>
-			<button class="btn btn-primary btn-icon scroll-top" type="button">
-				<i class="bx bx-up-arrow-alt"></i>
-			</button>
-		</p>
-	</footer>
+	
 	<!-- END: Footer-->
 
 

@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -17,6 +18,8 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,17 +54,45 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model theModel) {
 
-		theModel.addAttribute("theDate", new java.util.Date());
+		if (logintype("ROLE_MEMBER")) {
+			return "index";
+		} else if (logintype("ROLE_CLUBADMIN")) {
+			return "index";
+		} else {
+			return "redirect:logout";
+		}
+	}
 
-		return "index";
+	private boolean logintype(String expectedrole) {
+
+		@SuppressWarnings("unchecked")
+		List<SimpleGrantedAuthority> authorities = (List<SimpleGrantedAuthority>) SecurityContextHolder.getContext()
+				.getAuthentication().getAuthorities();
+
+		boolean RoleStatus = false;
+
+		for (SimpleGrantedAuthority simpleGrantedAuthority : authorities) {
+
+			if (simpleGrantedAuthority.getAuthority().toString().contains( expectedrole)) {
+				RoleStatus = true;
+			}
+		}
+
+		return RoleStatus;
+
 	}
 
 	@GetMapping("/index")
 	public String index(Model theModel) {
 
-		theModel.addAttribute("theDate", new java.util.Date());
+		if (logintype("ROLE_MEMBER")) {
+			return "index";
+		} else if (logintype("ROLE_CLUBADMIN")) {
+			return "index";
+		} else {
+			return "redirect:logout";
+		}
 
-		return "index";
 	}
 
 	@GetMapping("/internationallionsclub")
@@ -72,9 +103,8 @@ public class HomeController {
 	@GetMapping("/memberview")
 	public String rptMemberview(@RequestParam("id") int memberid, Model theModel) {
 		Member editmemberDetails = memberService.findById(memberid);
-		
-		List<MemberFamily> MemberFamilyList = memberFamilyService
-				.FamilymemberSpecific(editmemberDetails.getMemberID());
+
+		List<MemberFamily> MemberFamilyList = memberFamilyService.FamilymemberSpecific(editmemberDetails.getMemberID());
 
 		ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
 
@@ -84,7 +114,7 @@ public class HomeController {
 			m1.setSpouse_Name(MemberFamilyList.get(hhif).getRelationship());
 			MemberFamilyListDetails.add(m1);
 		}
-		
+
 		theModel.addAttribute("member", editmemberDetails);
 		theModel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
 		return "rptMemberview";
@@ -293,15 +323,15 @@ public class HomeController {
 					// ------------------------------------------------------------------------------------
 					Member newMember;
 					List<Member> editmemberDetails = memberService.findByMemberID(memberIDcvs);
-					
-					boolean oldmemberstatus=false;
-					
+
+					boolean oldmemberstatus = false;
+
 					if (editmemberDetails.isEmpty()) {
 						newMember = new Member();
 						newMemberIDdetailsCount = newMemberIDdetailsCount + 1;
-						
+
 					} else {
-						oldmemberstatus=true;
+						oldmemberstatus = true;
 						newMember = editmemberDetails.get(0);
 					}
 
@@ -323,7 +353,8 @@ public class HomeController {
 						Last_Name = Last_Name.substring(0, 1).toUpperCase() + Last_Name.substring(1).toLowerCase();
 					}
 					if (Spouse_Name.length() > 1) {
-						Spouse_Name = Spouse_Name.substring(0, 1).toUpperCase() + Spouse_Name.substring(1).toLowerCase();
+						Spouse_Name = Spouse_Name.substring(0, 1).toUpperCase()
+								+ Spouse_Name.substring(1).toLowerCase();
 					}
 					if (Sponsor_Name.length() > 1) {
 						Sponsor_Name = Sponsor_Name.substring(0, 1).toUpperCase()
@@ -391,9 +422,8 @@ public class HomeController {
 					if (newMember.getTextColorValue() == "" || newMember.getTextColorValue() == null) {
 						newMember.setTextColorValue("White");
 					}
-					
-					if(oldmemberstatus==false)
-					{
+
+					if (oldmemberstatus == false) {
 						memberService.save(newMember);
 					}
 					addInterNationalMember(newMember);
@@ -706,24 +736,39 @@ public class HomeController {
 				&& mIt.getMiddle_Name().toString().equalsIgnoreCase(mLoc.getMiddle_Name().toString())
 				&& mIt.getLast_Name().toString().equalsIgnoreCase(mLoc.getLast_Name().toString())
 				&& mIt.getSuffix().toString().equalsIgnoreCase(mLoc.getSuffix().toString())
-				&& mIt.getInvalid_Member_Address_Flag().toString().equalsIgnoreCase(mLoc.getInvalid_Member_Address_Flag().toString())
-				&& mIt.getMember_Address_Line_1().toString().equalsIgnoreCase(mLoc.getMember_Address_Line_1().toString())
-				&& mIt.getMember_Address_Line_2().toString().equalsIgnoreCase(mLoc.getMember_Address_Line_2().toString())
-				&& mIt.getMember_Address_Line_3().toString().equalsIgnoreCase(mLoc.getMember_Address_Line_3().toString())
-				&& mIt.getMember_Address_Line_4().toString().equalsIgnoreCase(mLoc.getMember_Address_Line_4().toString())
+				&& mIt.getInvalid_Member_Address_Flag().toString()
+						.equalsIgnoreCase(mLoc.getInvalid_Member_Address_Flag().toString())
+				&& mIt.getMember_Address_Line_1().toString()
+						.equalsIgnoreCase(mLoc.getMember_Address_Line_1().toString())
+				&& mIt.getMember_Address_Line_2().toString()
+						.equalsIgnoreCase(mLoc.getMember_Address_Line_2().toString())
+				&& mIt.getMember_Address_Line_3().toString()
+						.equalsIgnoreCase(mLoc.getMember_Address_Line_3().toString())
+				&& mIt.getMember_Address_Line_4().toString()
+						.equalsIgnoreCase(mLoc.getMember_Address_Line_4().toString())
 				&& mIt.getMember_Address_City().toString().equalsIgnoreCase(mLoc.getMember_Address_City().toString())
 				&& mIt.getMember_Address_State().toString().equalsIgnoreCase(mLoc.getMember_Address_State().toString())
-				&& mIt.getMember_Address_Postal_Code().toString().equalsIgnoreCase(mLoc.getMember_Address_Postal_Code().toString())
-				&& mIt.getMember_Address_Country().toString().equalsIgnoreCase(mLoc.getMember_Address_Country().toString())
-				&& mIt.getInvalid_Officer_Address_Flag().toString().equalsIgnoreCase(mLoc.getInvalid_Officer_Address_Flag().toString())
-				&& mIt.getOfficer_Address_Line_1().toString().equalsIgnoreCase(mLoc.getOfficer_Address_Line_1().toString())
-				&& mIt.getOfficer_Address_Line_2().toString().equalsIgnoreCase(mLoc.getOfficer_Address_Line_2().toString())
-				&& mIt.getOfficer_Address_Line_3().toString().equalsIgnoreCase(mLoc.getOfficer_Address_Line_3().toString())
-				&& mIt.getOfficer_Address_Line_4().toString().equalsIgnoreCase(mLoc.getOfficer_Address_Line_4().toString())
+				&& mIt.getMember_Address_Postal_Code().toString()
+						.equalsIgnoreCase(mLoc.getMember_Address_Postal_Code().toString())
+				&& mIt.getMember_Address_Country().toString()
+						.equalsIgnoreCase(mLoc.getMember_Address_Country().toString())
+				&& mIt.getInvalid_Officer_Address_Flag().toString()
+						.equalsIgnoreCase(mLoc.getInvalid_Officer_Address_Flag().toString())
+				&& mIt.getOfficer_Address_Line_1().toString()
+						.equalsIgnoreCase(mLoc.getOfficer_Address_Line_1().toString())
+				&& mIt.getOfficer_Address_Line_2().toString()
+						.equalsIgnoreCase(mLoc.getOfficer_Address_Line_2().toString())
+				&& mIt.getOfficer_Address_Line_3().toString()
+						.equalsIgnoreCase(mLoc.getOfficer_Address_Line_3().toString())
+				&& mIt.getOfficer_Address_Line_4().toString()
+						.equalsIgnoreCase(mLoc.getOfficer_Address_Line_4().toString())
 				&& mIt.getOfficer_Address_City().toString().equalsIgnoreCase(mLoc.getOfficer_Address_City().toString())
-				&& mIt.getOfficer_Address_State().toString().equalsIgnoreCase(mLoc.getOfficer_Address_State().toString())
-				&& mIt.getOfficer_Address_Postal_Code().toString().equalsIgnoreCase(mLoc.getOfficer_Address_Postal_Code().toString())
-				&& mIt.getOfficer_Address_Country().toString().equalsIgnoreCase(mLoc.getOfficer_Address_Country().toString())
+				&& mIt.getOfficer_Address_State().toString()
+						.equalsIgnoreCase(mLoc.getOfficer_Address_State().toString())
+				&& mIt.getOfficer_Address_Postal_Code().toString()
+						.equalsIgnoreCase(mLoc.getOfficer_Address_Postal_Code().toString())
+				&& mIt.getOfficer_Address_Country().toString()
+						.equalsIgnoreCase(mLoc.getOfficer_Address_Country().toString())
 				&& mIt.getEmail().toString().equalsIgnoreCase(mLoc.getEmail().toString())
 				&& mIt.getHome_Phone().toString().equalsIgnoreCase(mLoc.getHome_Phone().toString())
 				&& mIt.getCell_Phone().toString().equalsIgnoreCase(mLoc.getCell_Phone().toString())
@@ -740,8 +785,10 @@ public class HomeController {
 				&& mIt.getFamily_Unit().toString().equalsIgnoreCase(mLoc.getFamily_Unit().toString())
 				&& mIt.getSponsor_Name().toString().equalsIgnoreCase(mLoc.getSponsor_Name().toString())
 				&& mIt.getClub_Branch_Name().toString().equalsIgnoreCase(mLoc.getClub_Branch_Name().toString())
-				&& mIt.getInternational_Discount().toString().equalsIgnoreCase(mLoc.getInternational_Discount().toString())
-				&& mIt.getInternational_Discount_Reason().toString().equalsIgnoreCase(mLoc.getInternational_Discount_Reason().toString())) {
+				&& mIt.getInternational_Discount().toString()
+						.equalsIgnoreCase(mLoc.getInternational_Discount().toString())
+				&& mIt.getInternational_Discount_Reason().toString()
+						.equalsIgnoreCase(mLoc.getInternational_Discount_Reason().toString())) {
 			return false;
 
 		} else {
@@ -754,6 +801,12 @@ public class HomeController {
 	public String login(Model model) {
 
 		return "login";
+	}
+
+	@GetMapping("403")
+	public String accessDenied(Model model) {
+
+		return "403";
 	}
 
 }
