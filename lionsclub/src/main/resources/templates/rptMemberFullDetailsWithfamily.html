@@ -97,26 +97,25 @@ table thead th {
 	font-family: calibri;
 	font-weight: bold;
 }
-.fnameTable
-{
-  width: 400px;
-  min-width: 400px;
+
+.fnameTable {
+	width: 400px;
+	min-width: 400px;
 }
 
-.fmemberno
-{
-
+.fmemberno {
+	
 }
-.fmembername{
+
+.fmembername {
 	color: #CD2626;
 	font-size: 16px;
 	font-weight: bold;
-	
 }
-.fmembersname{
+
+.fmembersname {
 	color: #000000;
 	font-size: 17px;
-	
 }
 </style>
 
@@ -209,48 +208,69 @@ table thead th {
 							</td>
 						</tr>
 
-					</table> 
-					
-					<span th:if="${member.Family_Unit=='Head of Household'}">
+					</table> <span th:if="${member.Family_Unit=='Head of Household'}">
 						<table border="1px" width="98%" align="left" cellspacing='0px'
 							style="font-size: 16px; margin-left: 10px; background: #fff;">
 							<tr>
-								<td align="center" th:style="'background-color:' + @{${member['bgColorValue']}} +' ; color:' + @{${member['TextColorValue']}} +' ; width:100%;'">FAMILY MEMBERS</td>							
+								<td align="center"
+									th:style="'background-color:' + @{${member['bgColorValue']}} +' ; color:' + @{${member['TextColorValue']}} +' ; width:100%;'">FAMILY
+									MEMBERS</td>
 							</tr>
 							<tr>
-								<td>
-									
-									<span th:each="memberfamilyarr : ${membermaster.value}">
+								<td><span th:each="memberfamilyarr : ${membermaster.value}">
 										<span th:each="memberfamily : ${memberfamilyarr}">
-										
-										<div style="float: left;">
-											<table class="fnameTable">
-												<tr>
-													<td rowspan="4" style="min-width:150px	; width: 150px; " align="right"><img
-								th:src="${memberfamily.ProfileImg}"
-								style="width: 100px; height: 100px;" /></td>
-												</tr>
-												<tr>
-													<td class="fmemberno">M.No. <span th:text="${memberfamily.MemberID}"></span></td>
-												</tr>
-												<tr>
-													<td class="fmembername"><span th:text="${memberfamily['First_Name']} + ' ' +${memberfamily['Last_Name']}"></span></td>
-												</tr>
-												<tr>
-													<td class="fmembersname"><span th:text="${memberfamily.Spouse_Name}"></span></td>
-												</tr>
-												
-											</table>
-											
-										</div>
-										
-									</span>	
-									</span>								
-								</td>
+
+											<div style="float: left;">
+												<table class="fnameTable">
+													<tr>
+														<td rowspan="4" style="min-width: 150px; width: 150px;"
+															align="right"><img
+															th:src="${memberfamily.ProfileImg}"
+															style="width: 100px; height: 100px;" /></td>
+													</tr>
+													<tr>
+														<td class="fmemberno">M.No. <span
+															th:text="${memberfamily.MemberID}"></span></td>
+													</tr>
+													<tr>
+														<td class="fmembername"><span
+															th:text="${memberfamily['First_Name']} + ' ' +${memberfamily['Last_Name']}"></span></td>
+													</tr>
+													<tr>
+														<td class="fmembersname"><span class="memberemail"
+															th:if="${memberfamily['Email'] !=''}"> <i
+																class="bx bx-mail-send"></i> &nbsp;&nbsp; &nbsp; : <span
+																th:text="${memberfamily['Email']}">Email </span><br /></span> <span
+															class="memberemail"
+															th:if="${memberfamily['Date_of_Birth']}">DOB
+																&nbsp;:&nbsp; <span th:text="${memberfamily['Date_of_Birth']}">Date_of_Birth
+															</span>
+														</span> <span class="memberemail"
+															th:if="${memberfamily['WeddingDate']}"> W/D
+																&nbsp;:&nbsp; <span th:text="${memberfamily['WeddingDate']}">WeddingDate
+															</span>
+														</span> <br /> <span th:if="${memberfamily['Member_BloodGroup']}">
+																<i class="bx bxs-droplet"></i> &nbsp; <span
+																th:text="${memberfamily['Member_BloodGroup']}">Member_BloodGroup
+															</span>
+														</span> <span class="memberemail"
+															th:if="${memberfamily['Spouse_Name'] !=''}"> <i
+																class="bx bxs-group"></i>  &nbsp;&nbsp; &nbsp;: <span
+																th:text="${memberfamily['Spouse_Name']}">Spouse_Name </span>
+														</span> <br /></td>
+
+													</tr>
+
+												</table>
+
+											</div>
+
+									</span>
+								</span></td>
 							</tr>
 						</table>
-						
-					</span>
+
+				</span>
 			</span>
 			</span>
 
@@ -289,18 +309,18 @@ table thead th {
 							th:if="${member['Email'] !=''}"> <i
 								class="bx bx-mail-send"></i> &nbsp; <span
 								th:text="${member['Email']}">Email </span><br /></span> <span
-							class="memberemail" th:if="${member['Date_of_Birth'] !=''}">D/B
+							class="memberemail" th:if="${member['Date_of_Birth']}">DOB
 								&nbsp;:&nbsp; <span th:text="${member['Date_of_Birth']}">Date_of_Birth
 							</span>
-						</span> <span class="memberemail" th:if="${member['WeddingDate'] !=''}">
+						</span> <span class="memberemail" th:if="${member['WeddingDate']}">
 								W/D &nbsp;:&nbsp; <span th:text="${member['WeddingDate']}">WeddingDate
 							</span>
-						</span> <br /> <span th:if="${member['Member_BloodGroup'] !=''}">
+						</span> <br /> <span th:if="${member['Member_BloodGroup'] }">
 								<i class="bx bxs-droplet"></i> &nbsp; <span
 								th:text="${member['Member_BloodGroup']}">Member_BloodGroup
 							</span>
 						</span> <span class="memberemail" th:if="${member['Spouse_Name'] !=''}">
-								<i class="bx bxs-group"></i> &nbsp; <span
+								<i class="bx bxs-group"></i>  &nbsp;:&nbsp; <span
 								th:text="${member['Spouse_Name']}">Spouse_Name </span>
 						</span> <br /></td>
 

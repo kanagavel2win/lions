@@ -233,25 +233,46 @@ table thead th {
 
 								<div style="float: left;">
 									<table class="fnameTable">
-										<tr>
-											<td rowspan="4" style="min-width: 150px; width: 150px;"
-												align="right"><img th:src="${memberfamily.ProfileImg}"
-												style="width: 100px; height: 100px;" /></td>
-										</tr>
-										<tr>
-											<td class="fmemberno">M.No. <span
-												th:text="${memberfamily.MemberID}"></span></td>
-										</tr>
-										<tr>
-											<td class="fmembername"><span
-												th:text="${memberfamily['First_Name']} + ' ' +${memberfamily['Last_Name']}"></span></td>
-										</tr>
-										<tr>
-											<td class="fmembersname"><span
-												th:text="${memberfamily.Spouse_Name}"></span></td>
-										</tr>
+													<tr>
+														<td rowspan="4" style="min-width: 150px; width: 150px;"
+															align="right"><img
+															th:src="${memberfamily.ProfileImg}"
+															style="width: 100px; height: 100px;" /></td>
+													</tr>
+													<tr>
+														<td class="fmemberno">M.No. <span
+															th:text="${memberfamily.MemberID}"></span></td>
+													</tr>
+													<tr>
+														<td class="fmembername"><span
+															th:text="${memberfamily['First_Name']} + ' ' +${memberfamily['Last_Name']}"></span></td>
+													</tr>
+													<tr>
+														<td class="fmembersname"><span class="memberemail"
+															th:if="${memberfamily['Email'] !=''}"> <i
+																class="bx bx-mail-send"></i> &nbsp;&nbsp; &nbsp; : <span
+																th:text="${memberfamily['Email']}">Email </span><br /></span> <span
+															class="memberemail"
+															th:if="${memberfamily['Date_of_Birth']}">DOB
+																&nbsp;:&nbsp; <span th:text="${memberfamily['Date_of_Birth']}">Date_of_Birth
+															</span>
+														</span> <span class="memberemail"
+															th:if="${memberfamily['WeddingDate']}"> W/D
+																&nbsp;:&nbsp; <span th:text="${memberfamily['WeddingDate']}">WeddingDate
+															</span>
+														</span> <br /> <span th:if="${memberfamily['Member_BloodGroup']}">
+																<i class="bx bxs-droplet"></i> &nbsp; <span
+																th:text="${memberfamily['Member_BloodGroup']}">Member_BloodGroup
+															</span>
+														</span> <span class="memberemail"
+															th:if="${memberfamily['Spouse_Name'] !=''}"> <i
+																class="bx bxs-group"></i>  &nbsp;&nbsp; &nbsp;: <span
+																th:text="${memberfamily['Spouse_Name']}">Spouse_Name </span>
+														</span> <br /></td>
 
-									</table>
+													</tr>
+
+												</table>
 
 								</div>
 
