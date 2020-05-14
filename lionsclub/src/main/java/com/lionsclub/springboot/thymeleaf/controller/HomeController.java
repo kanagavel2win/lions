@@ -342,7 +342,7 @@ public class HomeController {
 					// Cell Numb
 
 					// name Upper Case
-					if (First_Name.length() > 1) {
+					/*if (First_Name.length() > 1) {
 						First_Name = First_Name.substring(0, 1).toUpperCase() + First_Name.substring(1).toLowerCase();
 					}
 					if (Middle_Name.length() > 1) {
@@ -359,7 +359,7 @@ public class HomeController {
 					if (Sponsor_Name.length() > 1) {
 						Sponsor_Name = Sponsor_Name.substring(0, 1).toUpperCase()
 								+ Sponsor_Name.substring(1).toLowerCase();
-					}
+					}*/
 
 					// ------------------------------------------------------
 					newMember.setMultiple_District_Name(Multiple_District_Name);
