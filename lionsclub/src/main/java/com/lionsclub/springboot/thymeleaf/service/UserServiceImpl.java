@@ -30,6 +30,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
+    @Override
+	public User findByMemberID(String memberID) {
+		return userRepository.findByMemberID(memberID);
+	}
+
+
+    
     public User save(UserRegistrationDto registration){
         User user = new User();
         user.setmemberID(registration.getMemberID());
@@ -44,6 +51,12 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(email);
         if (user == null){
             throw new UsernameNotFoundException("Invalid username or password.");
+        }else
+        {
+        
+        	
+    		 
+    		
         }
         
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
@@ -57,5 +70,5 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-	
+		
 }

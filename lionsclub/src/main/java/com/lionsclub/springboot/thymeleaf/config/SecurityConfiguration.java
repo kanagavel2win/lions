@@ -48,6 +48,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers("/ReportBloodGroup").access("hasRole('ROLE_CLUBADMIN')")
                     .antMatchers("/ReportDifferentIntvslocal").access("hasRole('ROLE_CLUBADMIN')")
                     .antMatchers("/memberFamilyDelete").access("hasRole('ROLE_CLUBADMIN')")
+                    
+                    //Member Access
+                    .antMatchers("/ReportDifferentIntvslocalRoleMember").access("hasRole('ROLE_MEMBER')")
+                    .antMatchers("/membereditRoleMember").access("hasRole('ROLE_MEMBER')")
+                    .antMatchers("/MemberviewRoleMember").access("hasRole('ROLE_MEMBER')")
                     //.antMatchers("/index").access("hasRole('ROLE_MEMBER')")
                     .anyRequest().authenticated()
                 .and()

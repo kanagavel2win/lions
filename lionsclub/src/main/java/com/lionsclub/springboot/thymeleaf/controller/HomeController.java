@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -18,6 +17,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,9 +29,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.lionsclub.springboot.thymeleaf.dao.UserRepository;
 import com.lionsclub.springboot.thymeleaf.entity.Member;
 import com.lionsclub.springboot.thymeleaf.entity.MemberAsperInternational;
 import com.lionsclub.springboot.thymeleaf.entity.MemberFamily;
+import com.lionsclub.springboot.thymeleaf.entity.User;
 import com.lionsclub.springboot.thymeleaf.service.MemberAsperInternationalService;
 import com.lionsclub.springboot.thymeleaf.service.MemberFamilyService;
 import com.lionsclub.springboot.thymeleaf.service.MemberService;
@@ -49,13 +51,16 @@ public class HomeController {
 	@Autowired
 	private MemberAsperInternationalService memberInternationalService;
 
-	// create a mapping for "/hello"
+	@Autowired
+	private UserRepository userRepository;
 
 	@GetMapping("/")
 	public String home(Model theModel) {
 
 		if (logintype("ROLE_MEMBER")) {
-			return "index";
+			
+			theModel.addAttribute("MemberID",getLoginMemberID());
+			return "indexMember";
 		} else if (logintype("ROLE_CLUBADMIN")) {
 			return "index";
 		} else {
@@ -73,7 +78,7 @@ public class HomeController {
 
 		for (SimpleGrantedAuthority simpleGrantedAuthority : authorities) {
 
-			if (simpleGrantedAuthority.getAuthority().toString().contains( expectedrole)) {
+			if (simpleGrantedAuthority.getAuthority().toString().contains(expectedrole)) {
 				RoleStatus = true;
 			}
 		}
@@ -82,11 +87,21 @@ public class HomeController {
 
 	}
 
+	public String getLoginMemberID() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user2 = userRepository.findByEmail(currentPrincipalName);
+		return user2.getmemberID();
+
+	}
+
 	@GetMapping("/index")
 	public String index(Model theModel) {
 
 		if (logintype("ROLE_MEMBER")) {
-			return "index";
+			theModel.addAttribute("MemberID",getLoginMemberID());
+			return "indexMember";
 		} else if (logintype("ROLE_CLUBADMIN")) {
 			return "index";
 		} else {
@@ -111,7 +126,7 @@ public class HomeController {
 		for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
 
 			Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
-			
+
 			MemberFamilyListDetails.add(m1);
 		}
 
@@ -342,24 +357,18 @@ public class HomeController {
 					// Cell Numb
 
 					// name Upper Case
-					/*if (First_Name.length() > 1) {
-						First_Name = First_Name.substring(0, 1).toUpperCase() + First_Name.substring(1).toLowerCase();
-					}
-					if (Middle_Name.length() > 1) {
-						Middle_Name = Middle_Name.substring(0, 1).toUpperCase()
-								+ Middle_Name.substring(1).toLowerCase();
-					}
-					if (Last_Name.length() > 1) {
-						Last_Name = Last_Name.substring(0, 1).toUpperCase() + Last_Name.substring(1).toLowerCase();
-					}
-					if (Spouse_Name.length() > 1) {
-						Spouse_Name = Spouse_Name.substring(0, 1).toUpperCase()
-								+ Spouse_Name.substring(1).toLowerCase();
-					}
-					if (Sponsor_Name.length() > 1) {
-						Sponsor_Name = Sponsor_Name.substring(0, 1).toUpperCase()
-								+ Sponsor_Name.substring(1).toLowerCase();
-					}*/
+					/*
+					 * if (First_Name.length() > 1) { First_Name = First_Name.substring(0,
+					 * 1).toUpperCase() + First_Name.substring(1).toLowerCase(); } if
+					 * (Middle_Name.length() > 1) { Middle_Name = Middle_Name.substring(0,
+					 * 1).toUpperCase() + Middle_Name.substring(1).toLowerCase(); } if
+					 * (Last_Name.length() > 1) { Last_Name = Last_Name.substring(0,
+					 * 1).toUpperCase() + Last_Name.substring(1).toLowerCase(); } if
+					 * (Spouse_Name.length() > 1) { Spouse_Name = Spouse_Name.substring(0,
+					 * 1).toUpperCase() + Spouse_Name.substring(1).toLowerCase(); } if
+					 * (Sponsor_Name.length() > 1) { Sponsor_Name = Sponsor_Name.substring(0,
+					 * 1).toUpperCase() + Sponsor_Name.substring(1).toLowerCase(); }
+					 */
 
 					// ------------------------------------------------------
 					newMember.setMultiple_District_Name(Multiple_District_Name);
@@ -576,7 +585,7 @@ public class HomeController {
 				for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
 
 					Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
-					//m1.setSpouse_Name(MemberFamilyList.get(hhif).getRelationship());
+					// m1.setSpouse_Name(MemberFamilyList.get(hhif).getRelationship());
 					MemberFamilyListDetails.add(m1);
 				}
 
@@ -710,9 +719,9 @@ public class HomeController {
 
 			Member m1 = memberService.findByMemberID(internationmemberList.get(i).getMemberID()).get(0);
 
-			if (compareLocalAndInter(internationmemberList.get(i), m1)) {
+			//if (compareLocalAndInter(internationmemberList.get(i), m1)) {
 				compareMember.put(internationmemberList.get(i), m1);
-			}
+			//}
 
 		}
 
@@ -720,8 +729,10 @@ public class HomeController {
 
 		return "rptMemberDiffDB";
 	}
+	
+	
 
-	private boolean compareLocalAndInter(MemberAsperInternational mIt, Member mLoc) {
+	/*private boolean compareLocalAndInter(MemberAsperInternational mIt, Member mLoc) {
 
 		if (mIt.getMultiple_District_Name().toString().equalsIgnoreCase(mLoc.getMultiple_District_Name().toString())
 				&& mIt.getDistrict_Name().toString().equalsIgnoreCase(mLoc.getDistrict_Name().toString())
@@ -796,7 +807,7 @@ public class HomeController {
 		}
 
 	}
-
+*/
 	@GetMapping("login")
 	public String login(Model model) {
 

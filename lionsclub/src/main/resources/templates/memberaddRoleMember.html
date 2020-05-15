@@ -72,7 +72,7 @@
 
 
 	<!-- BEGIN: Main Menu-->
-	<div th:insert="menu"></div>
+	<div th:insert="menuMember"></div>
 	<!-- END: Main Menu-->
 
 	<!-- BEGIN: Content-->
@@ -111,7 +111,7 @@
 								</div>
 								<div class="card-content mt-2">
 									<div class="card-body">
-										<form th:action="@{/memberedit}" th:object="${members}"
+										<form th:action="@{/membereditRoleMember}" th:object="${members}"
 											method="POST" class="wizard-horizontal"
 											enctype="multipart/form-data">
 											<!-- body content step 1 -->
@@ -122,7 +122,7 @@
 															style="width: 100px; height: 100px;" /> <br /> <br />&nbsp;
 													</div>
 													<div class="col-6">
-														<a style="background: #C7C7C7; color:#000; padding: 5px;"  th:href="'memberview?id=' + @{{id} (id=${members['id']})}"><i class="bx bx-search" style="font-size:19px; ma"></i>&nbsp;&nbsp;&nbsp;Goto - Profile Preview</a>
+														<a style="background: #C7C7C7; color:#000; padding: 5px;"  th:href="MemberviewRoleMember"><i class="bx bx-search" style="font-size:19px; ma"></i>&nbsp;&nbsp;&nbsp;Goto - Profile Preview</a>
 													</div>
 
 													<div class="col-sm-6">

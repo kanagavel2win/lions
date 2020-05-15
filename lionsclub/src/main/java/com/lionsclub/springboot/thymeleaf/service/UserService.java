@@ -9,6 +9,7 @@ import com.lionsclub.springboot.thymeleaf.entity.UserRegistrationDto;
 public interface UserService extends UserDetailsService {
 
     User findByEmail(String email);
+    User findByMemberID(String memberID);
 
     User save(UserRegistrationDto registration);
 }
