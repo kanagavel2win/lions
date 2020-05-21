@@ -16,4 +16,6 @@ public interface MemberAsperInternationalService {
 	public void deleteById(int theId);
 
 	public void deleteAll();
+	
+	public List<MemberAsperInternational> findMemberID(String memberid);
 }

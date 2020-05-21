@@ -127,21 +127,42 @@
 
 						<td style="min-width:300px;"><span class="memberstyle"> <br /> <span
 								th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">
-							</span><br /></span> <span class="memberaddline1"
-							th:if="${member['Member_Address_Line_1'] !=''}"><span
-								th:text="${member['Member_Address_Line_1']}"> Address
-									Line 1 </span></span> <span class="memberaddressLine2"
-							th:if="${member['Member_Address_Line_2'] !=''}"><span
-								th:text="${member['Member_Address_Line_2']}">Address Line
-									2 </span><br /></span> <span class="membercityPincode"
-							th:if="${member['Member_Address_City'] !=''}"><span
-								th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
-									- Pincode </span><br /></span> 
-									
+							</span><br /></span> 
+
+<span th:if="${member.Rptaddresstype} == 'Home Address'">
+									<span class="memberaddline1"
+						th:if="${member['Member_Address_Line_1'] !=''}"><span
+							th:text="${member.Member_Address_Line_1}"> Address Line
+								1 </span></span> <span class="memberaddressLine2"
+						th:if="${member['Member_Address_Line_2'] !=''}"><span
+							th:text="${member['Member_Address_Line_2']}">Address Line
+								2 </span><br /></span> <span class="membercityPincode"
+						th:if="${member['Member_Address_City'] !=''}"><span
+							th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
+								- Pincode </span><br /></span>
+							</span>
+							<span th:if="${member.Rptaddresstype} != 'Home Address'">
+							
+									<span class="memberaddline1"
+						th:if="${member['Officer_Address_Line_1'] !=''}"><span
+							th:text="${member['Officer_Address_Line_1']}"> Address Line
+								1 </span></span> <span class="memberaddressLine2"
+						th:if="${member['Officer_Address_Line_2'] !=''}"><span
+							th:text="${member['Officer_Address_Line_2']}">Address Line
+								2 </span><br /></span> <span class="membercityPincode"
+						th:if="${member['Officer_Address_City'] !=''}"><span
+							th:text="${member['Officer_Address_City']} + ' - ' + ${member['Officer_Address_Postal_Code']}">City
+								- Pincode </span><br /></span>
+							</span>
+					 
 									<b>
 									<span class="membermoboff_no"
 							th:if="${member['Cell_Phone'] !=''}"> <i
-								class="bx bx-phone-call"></i> &nbsp; <span
+								class="bx bx-phone-call"></i> &nbsp; 
+								<span
+										th:text="${member['Home_Phone']}">Mobile Number- Office
+											Number</span>  | 
+								<span
 								th:text="${member['Cell_Phone']}">Mobile NUmber- Office
 									Number</span> <br /></span> 
 									</b>
@@ -215,17 +236,37 @@
 				</tr>
 				<tr>
 
-					<td style="min-width: 300px;"><span class="memberName"> <span
-							class="memberaddline1"
-							th:if="${member['Member_Address_Line_1'] !=''}"><span
-								th:text="${member['Member_Address_Line_1']}"> Address
-									Line 1 </span></span> <span class="memberaddressLine2"
-							th:if="${member['Member_Address_Line_2'] !=''}"><span
-								th:text="${member['Member_Address_Line_2']}">Address Line
-									2 </span><br /></span> <span class="membercityPincode"
-							th:if="${member['Member_Address_City'] !=''}"><span
-								th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
-									- Pincode </span><br /></span> <span class="memberemail"
+					<td style="min-width: 300px;"><span class="memberName">
+					
+					
+					<span th:if="${member.Rptaddresstype} == 'Home Address'">
+									<span class="memberaddline1"
+						th:if="${member['Member_Address_Line_1'] !=''}"><span
+							th:text="${member.Member_Address_Line_1}"> Address Line
+								1 </span></span> <span class="memberaddressLine2"
+						th:if="${member['Member_Address_Line_2'] !=''}"><span
+							th:text="${member['Member_Address_Line_2']}">Address Line
+								2 </span><br /></span> <span class="membercityPincode"
+						th:if="${member['Member_Address_City'] !=''}"><span
+							th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
+								- Pincode </span><br /></span>
+							</span>
+							<span th:if="${member.Rptaddresstype} != 'Home Address'">
+							
+									<span class="memberaddline1"
+						th:if="${member['Officer_Address_Line_1'] !=''}"><span
+							th:text="${member['Officer_Address_Line_1']}"> Address Line
+								1 </span></span> <span class="memberaddressLine2"
+						th:if="${member['Officer_Address_Line_2'] !=''}"><span
+							th:text="${member['Officer_Address_Line_2']}">Address Line
+								2 </span><br /></span> <span class="membercityPincode"
+						th:if="${member['Officer_Address_City'] !=''}"><span
+							th:text="${member['Officer_Address_City']} + ' - ' + ${member['Officer_Address_Postal_Code']}">City
+								- Pincode </span><br /></span>
+							</span>
+					 
+					
+					<span class="memberemail"
 							th:if="${member['Email'] !=''}"> <i
 								class="bx bx-mail-send"></i> &nbsp; <span
 								th:text="${member['Email']}">Email </span><br /></span>
@@ -261,7 +302,12 @@
 							<tr>
 								<td  align="center"><span class="membermoboff_no"
 									th:if="${member['Cell_Phone'] !=''}"> <i
-										class="bx bx-phone-call"></i> &nbsp; <span
+										class="bx bx-phone-call"></i> &nbsp;
+										<span
+										th:text="${member['Home_Phone']}">Mobile Number- Office
+											Number</span>  | 
+										
+										 <span
 										th:text="${member['Cell_Phone']}">Mobile Number- Office
 											Number</span> <br /></span></td>
 							</tr>

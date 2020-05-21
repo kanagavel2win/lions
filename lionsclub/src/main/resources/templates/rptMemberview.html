@@ -134,7 +134,8 @@ table thead th {
 <body style="background: #fff;">
 
 	<hr />
-	<a href="index"><input class="btn btn-primary" value=" << Back To Home" style="cursor: pointer; width: 200px;"/></a>
+	<a href="index"><input class="btn btn-primary"
+		value=" << Back To Home" style="cursor: pointer; width: 200px;" /></a>
 	<hr />
 	Report Preview (Booklet) :
 	<!-- -->
@@ -157,18 +158,46 @@ table thead th {
 							<br /> <span
 							th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">
 						</span><br />
-					</span> <span class="memberaddline1"
+					</span> 
+					
+					
+							<span th:if="${member.Rptaddresstype} == 'Home Address'">
+									<span class="memberaddline1"
 						th:if="${member['Member_Address_Line_1'] !=''}"><span
-							th:text="${member['Member_Address_Line_1']}"> Address Line
+							th:text="${member.Member_Address_Line_1}"> Address Line
 								1 </span></span> <span class="memberaddressLine2"
 						th:if="${member['Member_Address_Line_2'] !=''}"><span
 							th:text="${member['Member_Address_Line_2']}">Address Line
 								2 </span><br /></span> <span class="membercityPincode"
 						th:if="${member['Member_Address_City'] !=''}"><span
 							th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
-								- Pincode </span><br /></span> <b> <span class="membermoboff_no"
+								- Pincode </span><br /></span>
+							</span>
+							<span th:if="${member.Rptaddresstype} != 'Home Address'">
+							
+									<span class="memberaddline1"
+						th:if="${member['Officer_Address_Line_1'] !=''}"><span
+							th:text="${member['Officer_Address_Line_1']}"> Address Line
+								1 </span></span> <span class="memberaddressLine2"
+						th:if="${member['Officer_Address_Line_2'] !=''}"><span
+							th:text="${member['Officer_Address_Line_2']}">Address Line
+								2 </span><br /></span> <span class="membercityPincode"
+						th:if="${member['Officer_Address_City'] !=''}"><span
+							th:text="${member['Officer_Address_City']} + ' - ' + ${member['Officer_Address_Postal_Code']}">City
+								- Pincode </span><br /></span>
+							</span>
+					 
+					
+					
+					
+					 <b> <span class="membermoboff_no"
 							th:if="${member['Cell_Phone'] !=''}"> <i
-								class="bx bx-phone-call"></i> &nbsp; <span
+								class="bx bx-phone-call"></i> &nbsp; 
+								
+								<span
+										th:text="${member['Home_Phone']}">Mobile Number- Office
+											Number</span>  | 
+								<span
 								th:text="${member['Cell_Phone']}">Mobile NUmber- Office
 									Number</span> <br /></span>
 					</b> <span class="memberemail" th:if="${member['Email'] !=''}">
@@ -234,46 +263,47 @@ table thead th {
 
 								<div style="float: left;">
 									<table class="fnameTable">
-													<tr>
-														<td rowspan="4" style="min-width: 150px; width: 150px;"
-															align="right"><img
-															th:src="${memberfamily.ProfileImg}"
-															style="width: 100px; height: 100px;" /></td>
-													</tr>
-													<tr>
-														<td class="fmemberno">M.No. <span
-															th:text="${memberfamily.MemberID}"></span></td>
-													</tr>
-													<tr>
-														<td class="fmembername"><span
-															th:text="${memberfamily['First_Name']} + ' ' +${memberfamily['Last_Name']}"></span></td>
-													</tr>
-													<tr>
-														<td class="fmembersname"><span class="memberemail"
-															th:if="${memberfamily['Email'] !=''}"> <i
-																class="bx bx-mail-send"></i> &nbsp;&nbsp; &nbsp; : <span
-																th:text="${memberfamily['Email']}">Email </span><br /></span> <span
-															class="memberemail"
-															th:if="${memberfamily['Date_of_Birth']}">DOB
-																&nbsp;:&nbsp; <span th:text="${memberfamily['Date_of_Birth']}">Date_of_Birth
-															</span>
-														</span> <span class="memberemail"
-															th:if="${memberfamily['WeddingDate']}"> W/D
-																&nbsp;:&nbsp; <span th:text="${memberfamily['WeddingDate']}">WeddingDate
-															</span>
-														</span> <br /> <span th:if="${memberfamily['Member_BloodGroup']}">
-																<i class="bx bxs-droplet"></i> &nbsp; <span
-																th:text="${memberfamily['Member_BloodGroup']}">Member_BloodGroup
-															</span>
-														</span> <span class="memberemail"
-															th:if="${memberfamily['Spouse_Name'] !=''}"> <i
-																class="bx bxs-group"></i>  &nbsp;&nbsp; &nbsp;: <span
-																th:text="${memberfamily['Spouse_Name']}">Spouse_Name </span>
-														</span> <br /></td>
+										<tr>
+											<td rowspan="4" style="min-width: 150px; width: 150px;"
+												align="right"><img th:src="${memberfamily.ProfileImg}"
+												style="width: 100px; height: 100px;" /></td>
+										</tr>
+										<tr>
+											<td class="fmemberno">M.No. <span
+												th:text="${memberfamily.MemberID}"></span></td>
+										</tr>
+										<tr>
+											<td class="fmembername"><span
+												th:text="${memberfamily['First_Name']} + ' ' +${memberfamily['Last_Name']}"></span></td>
+										</tr>
+										<tr>
+											<td class="fmembersname"><span class="memberemail"
+												th:if="${memberfamily['Email'] !=''}"> <i
+													class="bx bx-mail-send"></i> &nbsp;&nbsp; &nbsp; : <span
+													th:text="${memberfamily['Email']}">Email </span><br /></span> <span
+												class="memberemail" th:if="${memberfamily['Date_of_Birth']}">DOB
+													&nbsp;:&nbsp; <span
+													th:text="${memberfamily['Date_of_Birth']}">Date_of_Birth
+												</span>
+											</span> <span class="memberemail"
+												th:if="${memberfamily['WeddingDate']}"> W/D
+													&nbsp;:&nbsp; <span
+													th:text="${memberfamily['WeddingDate']}">WeddingDate
+												</span>
+											</span> <br /> <span th:if="${memberfamily['Member_BloodGroup']}">
+													<i class="bx bxs-droplet"></i> &nbsp; <span
+													th:text="${memberfamily['Member_BloodGroup']}">Member_BloodGroup
+												</span>
+											</span> <span class="memberemail"
+												th:if="${memberfamily['Spouse_Name'] !=''}"> <i
+													class="bx bxs-group"></i> &nbsp;&nbsp; &nbsp;: <span
+													th:text="${memberfamily['Spouse_Name']}">Spouse_Name
+												</span>
+											</span> <br /></td>
 
-													</tr>
+										</tr>
 
-												</table>
+									</table>
 
 								</div>
 
@@ -304,16 +334,35 @@ table thead th {
 			<tr>
 
 				<td style="min-width: 300px;"><span class="memberName">
-						<span class="memberaddline1"
+						
+				<span th:if="${member.Rptaddresstype} == 'Home Address'">
+									<span class="memberaddline1"
 						th:if="${member['Member_Address_Line_1'] !=''}"><span
-							th:text="${member['Member_Address_Line_1']}"> Address Line
+							th:text="${member.Member_Address_Line_1}"> Address Line
 								1 </span></span> <span class="memberaddressLine2"
 						th:if="${member['Member_Address_Line_2'] !=''}"><span
 							th:text="${member['Member_Address_Line_2']}">Address Line
 								2 </span><br /></span> <span class="membercityPincode"
 						th:if="${member['Member_Address_City'] !=''}"><span
 							th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
-								- Pincode </span><br /></span> <span class="memberemail"
+								- Pincode </span><br /></span>
+							</span>
+							<span th:if="${member.Rptaddresstype} != 'Home Address'">
+							
+									<span class="memberaddline1"
+						th:if="${member['Officer_Address_Line_1'] !=''}"><span
+							th:text="${member['Officer_Address_Line_1']}"> Address Line
+								1 </span></span> <span class="memberaddressLine2"
+						th:if="${member['Officer_Address_Line_2'] !=''}"><span
+							th:text="${member['Officer_Address_Line_2']}">Address Line
+								2 </span><br /></span> <span class="membercityPincode"
+						th:if="${member['Officer_Address_City'] !=''}"><span
+							th:text="${member['Officer_Address_City']} + ' - ' + ${member['Officer_Address_Postal_Code']}">City
+								- Pincode </span><br /></span>
+							</span>
+					 
+						
+ <span class="memberemail"
 						th:if="${member['Email'] !=''}"> <i class="bx bx-mail-send"></i>
 							&nbsp; <span th:text="${member['Email']}">Email </span><br /></span> <span
 						class="memberemail" th:if="${member['Date_of_Birth'] !=''}">D/B
@@ -345,7 +394,11 @@ table thead th {
 						<tr>
 							<td align="center"><span class="membermoboff_no"
 								th:if="${member['Cell_Phone'] !=''}"> <i
-									class="bx bx-phone-call"></i> &nbsp; <span
+									class="bx bx-phone-call"></i> &nbsp; 
+									<span
+										th:text="${member['Home_Phone']}">Mobile Number- Office
+											Number</span>  | 
+									<span
 									th:text="${member['Cell_Phone']}">Mobile Number- Office
 										Number</span> <br /></span></td>
 						</tr>
@@ -658,14 +711,14 @@ table thead th {
 				<td>:</td>
 				<td th:text="${member.NoofSon}"></td>
 			</tr>
-			
+
 			<tr>
-				<td>No.of Daughter </td>
+				<td>No.of Daughter</td>
 				<td>:</td>
 				<td th:text="${member.NoofDaughter}"></td>
 			</tr>
 			<tr>
-				<td>Business Link </td>
+				<td>Business Link</td>
 				<td>:</td>
 				<td th:text="${member.BusinessLink}"></td>
 			</tr>

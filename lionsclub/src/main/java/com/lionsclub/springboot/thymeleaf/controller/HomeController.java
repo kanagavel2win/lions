@@ -58,8 +58,8 @@ public class HomeController {
 	public String home(Model theModel) {
 
 		if (logintype("ROLE_MEMBER")) {
-			
-			theModel.addAttribute("MemberID",getLoginMemberID());
+
+			theModel.addAttribute("MemberID", getLoginMemberID());
 			return "indexMember";
 		} else if (logintype("ROLE_CLUBADMIN")) {
 			return "index";
@@ -100,7 +100,7 @@ public class HomeController {
 	public String index(Model theModel) {
 
 		if (logintype("ROLE_MEMBER")) {
-			theModel.addAttribute("MemberID",getLoginMemberID());
+			theModel.addAttribute("MemberID", getLoginMemberID());
 			return "indexMember";
 		} else if (logintype("ROLE_CLUBADMIN")) {
 			return "index";
@@ -130,6 +130,7 @@ public class HomeController {
 			MemberFamilyListDetails.add(m1);
 		}
 
+		
 		theModel.addAttribute("member", editmemberDetails);
 		theModel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
 		return "rptMemberview";
@@ -151,9 +152,14 @@ public class HomeController {
 					+ memberService.findByMemberID(tempMemberID).get(0).getLast_Name() + " (" + tempMemberID + ")";
 			FamilymemberSpecific.get(fmsi).setMemberID(tempname);
 		}
+		MemberAsperInternational meminter = memberInternationalService.findMemberID(editmemberDetails.getMemberID())
+				.get(0);
+		theModel.addAttribute("meminter", meminter);
+
 		theModel.addAttribute("FamilymemberSpecific", FamilymemberSpecific);
 
 		theModel.addAttribute("members", editmemberDetails);
+
 		theModel.addAttribute("savestatus", false);
 
 		return "memberadd";
@@ -221,6 +227,9 @@ public class HomeController {
 
 		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(String.valueOf(member.getMemberID()));
 		themodel.addAttribute("FamilymemberDetails", FamilymemberDetails);
+
+		MemberAsperInternational meminter = memberInternationalService.findMemberID(member.getMemberID()).get(0);
+		themodel.addAttribute("meminter", meminter);
 
 		return "memberadd";
 	}
@@ -331,6 +340,7 @@ public class HomeController {
 						International_Discount_Reason = fields[48].replace("\"", "");
 					}
 
+					String Rptaddresstype = "Home Address";
 					// Report Priority Order
 					int ReportPriorityOrder = Integer.parseInt(MemberID);
 
@@ -420,6 +430,7 @@ public class HomeController {
 					newMember.setClub_Branch_Name(Club_Branch_Name);
 					newMember.setInternational_Discount(International_Discount);
 					newMember.setInternational_Discount_Reason(International_Discount_Reason);
+					newMember.setRptaddresstype(Rptaddresstype);
 
 					if (newMember.getReportPriorityOrder() == 0) {
 						newMember.setReportPriorityOrder(ReportPriorityOrder);
@@ -535,7 +546,7 @@ public class HomeController {
 			List<Member> ReportAllmemberdetails = memberService.findAll();
 			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
 			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
-
+		
 			// Start Member Details process--------------------------------------------
 			// --------------------------------------------------------------------------
 			List<Member> houseHolder = memberService.getHouseholderdetails();
@@ -571,6 +582,8 @@ public class HomeController {
 			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
 			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
 
+		
+
 			// Start Member Details process--------------------------------------------
 			// --------------------------------------------------------------------------
 			// List<Member> houseHolder = memberService.getHouseholderdetails();
@@ -586,6 +599,7 @@ public class HomeController {
 
 					Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
 					// m1.setSpouse_Name(MemberFamilyList.get(hhif).getRelationship());
+					
 					MemberFamilyListDetails.add(m1);
 				}
 
@@ -719,9 +733,9 @@ public class HomeController {
 
 			Member m1 = memberService.findByMemberID(internationmemberList.get(i).getMemberID()).get(0);
 
-			//if (compareLocalAndInter(internationmemberList.get(i), m1)) {
-				compareMember.put(internationmemberList.get(i), m1);
-			//}
+			// if (compareLocalAndInter(internationmemberList.get(i), m1)) {
+			compareMember.put(internationmemberList.get(i), m1);
+			// }
 
 		}
 
@@ -729,85 +743,106 @@ public class HomeController {
 
 		return "rptMemberDiffDB";
 	}
-	
-	
 
-	/*private boolean compareLocalAndInter(MemberAsperInternational mIt, Member mLoc) {
-
-		if (mIt.getMultiple_District_Name().toString().equalsIgnoreCase(mLoc.getMultiple_District_Name().toString())
-				&& mIt.getDistrict_Name().toString().equalsIgnoreCase(mLoc.getDistrict_Name().toString())
-				&& mIt.getRegion_Name().toString().equalsIgnoreCase(mLoc.getRegion_Name().toString())
-				&& mIt.getZone_Name().toString().equalsIgnoreCase(mLoc.getZone_Name().toString())
-				&& mIt.getTitle().toString().equalsIgnoreCase(mLoc.getTitle().toString())
-				&& mIt.getClub_ID().toString().equalsIgnoreCase(mLoc.getClub_ID().toString())
-				&& mIt.getClub_Name().toString().equalsIgnoreCase(mLoc.getClub_Name().toString())
-				&& mIt.getMemberID().toString().equalsIgnoreCase(mLoc.getMemberID().toString())
-				&& mIt.getPrefix().toString().equalsIgnoreCase(mLoc.getPrefix().toString())
-				&& mIt.getFirst_Name().toString().equalsIgnoreCase(mLoc.getFirst_Name().toString())
-				&& mIt.getMiddle_Name().toString().equalsIgnoreCase(mLoc.getMiddle_Name().toString())
-				&& mIt.getLast_Name().toString().equalsIgnoreCase(mLoc.getLast_Name().toString())
-				&& mIt.getSuffix().toString().equalsIgnoreCase(mLoc.getSuffix().toString())
-				&& mIt.getInvalid_Member_Address_Flag().toString()
-						.equalsIgnoreCase(mLoc.getInvalid_Member_Address_Flag().toString())
-				&& mIt.getMember_Address_Line_1().toString()
-						.equalsIgnoreCase(mLoc.getMember_Address_Line_1().toString())
-				&& mIt.getMember_Address_Line_2().toString()
-						.equalsIgnoreCase(mLoc.getMember_Address_Line_2().toString())
-				&& mIt.getMember_Address_Line_3().toString()
-						.equalsIgnoreCase(mLoc.getMember_Address_Line_3().toString())
-				&& mIt.getMember_Address_Line_4().toString()
-						.equalsIgnoreCase(mLoc.getMember_Address_Line_4().toString())
-				&& mIt.getMember_Address_City().toString().equalsIgnoreCase(mLoc.getMember_Address_City().toString())
-				&& mIt.getMember_Address_State().toString().equalsIgnoreCase(mLoc.getMember_Address_State().toString())
-				&& mIt.getMember_Address_Postal_Code().toString()
-						.equalsIgnoreCase(mLoc.getMember_Address_Postal_Code().toString())
-				&& mIt.getMember_Address_Country().toString()
-						.equalsIgnoreCase(mLoc.getMember_Address_Country().toString())
-				&& mIt.getInvalid_Officer_Address_Flag().toString()
-						.equalsIgnoreCase(mLoc.getInvalid_Officer_Address_Flag().toString())
-				&& mIt.getOfficer_Address_Line_1().toString()
-						.equalsIgnoreCase(mLoc.getOfficer_Address_Line_1().toString())
-				&& mIt.getOfficer_Address_Line_2().toString()
-						.equalsIgnoreCase(mLoc.getOfficer_Address_Line_2().toString())
-				&& mIt.getOfficer_Address_Line_3().toString()
-						.equalsIgnoreCase(mLoc.getOfficer_Address_Line_3().toString())
-				&& mIt.getOfficer_Address_Line_4().toString()
-						.equalsIgnoreCase(mLoc.getOfficer_Address_Line_4().toString())
-				&& mIt.getOfficer_Address_City().toString().equalsIgnoreCase(mLoc.getOfficer_Address_City().toString())
-				&& mIt.getOfficer_Address_State().toString()
-						.equalsIgnoreCase(mLoc.getOfficer_Address_State().toString())
-				&& mIt.getOfficer_Address_Postal_Code().toString()
-						.equalsIgnoreCase(mLoc.getOfficer_Address_Postal_Code().toString())
-				&& mIt.getOfficer_Address_Country().toString()
-						.equalsIgnoreCase(mLoc.getOfficer_Address_Country().toString())
-				&& mIt.getEmail().toString().equalsIgnoreCase(mLoc.getEmail().toString())
-				&& mIt.getHome_Phone().toString().equalsIgnoreCase(mLoc.getHome_Phone().toString())
-				&& mIt.getCell_Phone().toString().equalsIgnoreCase(mLoc.getCell_Phone().toString())
-				&& mIt.getFax_Number().toString().equalsIgnoreCase(mLoc.getFax_Number().toString())
-				&& mIt.getWork_Phone().toString().equalsIgnoreCase(mLoc.getWork_Phone().toString())
-				&& mIt.getSpouse_Name().toString().equalsIgnoreCase(mLoc.getSpouse_Name().toString())
-				&& mIt.getMembership_Type().toString().equalsIgnoreCase(mLoc.getMembership_Type().toString())
-				&& mIt.getDate_of_Birth().toString().equalsIgnoreCase(mLoc.getDate_of_Birth().toString())
-				&& mIt.getGender().toString().equalsIgnoreCase(mLoc.getGender().toString())
-				&& mIt.getNick_Name().toString().equalsIgnoreCase(mLoc.getNick_Name().toString())
-				&& mIt.getOccupation().toString().equalsIgnoreCase(mLoc.getOccupation().toString())
-				&& mIt.getJoin_Date().toString().equalsIgnoreCase(mLoc.getJoin_Date().toString())
-				&& mIt.getLife_Member().toString().equalsIgnoreCase(mLoc.getLife_Member().toString())
-				&& mIt.getFamily_Unit().toString().equalsIgnoreCase(mLoc.getFamily_Unit().toString())
-				&& mIt.getSponsor_Name().toString().equalsIgnoreCase(mLoc.getSponsor_Name().toString())
-				&& mIt.getClub_Branch_Name().toString().equalsIgnoreCase(mLoc.getClub_Branch_Name().toString())
-				&& mIt.getInternational_Discount().toString()
-						.equalsIgnoreCase(mLoc.getInternational_Discount().toString())
-				&& mIt.getInternational_Discount_Reason().toString()
-						.equalsIgnoreCase(mLoc.getInternational_Discount_Reason().toString())) {
-			return false;
-
-		} else {
-			return true;
-		}
-
-	}
-*/
+	/*
+	 * private boolean compareLocalAndInter(MemberAsperInternational mIt, Member
+	 * mLoc) {
+	 * 
+	 * if (mIt.getMultiple_District_Name().toString().equalsIgnoreCase(mLoc.
+	 * getMultiple_District_Name().toString()) &&
+	 * mIt.getDistrict_Name().toString().equalsIgnoreCase(mLoc.getDistrict_Name().
+	 * toString()) &&
+	 * mIt.getRegion_Name().toString().equalsIgnoreCase(mLoc.getRegion_Name().
+	 * toString()) &&
+	 * mIt.getZone_Name().toString().equalsIgnoreCase(mLoc.getZone_Name().toString()
+	 * ) && mIt.getTitle().toString().equalsIgnoreCase(mLoc.getTitle().toString())
+	 * && mIt.getClub_ID().toString().equalsIgnoreCase(mLoc.getClub_ID().toString())
+	 * &&
+	 * mIt.getClub_Name().toString().equalsIgnoreCase(mLoc.getClub_Name().toString()
+	 * ) &&
+	 * mIt.getMemberID().toString().equalsIgnoreCase(mLoc.getMemberID().toString())
+	 * && mIt.getPrefix().toString().equalsIgnoreCase(mLoc.getPrefix().toString())
+	 * &&
+	 * mIt.getFirst_Name().toString().equalsIgnoreCase(mLoc.getFirst_Name().toString
+	 * ()) &&
+	 * mIt.getMiddle_Name().toString().equalsIgnoreCase(mLoc.getMiddle_Name().
+	 * toString()) &&
+	 * mIt.getLast_Name().toString().equalsIgnoreCase(mLoc.getLast_Name().toString()
+	 * ) && mIt.getSuffix().toString().equalsIgnoreCase(mLoc.getSuffix().toString())
+	 * && mIt.getInvalid_Member_Address_Flag().toString()
+	 * .equalsIgnoreCase(mLoc.getInvalid_Member_Address_Flag().toString()) &&
+	 * mIt.getMember_Address_Line_1().toString()
+	 * .equalsIgnoreCase(mLoc.getMember_Address_Line_1().toString()) &&
+	 * mIt.getMember_Address_Line_2().toString()
+	 * .equalsIgnoreCase(mLoc.getMember_Address_Line_2().toString()) &&
+	 * mIt.getMember_Address_Line_3().toString()
+	 * .equalsIgnoreCase(mLoc.getMember_Address_Line_3().toString()) &&
+	 * mIt.getMember_Address_Line_4().toString()
+	 * .equalsIgnoreCase(mLoc.getMember_Address_Line_4().toString()) &&
+	 * mIt.getMember_Address_City().toString().equalsIgnoreCase(mLoc.
+	 * getMember_Address_City().toString()) &&
+	 * mIt.getMember_Address_State().toString().equalsIgnoreCase(mLoc.
+	 * getMember_Address_State().toString()) &&
+	 * mIt.getMember_Address_Postal_Code().toString()
+	 * .equalsIgnoreCase(mLoc.getMember_Address_Postal_Code().toString()) &&
+	 * mIt.getMember_Address_Country().toString()
+	 * .equalsIgnoreCase(mLoc.getMember_Address_Country().toString()) &&
+	 * mIt.getInvalid_Officer_Address_Flag().toString()
+	 * .equalsIgnoreCase(mLoc.getInvalid_Officer_Address_Flag().toString()) &&
+	 * mIt.getOfficer_Address_Line_1().toString()
+	 * .equalsIgnoreCase(mLoc.getOfficer_Address_Line_1().toString()) &&
+	 * mIt.getOfficer_Address_Line_2().toString()
+	 * .equalsIgnoreCase(mLoc.getOfficer_Address_Line_2().toString()) &&
+	 * mIt.getOfficer_Address_Line_3().toString()
+	 * .equalsIgnoreCase(mLoc.getOfficer_Address_Line_3().toString()) &&
+	 * mIt.getOfficer_Address_Line_4().toString()
+	 * .equalsIgnoreCase(mLoc.getOfficer_Address_Line_4().toString()) &&
+	 * mIt.getOfficer_Address_City().toString().equalsIgnoreCase(mLoc.
+	 * getOfficer_Address_City().toString()) &&
+	 * mIt.getOfficer_Address_State().toString()
+	 * .equalsIgnoreCase(mLoc.getOfficer_Address_State().toString()) &&
+	 * mIt.getOfficer_Address_Postal_Code().toString()
+	 * .equalsIgnoreCase(mLoc.getOfficer_Address_Postal_Code().toString()) &&
+	 * mIt.getOfficer_Address_Country().toString()
+	 * .equalsIgnoreCase(mLoc.getOfficer_Address_Country().toString()) &&
+	 * mIt.getEmail().toString().equalsIgnoreCase(mLoc.getEmail().toString()) &&
+	 * mIt.getHome_Phone().toString().equalsIgnoreCase(mLoc.getHome_Phone().toString
+	 * ()) &&
+	 * mIt.getCell_Phone().toString().equalsIgnoreCase(mLoc.getCell_Phone().toString
+	 * ()) &&
+	 * mIt.getFax_Number().toString().equalsIgnoreCase(mLoc.getFax_Number().toString
+	 * ()) &&
+	 * mIt.getWork_Phone().toString().equalsIgnoreCase(mLoc.getWork_Phone().toString
+	 * ()) &&
+	 * mIt.getSpouse_Name().toString().equalsIgnoreCase(mLoc.getSpouse_Name().
+	 * toString()) &&
+	 * mIt.getMembership_Type().toString().equalsIgnoreCase(mLoc.getMembership_Type(
+	 * ).toString()) &&
+	 * mIt.getDate_of_Birth().toString().equalsIgnoreCase(mLoc.getDate_of_Birth().
+	 * toString()) &&
+	 * mIt.getGender().toString().equalsIgnoreCase(mLoc.getGender().toString()) &&
+	 * mIt.getNick_Name().toString().equalsIgnoreCase(mLoc.getNick_Name().toString()
+	 * ) &&
+	 * mIt.getOccupation().toString().equalsIgnoreCase(mLoc.getOccupation().toString
+	 * ()) &&
+	 * mIt.getJoin_Date().toString().equalsIgnoreCase(mLoc.getJoin_Date().toString()
+	 * ) && mIt.getLife_Member().toString().equalsIgnoreCase(mLoc.getLife_Member().
+	 * toString()) &&
+	 * mIt.getFamily_Unit().toString().equalsIgnoreCase(mLoc.getFamily_Unit().
+	 * toString()) &&
+	 * mIt.getSponsor_Name().toString().equalsIgnoreCase(mLoc.getSponsor_Name().
+	 * toString()) && mIt.getClub_Branch_Name().toString().equalsIgnoreCase(mLoc.
+	 * getClub_Branch_Name().toString()) &&
+	 * mIt.getInternational_Discount().toString()
+	 * .equalsIgnoreCase(mLoc.getInternational_Discount().toString()) &&
+	 * mIt.getInternational_Discount_Reason().toString()
+	 * .equalsIgnoreCase(mLoc.getInternational_Discount_Reason().toString())) {
+	 * return false;
+	 * 
+	 * } else { return true; }
+	 * 
+	 * }
+	 */
 	@GetMapping("login")
 	public String login(Model model) {
 

@@ -46,4 +46,10 @@ public class MemberAsperInternationalServiceImp implements MemberAsperInternatio
 		
 	}
 
+	@Override
+	public List<MemberAsperInternational> findMemberID(String memberid) {
+		
+		return memberInternationRep.getMemberID(memberid);
+	}
+
 }
