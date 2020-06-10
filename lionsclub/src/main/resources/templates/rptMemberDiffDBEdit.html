@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en"
+	data-textdirection="ltr">
+
+<!-- BEGIN: Head-->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="ICC">
+<title>Member Local Vs international DB - Report</title>
+<link rel="apple-touch-icon"
+	th:href="@{/app-assets/images/ico/apple-icon-120.png}">
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/app-assets/images/ico/favicon.ico}">
+<link
+	href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700"
+	rel="stylesheet">
+
+<!-- BEGIN: Vendor CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/vendors/css/vendors.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/vendors/css/tables/datatable/datatables.min.css}">
+<!-- END: Vendor CSS-->
+
+<!-- BEGIN: Theme CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/bootstrap.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/bootstrap-extended.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/colors.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/components.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/themes/dark-layout.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/themes/semi-dark-layout.css}">
+<!-- END: Theme CSS-->
+
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/app-assets/css/core/menu/menu-types/vertical-menu.css}">
+<!-- END: Page CSS-->
+
+<!-- BEGIN: Custom CSS-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/style.css}">
+<!-- END: Custom CSS-->
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<style type="text/css">
+table {
+	font-family: calibri;
+	border-color: #004b93;
+	width: 100%;
+}
+
+table td {
+	font-family: calibri;
+	padding: 5px;
+	color: #104E8B;
+	border-color: #004b93;
+}
+
+table th {
+	font-weight: normal;
+	background-color: #004b93;
+	color: White;
+	text-align: left;
+	padding-left: 10px;
+	height: 40px;
+}
+
+.memberstyle {
+	color: #CD2626;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.memberstyle1 {
+	color: #CD2626;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.regulermemberNameColor {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.topmembertabletd {
+	border-bottom-color: #fff;
+}
+
+.membertitle {
+	font-family: calibri;
+	font-weight: bold;
+}
+
+.fnameTable {
+	width: 400px;
+	min-width: 400px;
+}
+
+.fmemberno {
+	
+}
+
+.rptheader {
+	color: #000;
+	font-size: 16px;
+	background: #F2F2F2;
+}
+
+.rptheadermaster {
+	color: #fff;
+	font-size: 17px;
+	text-align: center;
+	background: #006400;
+}
+
+.fmembersname {
+	color: #000000;
+	font-size: 17px;
+}
+</style>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body
+	class="vertical-layout vertical-menu-modern boxicon-layout no-card-shadow 2-columns  navbar-sticky footer-static  "
+	data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+
+	<!-- BEGIN: Header-->
+	<!-- BEGIN: Header-->
+	<div th:insert="header"></div>
+	<!-- END: Header-->
+
+
+	<!-- BEGIN: Main Menu-->
+	<div th:insert="menu"></div>
+	<!-- END: Main Menu-->
+
+	<!-- BEGIN: Content-->
+	<div class="app-content content">
+		<div class="content-overlay"></div>
+		<div class="content-wrapper">
+			<div class="content-header row">
+				<div class="content-header-left col-12 mb-2 mt-1">
+					<div class="row breadcrumbs-top">
+						<div class="col-12">
+							<h5 class="content-header-title float-left pr-1 mb-0">Member
+								- Local Vs International Database Comparison</h5>
+							<span id="result"> fgdfgdfg </span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content-body">
+
+				<!-- Zero configuration table -->
+				<section id="basic-datatable">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+
+								<div class="card-content">
+									<div class="card-body card-dashboard">
+										<div class="table-responsive">
+											<table class="zero-configuration">
+
+												<tr>
+													<td class="rptheadermaster">Field Name
+													</th>
+													<td class="rptheadermaster">International data
+													</th>
+													<td class="rptheadermaster">Local data
+													</th>
+												</tr>
+												<span th:each="mem : ${compareMember}"> <span
+													th:each="meminter : ${mem.key}"> <span
+														th:each="memlocal : ${mem.value}">
+															<form th:action="@{/ReportDifferentIntvslocal}"
+																method="POST" class="wizard-horizontal"
+																enctype="multipart/form-data">
+												<tr>
+													<th colspan="2"
+														th:text="${meminter.First_Name +' '+ meminter.Last_Name + ' - ' + meminter.MemberID}">
+													</th>
+													<th align="center"><input type="submit"
+														th:name="${meminter.MemberID}" class="IndMemberUpdate"
+														value="Update Member" /></th>
+												</tr>
+
+												<tr>
+												<tr>
+													<td class="rptheader">Prefix</td>
+													<td th:text="${meminter.Prefix}"></td>
+
+													<span
+														th:switch="${meminter.Prefix != memlocal.Prefix}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text" th:id="${meminter.MemberID}+Prefix"
+														style="width: 100%;" th:value="${memlocal.Prefix}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">First Name</td>
+													<td th:text="${meminter.First_Name}"></td>
+													<span
+														th:switch="${meminter.First_Name != memlocal.First_Name}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text" th:id="${meminter.MemberID}+First_Name"
+														style="width: 100%;" th:value="${memlocal.First_Name}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Middle Name</td>
+													<td th:text="${meminter.Middle_Name}"></td>
+													<span
+														th:switch="${meminter.Middle_Name != memlocal.Middle_Name}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Middle_Name"
+														style="width: 100%;" th:value="${memlocal.Middle_Name}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Last Name</td>
+													<td th:text="${meminter.Last_Name}"></td>
+													<span
+														th:switch="${meminter.Last_Name != memlocal.Last_Name}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text" th:id="${meminter.MemberID}+Last_Name"
+														style="width: 100%;" th:value="${memlocal.Last_Name}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Member Address Line 1</td>
+													<td th:text="${meminter.Member_Address_Line_1}"></td>
+													<span
+														th:switch="${meminter.Member_Address_Line_1 != memlocal.Member_Address_Line_1}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Member_Address_Line_1"
+														style="width: 100%;"
+														th:value="${memlocal.Member_Address_Line_1}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Member Address Line 2</td>
+													<td th:text="${meminter.Member_Address_Line_2}"></td>
+													<span
+														th:switch="${meminter.Member_Address_Line_2 != memlocal.Member_Address_Line_2}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Member_Address_Line_2"
+														style="width: 100%;"
+														th:value="${memlocal.Member_Address_Line_2}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Member Address Line 3</td>
+													<td th:text="${meminter.Member_Address_Line_3}"></td>
+													<span
+														th:switch="${meminter.Member_Address_Line_3 != memlocal.Member_Address_Line_3}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Member_Address_Line_3"
+														style="width: 100%;"
+														th:value="${memlocal.Member_Address_Line_3}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Member Address Line 4</td>
+													<td th:text="${meminter.Member_Address_Line_4}"></td>
+													<span
+														th:switch="${meminter.Member_Address_Line_4 != memlocal.Member_Address_Line_4}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Member_Address_Line_4"
+														style="width: 100%;"
+														th:value="${memlocal.Member_Address_Line_4}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Member Address City</td>
+													<td th:text="${meminter.Member_Address_City}"></td>
+													<span
+														th:switch="${meminter.Member_Address_City != memlocal.Member_Address_City}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Member_Address_City"
+														style="width: 100%;"
+														th:value="${memlocal.Member_Address_City}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Member Address State</td>
+													<td th:text="${meminter.Member_Address_State}"></td>
+													<span
+														th:switch="${meminter.Member_Address_State != memlocal.Member_Address_State}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Member_Address_State"
+														style="width: 100%;"
+														th:value="${memlocal.Member_Address_State}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Member Address Postal Code</td>
+													<td th:text="${meminter.Member_Address_Postal_Code}"></td>
+													<span
+														th:switch="${meminter.Member_Address_Postal_Code != memlocal.Member_Address_Postal_Code}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Member_Address_Postal_Code"
+														style="width: 100%;"
+														th:value="${memlocal.Member_Address_Postal_Code}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Member Address Country</td>
+													<td th:text="${meminter.Member_Address_Country}"></td>
+													<span
+														th:switch="${meminter.Member_Address_Country != memlocal.Member_Address_Country}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Member_Address_Country"
+														style="width: 100%;"
+														th:value="${memlocal.Member_Address_Country}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Officer Address Line 1</td>
+													<td th:text="${meminter.Officer_Address_Line_1}"></td>
+													<span
+														th:switch="${meminter.Officer_Address_Line_1 != memlocal.Officer_Address_Line_1}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Officer_Address_Line_1"
+														style="width: 100%;"
+														th:value="${memlocal.Officer_Address_Line_1}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Officer Address Line 2</td>
+													<td th:text="${meminter.Officer_Address_Line_2}"></td>
+													<span
+														th:switch="${meminter.Officer_Address_Line_2 != memlocal.Officer_Address_Line_2}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Officer_Address_Line_2"
+														style="width: 100%;"
+														th:value="${memlocal.Officer_Address_Line_2}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Officer Address Line 3</td>
+													<td th:text="${meminter.Officer_Address_Line_3}"></td>
+													<span
+														th:switch="${meminter.Officer_Address_Line_3 != memlocal.Officer_Address_Line_3}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Officer_Address_Line_3"
+														style="width: 100%;"
+														th:value="${memlocal.Officer_Address_Line_3}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Officer Address Line 4</td>
+													<td th:text="${meminter.Officer_Address_Line_4}"></td>
+													<span
+														th:switch="${meminter.Officer_Address_Line_4 != memlocal.Officer_Address_Line_4}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Officer_Address_Line_4"
+														style="width: 100%;"
+														th:value="${memlocal.Officer_Address_Line_4}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Officer Address City</td>
+													<td th:text="${meminter.Officer_Address_City}"></td>
+													<span
+														th:switch="${meminter.Officer_Address_City != memlocal.Officer_Address_City}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Officer_Address_City"
+														style="width: 100%;"
+														th:value="${memlocal.Officer_Address_City}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Officer Address State</td>
+													<td th:text="${meminter.Officer_Address_State}"></td>
+													<span
+														th:switch="${meminter.Officer_Address_State != memlocal.Officer_Address_State}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Officer_Address_State"
+														style="width: 100%;"
+														th:value="${memlocal.Officer_Address_State}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Officer Address Postal Code</td>
+													<td th:text="${meminter.Officer_Address_Postal_Code}"></td>
+													<span
+														th:switch="${meminter.Officer_Address_Postal_Code != memlocal.Officer_Address_Postal_Code}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Officer_Address_Postal_Code"
+														style="width: 100%;"
+														th:value="${memlocal.Officer_Address_Postal_Code}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Officer Address Country</td>
+													<td th:text="${meminter.Officer_Address_Country}"></td>
+													<span
+														th:switch="${meminter.Officer_Address_Country != memlocal.Officer_Address_Country}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Officer_Address_Country"
+														style="width: 100%;"
+														th:value="${memlocal.Officer_Address_Country}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Date of Birth</td>
+													<td th:text="${meminter.Date_of_Birth}"></td>
+													<span
+														th:switch="${meminter.Date_of_Birth != memlocal.Date_of_Birth}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Date_of_Birth"
+														style="width: 100%;" th:value="${memlocal.Date_of_Birth}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Join Date</td>
+													<td th:text="${meminter.Join_Date}"></td>
+													<span
+														th:switch="${meminter.Join_Date != memlocal.Join_Date}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text" th:id="${meminter.MemberID}+Join_Date"
+														style="width: 100%;" th:value="${memlocal.Join_Date}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Home Phone</td>
+													<td th:text="${meminter.Home_Phone}"></td>
+													<span
+														th:switch="${meminter.Home_Phone != memlocal.Home_Phone}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text" th:id="${meminter.MemberID}+Home_Phone"
+														style="width: 100%;" th:value="${memlocal.Home_Phone}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Cell Phone</td>
+													<td th:text="${meminter.Cell_Phone}"></td>
+													<span
+														th:switch="${meminter.Cell_Phone != memlocal.Cell_Phone}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text" th:id="${meminter.MemberID}+Cell_Phone"
+														style="width: 100%;" th:value="${memlocal.Cell_Phone}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Spouse Name</td>
+													<td th:text="${meminter.Spouse_Name}"></td>
+													<span
+														th:switch="${meminter.Spouse_Name != memlocal.Spouse_Name}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Spouse_Name"
+														style="width: 100%;" th:value="${memlocal.Spouse_Name}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td class="rptheader">Membership Type</td>
+													<td th:text="${meminter.Membership_Type}"></td>
+													<span
+														th:switch="${meminter.Membership_Type != memlocal.Membership_Type}? ${true} : ${false}">
+														<span th:case="${false}">
+															<td>
+													</span> <span th:case="${true}">
+															<td style="color: #fff; background: red;">
+													</span> <input type="text"
+														th:id="${meminter.MemberID}+Membership_Type"
+														style="width: 100%;"
+														th:value="${memlocal.Membership_Type}" />
+														</td> <span th:case="*"><td>Error..</td></span>
+												</tr>
+												<tr>
+													<td colspan="3">&nbsp;</td>
+												</tr>
+
+												</form>
+												</span>
+
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!--/ Zero configuration table -->
+
+			</div>
+		</div>
+	</div>
+	<!-- END: Content-->
+
+
+
+
+	<div class="sidenav-overlay"></div>
+	<div class="drag-target"></div>
+
+	<!-- BEGIN: Footer-->
+	<footer class="footer footer-static footer-light">
+		<p class="clearfix mb-0">
+			<span class="float-left d-inline-block"></span><span
+				class="float-right d-sm-inline-block d-none">Copy Right @
+				Lions Clubs - District 324 B1 | PRIVACY POLICY</span>
+			<button class="btn btn-primary btn-icon scroll-top" type="button">
+				<i class="bx bx-up-arrow-alt"></i>
+			</button>
+		</p>
+	</footer>
+	<!-- END: Footer-->
+
+	<!-- <script>
+		$(document)
+				.ready(
+						function() {
+
+							$(".IndMemberUpdate")
+									.click(
+											function() {
+												var memberId = $(this).attr(
+														"name");
+
+												var Prefix = $(
+														'#' + memberId
+																+ 'Prefix')
+														.val();
+												var First_Name = $(
+														'#' + memberId
+																+ 'First_Name')
+														.val();
+												var Middle_Name = $(
+														'#' + memberId
+																+ 'Middle_Name')
+														.val();
+												var Last_Name = $(
+														'#' + memberId
+																+ 'Last_Name')
+														.val();
+												var Member_Address_Line_1 = $(
+														'#'
+																+ memberId
+																+ 'Member_Address_Line_1')
+														.val();
+												var Member_Address_Line_2 = $(
+														'#'
+																+ memberId
+																+ 'Member_Address_Line_2')
+														.val();
+												var Member_Address_Line_3 = $(
+														'#'
+																+ memberId
+																+ 'Member_Address_Line_3')
+														.val();
+												var Member_Address_Line_4 = $(
+														'#'
+																+ memberId
+																+ 'Member_Address_Line_4')
+														.val();
+												var Member_Address_City = $(
+														'#'
+																+ memberId
+																+ 'Member_Address_City')
+														.val();
+												var Member_Address_State = $(
+														'#'
+																+ memberId
+																+ 'Member_Address_State')
+														.val();
+												var Member_Address_Postal_Code = $(
+														'#'
+																+ memberId
+																+ 'Member_Address_Postal_Code')
+														.val();
+												var Member_Address_Country = $(
+														'#'
+																+ memberId
+																+ 'Member_Address_Country')
+														.val();
+												var Officer_Address_Line_1 = $(
+														'#'
+																+ memberId
+																+ 'Officer_Address_Line_1')
+														.val();
+												var Officer_Address_Line_2 = $(
+														'#'
+																+ memberId
+																+ 'Officer_Address_Line_2')
+														.val();
+												var Officer_Address_Line_3 = $(
+														'#'
+																+ memberId
+																+ 'Officer_Address_Line_3')
+														.val();
+												var Officer_Address_Line_4 = $(
+														'#'
+																+ memberId
+																+ 'Officer_Address_Line_4')
+														.val();
+												var Officer_Address_City = $(
+														'#'
+																+ memberId
+																+ 'Officer_Address_City')
+														.val();
+												var Officer_Address_State = $(
+														'#'
+																+ memberId
+																+ 'Officer_Address_State')
+														.val();
+												var Officer_Address_Postal_Code = $(
+														'#'
+																+ memberId
+																+ 'Officer_Address_Postal_Code')
+														.val();
+												var Officer_Address_Country = $(
+														'#'
+																+ memberId
+																+ 'Officer_Address_Country')
+														.val();
+												var Date_of_Birth = $(
+														'#'
+																+ memberId
+																+ 'Date_of_Birth')
+														.val();
+												var Join_Date = $(
+														'#' + memberId
+																+ 'Join_Date')
+														.val();
+												var Home_Phone = $(
+														'#' + memberId
+																+ 'Home_Phone')
+														.val();
+												var Cell_Phone = $(
+														'#' + memberId
+																+ 'Cell_Phone')
+														.val();
+												var Spouse_Name = $(
+														'#' + memberId
+																+ 'Spouse_Name')
+														.val();
+												var Membership_Type = $(
+														'#'
+																+ memberId
+																+ 'Membership_Type')
+														.val();
+
+												alert("sd");
+												/*$.post('/InterLocalUpdate',{},function(output){
+												alert(output);
+												}); 
+												alert("sd");*/
+
+												ajaxPost();
+
+												function ajaxPost() {
+													$
+															.ajax({
+																type : "POST",
+
+																url : "/InterLocalUpdate",
+																data : "{'parameter1': '44906'}",
+																contentType : "application/json;charset=utf-8",
+																dataType : "json",
+
+																success : function(
+																		result) {
+																	alert("dfsscc");
+																},
+																error : function(
+																		e) {
+																	$("#result")
+																			.html(
+																					"Error "
+																							+ result.tostring
+																							+ e.responseText);
+																}
+															});
+												}
+
+											});
+						});
+	</script> -->
+
+
+	<!-- BEGIN: Vendor JS-->
+	<script th:src="@{/app-assets/vendors/js/vendors.min.js}"></script>
+	<script
+		th:src="@{/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js}"></script>
+	<script
+		th:src="@{/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js}"></script>
+	<script th:src="@{/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js}"></script>
+	<!-- BEGIN Vendor JS-->
+
+	<!-- BEGIN: Page Vendor JS-->
+	<script
+		th:src="@{/app-assets/vendors/js/tables/datatable/datatables.min.js}"></script>
+	<script
+		th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js}"></script>
+	<script
+		th:src="@{/app-assets/vendors/js/tables/datatable/dataTables.buttons.min.js}"></script>
+	<script
+		th:src="@{/app-assets/vendors/js/tables/datatable/buttons.html5.min.js}"></script>
+	<script
+		th:src="@{/app-assets/vendors/js/tables/datatable/buttons.print.min.js}"></script>
+	<script
+		th:src="@{/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js}"></script>
+	<script
+		th:src="@{/app-assets/vendors/js/tables/datatable/pdfmake.min.js}"></script>
+	<script
+		th:src="@{/app-assets/vendors/js/tables/datatable/vfs_fonts.js}"></script>
+	<!-- END: Page Vendor JS-->
+
+	<!-- BEGIN: Theme JS-->
+	<script th:src="@{/app-assets/js/core/app-menu.js}"></script>
+	<script th:src="@{/app-assets/js/core/app.js}"></script>
+	<script th:src="@{/app-assets/js/scripts/components.js}"></script>
+	<script th:src="@{/app-assets/js/scripts/footer.js}"></script>
+	<!-- END: Theme JS-->
+
+	<!-- BEGIN: Page JS-->
+	<script th:src="@{/app-assets/js/scripts/datatables/datatable.js}"></script>
+	<!-- END: Page JS-->
+
+
+</body>
+<!-- END: Body-->
+
+</html>

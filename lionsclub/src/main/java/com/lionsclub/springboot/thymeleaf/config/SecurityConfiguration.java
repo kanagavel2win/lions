@@ -29,7 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/gulp-tasks/**",
                             "/src/**",
                             "/css/**",
-                            "/webjars/**").permitAll()
+                            "/webjars/**",
+                            "/ajax","/api/customer/all","/api/customer/save","/js/**"
+                    		).permitAll()
                     .antMatchers("/").access("hasRole('ROLE_CLUBADMIN') or hasRole('ROLE_MEMBER')")
                     .antMatchers("/index").access("hasRole('ROLE_CLUBADMIN') or hasRole('ROLE_MEMBER')")
                     .antMatchers("/internationallionsclub").access("hasRole('ROLE_CLUBADMIN')")

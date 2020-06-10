@@ -741,9 +741,34 @@ public class HomeController {
 
 		model.addAttribute("compareMember", compareMember);
 
-		return "rptMemberDiffDB";
+		return "rptMemberDiffDBEdit";
 	}
 
+	@PostMapping("ReportDifferentIntvslocal")
+	public String ReportDifferentIntvslocalSave( Model model) {
+		
+		
+		
+		
+		List<MemberAsperInternational> internationmemberList = memberInternationalService.findAll();
+
+		TreeMap<MemberAsperInternational, Member> compareMember = new TreeMap<MemberAsperInternational, Member>();
+
+		for (int i = 0; i < internationmemberList.size(); i++) {
+
+			Member m1 = memberService.findByMemberID(internationmemberList.get(i).getMemberID()).get(0);
+
+			// if (compareLocalAndInter(internationmemberList.get(i), m1)) {
+			compareMember.put(internationmemberList.get(i), m1);
+			// }
+
+		}
+
+		model.addAttribute("compareMember", compareMember);
+
+		return "rptMemberDiffDBEdit";
+		
+	}
 	/*
 	 * private boolean compareLocalAndInter(MemberAsperInternational mIt, Member
 	 * mLoc) {
@@ -854,5 +879,7 @@ public class HomeController {
 
 		return "403";
 	}
+	
+
 
 }
