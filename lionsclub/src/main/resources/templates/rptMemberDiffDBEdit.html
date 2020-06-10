@@ -161,7 +161,7 @@ table th {
 						<div class="col-12">
 							<h5 class="content-header-title float-left pr-1 mb-0">Member
 								- Local Vs International Database Comparison</h5>
-							<span id="result"> fgdfgdfg </span>
+							
 						</div>
 					</div>
 				</div>
@@ -198,11 +198,17 @@ table th {
 														th:text="${meminter.First_Name +' '+ meminter.Last_Name + ' - ' + meminter.MemberID}">
 													</th>
 													<th align="center"><input type="submit"
-														th:name="${meminter.MemberID}" class="IndMemberUpdate"
+														th:name="${meminter.MemberID}" th:id="${meminter.MemberID}" class="IndMemberUpdate"
 														value="Update Member" /></th>
 												</tr>
 
+												<span th:if="${meminter.MemberID==updateMemberID}">										
 												<tr>
+													<td colspan="3" align="center" style="background:#228B22 ; color:#fff"> Profile data has been updated</td>
+												</tr>
+												</span>
+							
+												
 												<tr>
 													<td class="rptheader">Prefix</td>
 													<td th:text="${meminter.Prefix}"></td>
@@ -214,7 +220,7 @@ table th {
 													</span> <span th:case="${true}">
 															<td style="color: #fff; background: red;">
 													</span> <input type="text" th:id="${meminter.MemberID}+Prefix"
-														style="width: 100%;" th:value="${memlocal.Prefix}" />
+														style="width: 100%;" th:value="${memlocal.Prefix}" name="Prefix" />
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -227,7 +233,10 @@ table th {
 													</span> <span th:case="${true}">
 															<td style="color: #fff; background: red;">
 													</span> <input type="text" th:id="${meminter.MemberID}+First_Name"
-														style="width: 100%;" th:value="${memlocal.First_Name}" />
+														style="width: 100%;" th:value="${memlocal.First_Name}" name="First_Name" />
+														
+														 <input type="text"
+														style="width: 100%;" th:value="${memlocal.MemberID}"  hidden="" name="MemberID"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -241,7 +250,7 @@ table th {
 															<td style="color: #fff; background: red;">
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Middle_Name"
-														style="width: 100%;" th:value="${memlocal.Middle_Name}" />
+														style="width: 100%;" th:value="${memlocal.Middle_Name}"  name="Middle_Name"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -254,7 +263,7 @@ table th {
 													</span> <span th:case="${true}">
 															<td style="color: #fff; background: red;">
 													</span> <input type="text" th:id="${meminter.MemberID}+Last_Name"
-														style="width: 100%;" th:value="${memlocal.Last_Name}" />
+														style="width: 100%;" th:value="${memlocal.Last_Name}" name="Last_Name"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -269,7 +278,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Member_Address_Line_1"
 														style="width: 100%;"
-														th:value="${memlocal.Member_Address_Line_1}" />
+														th:value="${memlocal.Member_Address_Line_1}" name="Member_Address_Line_1"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -284,7 +293,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Member_Address_Line_2"
 														style="width: 100%;"
-														th:value="${memlocal.Member_Address_Line_2}" />
+														th:value="${memlocal.Member_Address_Line_2}"  name="Member_Address_Line_2"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -299,7 +308,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Member_Address_Line_3"
 														style="width: 100%;"
-														th:value="${memlocal.Member_Address_Line_3}" />
+														th:value="${memlocal.Member_Address_Line_3}" name="Member_Address_Line_3" />
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -314,7 +323,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Member_Address_Line_4"
 														style="width: 100%;"
-														th:value="${memlocal.Member_Address_Line_4}" />
+														th:value="${memlocal.Member_Address_Line_4}" name="Member_Address_Line_4"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -329,7 +338,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Member_Address_City"
 														style="width: 100%;"
-														th:value="${memlocal.Member_Address_City}" />
+														th:value="${memlocal.Member_Address_City}" name="Member_Address_City"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -344,7 +353,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Member_Address_State"
 														style="width: 100%;"
-														th:value="${memlocal.Member_Address_State}" />
+														th:value="${memlocal.Member_Address_State}" name="Member_Address_State"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -359,7 +368,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Member_Address_Postal_Code"
 														style="width: 100%;"
-														th:value="${memlocal.Member_Address_Postal_Code}" />
+														th:value="${memlocal.Member_Address_Postal_Code}" name="Member_Address_Postal_Code"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -374,7 +383,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Member_Address_Country"
 														style="width: 100%;"
-														th:value="${memlocal.Member_Address_Country}" />
+														th:value="${memlocal.Member_Address_Country}" name="Member_Address_Country"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -389,7 +398,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Officer_Address_Line_1"
 														style="width: 100%;"
-														th:value="${memlocal.Officer_Address_Line_1}" />
+														th:value="${memlocal.Officer_Address_Line_1}" name="Officer_Address_Line_1"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -404,7 +413,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Officer_Address_Line_2"
 														style="width: 100%;"
-														th:value="${memlocal.Officer_Address_Line_2}" />
+														th:value="${memlocal.Officer_Address_Line_2}" name="Officer_Address_Line_2"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -419,7 +428,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Officer_Address_Line_3"
 														style="width: 100%;"
-														th:value="${memlocal.Officer_Address_Line_3}" />
+														th:value="${memlocal.Officer_Address_Line_3}" name="Officer_Address_Line_3"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -434,7 +443,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Officer_Address_Line_4"
 														style="width: 100%;"
-														th:value="${memlocal.Officer_Address_Line_4}" />
+														th:value="${memlocal.Officer_Address_Line_4}" name="Officer_Address_Line_4"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -449,7 +458,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Officer_Address_City"
 														style="width: 100%;"
-														th:value="${memlocal.Officer_Address_City}" />
+														th:value="${memlocal.Officer_Address_City}" name="Officer_Address_City"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -464,7 +473,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Officer_Address_State"
 														style="width: 100%;"
-														th:value="${memlocal.Officer_Address_State}" />
+														th:value="${memlocal.Officer_Address_State}" name="Officer_Address_State"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -479,7 +488,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Officer_Address_Postal_Code"
 														style="width: 100%;"
-														th:value="${memlocal.Officer_Address_Postal_Code}" />
+														th:value="${memlocal.Officer_Address_Postal_Code}" name="Officer_Address_Postal_Code"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -494,7 +503,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Officer_Address_Country"
 														style="width: 100%;"
-														th:value="${memlocal.Officer_Address_Country}" />
+														th:value="${memlocal.Officer_Address_Country}" name="Officer_Address_Country"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -508,7 +517,7 @@ table th {
 															<td style="color: #fff; background: red;">
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Date_of_Birth"
-														style="width: 100%;" th:value="${memlocal.Date_of_Birth}" />
+														style="width: 100%;" th:value="${memlocal.Date_of_Birth}" name="Date_of_Birth" />
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -521,7 +530,7 @@ table th {
 													</span> <span th:case="${true}">
 															<td style="color: #fff; background: red;">
 													</span> <input type="text" th:id="${meminter.MemberID}+Join_Date"
-														style="width: 100%;" th:value="${memlocal.Join_Date}" />
+														style="width: 100%;" th:value="${memlocal.Join_Date}"  name="Join_Date"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -534,7 +543,7 @@ table th {
 													</span> <span th:case="${true}">
 															<td style="color: #fff; background: red;">
 													</span> <input type="text" th:id="${meminter.MemberID}+Home_Phone"
-														style="width: 100%;" th:value="${memlocal.Home_Phone}" />
+														style="width: 100%;" th:value="${memlocal.Home_Phone}" name="Home_Phone"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -547,7 +556,7 @@ table th {
 													</span> <span th:case="${true}">
 															<td style="color: #fff; background: red;">
 													</span> <input type="text" th:id="${meminter.MemberID}+Cell_Phone"
-														style="width: 100%;" th:value="${memlocal.Cell_Phone}" />
+														style="width: 100%;" th:value="${memlocal.Cell_Phone}" name="Cell_Phone"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -561,7 +570,7 @@ table th {
 															<td style="color: #fff; background: red;">
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Spouse_Name"
-														style="width: 100%;" th:value="${memlocal.Spouse_Name}" />
+														style="width: 100%;" th:value="${memlocal.Spouse_Name}" name="Spouse_Name"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -576,7 +585,7 @@ table th {
 													</span> <input type="text"
 														th:id="${meminter.MemberID}+Membership_Type"
 														style="width: 100%;"
-														th:value="${memlocal.Membership_Type}" />
+														th:value="${memlocal.Membership_Type}" name="Membership_Type"/>
 														</td> <span th:case="*"><td>Error..</td></span>
 												</tr>
 												<tr>
@@ -619,179 +628,23 @@ table th {
 		</p>
 	</footer>
 	<!-- END: Footer-->
+	
+	<span th:if="${updateMemberID}">
+	<script type="text/javascript">
+	$(document).ready(function() {
+		var idStr = [[${updateMemberID}]];
+		//alert(idStr);
+		document.getElementById(idStr).scrollIntoView(500);
+		var scrolledY = window.scrollY;
 
-	<!-- <script>
-		$(document)
-				.ready(
-						function() {
-
-							$(".IndMemberUpdate")
-									.click(
-											function() {
-												var memberId = $(this).attr(
-														"name");
-
-												var Prefix = $(
-														'#' + memberId
-																+ 'Prefix')
-														.val();
-												var First_Name = $(
-														'#' + memberId
-																+ 'First_Name')
-														.val();
-												var Middle_Name = $(
-														'#' + memberId
-																+ 'Middle_Name')
-														.val();
-												var Last_Name = $(
-														'#' + memberId
-																+ 'Last_Name')
-														.val();
-												var Member_Address_Line_1 = $(
-														'#'
-																+ memberId
-																+ 'Member_Address_Line_1')
-														.val();
-												var Member_Address_Line_2 = $(
-														'#'
-																+ memberId
-																+ 'Member_Address_Line_2')
-														.val();
-												var Member_Address_Line_3 = $(
-														'#'
-																+ memberId
-																+ 'Member_Address_Line_3')
-														.val();
-												var Member_Address_Line_4 = $(
-														'#'
-																+ memberId
-																+ 'Member_Address_Line_4')
-														.val();
-												var Member_Address_City = $(
-														'#'
-																+ memberId
-																+ 'Member_Address_City')
-														.val();
-												var Member_Address_State = $(
-														'#'
-																+ memberId
-																+ 'Member_Address_State')
-														.val();
-												var Member_Address_Postal_Code = $(
-														'#'
-																+ memberId
-																+ 'Member_Address_Postal_Code')
-														.val();
-												var Member_Address_Country = $(
-														'#'
-																+ memberId
-																+ 'Member_Address_Country')
-														.val();
-												var Officer_Address_Line_1 = $(
-														'#'
-																+ memberId
-																+ 'Officer_Address_Line_1')
-														.val();
-												var Officer_Address_Line_2 = $(
-														'#'
-																+ memberId
-																+ 'Officer_Address_Line_2')
-														.val();
-												var Officer_Address_Line_3 = $(
-														'#'
-																+ memberId
-																+ 'Officer_Address_Line_3')
-														.val();
-												var Officer_Address_Line_4 = $(
-														'#'
-																+ memberId
-																+ 'Officer_Address_Line_4')
-														.val();
-												var Officer_Address_City = $(
-														'#'
-																+ memberId
-																+ 'Officer_Address_City')
-														.val();
-												var Officer_Address_State = $(
-														'#'
-																+ memberId
-																+ 'Officer_Address_State')
-														.val();
-												var Officer_Address_Postal_Code = $(
-														'#'
-																+ memberId
-																+ 'Officer_Address_Postal_Code')
-														.val();
-												var Officer_Address_Country = $(
-														'#'
-																+ memberId
-																+ 'Officer_Address_Country')
-														.val();
-												var Date_of_Birth = $(
-														'#'
-																+ memberId
-																+ 'Date_of_Birth')
-														.val();
-												var Join_Date = $(
-														'#' + memberId
-																+ 'Join_Date')
-														.val();
-												var Home_Phone = $(
-														'#' + memberId
-																+ 'Home_Phone')
-														.val();
-												var Cell_Phone = $(
-														'#' + memberId
-																+ 'Cell_Phone')
-														.val();
-												var Spouse_Name = $(
-														'#' + memberId
-																+ 'Spouse_Name')
-														.val();
-												var Membership_Type = $(
-														'#'
-																+ memberId
-																+ 'Membership_Type')
-														.val();
-
-												alert("sd");
-												/*$.post('/InterLocalUpdate',{},function(output){
-												alert(output);
-												}); 
-												alert("sd");*/
-
-												ajaxPost();
-
-												function ajaxPost() {
-													$
-															.ajax({
-																type : "POST",
-
-																url : "/InterLocalUpdate",
-																data : "{'parameter1': '44906'}",
-																contentType : "application/json;charset=utf-8",
-																dataType : "json",
-
-																success : function(
-																		result) {
-																	alert("dfsscc");
-																},
-																error : function(
-																		e) {
-																	$("#result")
-																			.html(
-																					"Error "
-																							+ result.tostring
-																							+ e.responseText);
-																}
-															});
-												}
-
-											});
-						});
-	</script> -->
-
-
+		if(scrolledY){
+		  window.scroll(0, scrolledY - 100);
+		}
+		
+	});
+		
+	</script>
+	</span>
 	<!-- BEGIN: Vendor JS-->
 	<script th:src="@{/app-assets/vendors/js/vendors.min.js}"></script>
 	<script

@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -745,10 +746,41 @@ public class HomeController {
 	}
 
 	@PostMapping("ReportDifferentIntvslocal")
-	public String ReportDifferentIntvslocalSave( Model model) {
+	public String ReportDifferentIntvslocalSave( Model model,@RequestParam Map<String,String> params) {
 		
 		
 		
+		
+		Member updatemember = memberService.findByMemberID(params.get("MemberID")).get(0);
+		updatemember.setPrefix(params.get("Prefix"));
+		updatemember.setFirst_Name(params.get("First_Name"));
+		updatemember.setMiddle_Name(params.get("Middle_Name"));
+		updatemember.setLast_Name(params.get("Last_Name"));
+		updatemember.setMember_Address_Line_1(params.get("Member_Address_Line_1"));
+		updatemember.setMember_Address_Line_2(params.get("Member_Address_Line_2"));
+		updatemember.setMember_Address_Line_3(params.get("Member_Address_Line_3"));
+		updatemember.setMember_Address_Line_4(params.get("Member_Address_Line_4"));
+		updatemember.setMember_Address_City(params.get("Member_Address_City"));
+		updatemember.setMember_Address_State(params.get("Member_Address_State"));
+		updatemember.setMember_Address_Postal_Code(params.get("Member_Address_Postal_Code"));
+		updatemember.setMember_Address_Country(params.get("Member_Address_Country"));
+		updatemember.setOfficer_Address_Line_1(params.get("Officer_Address_Line_1"));
+		updatemember.setOfficer_Address_Line_2(params.get("Officer_Address_Line_2"));
+		updatemember.setOfficer_Address_Line_3(params.get("Officer_Address_Line_3"));
+		updatemember.setOfficer_Address_Line_4(params.get("Officer_Address_Line_4"));
+		updatemember.setOfficer_Address_City(params.get("Officer_Address_City"));
+		updatemember.setOfficer_Address_State(params.get("Officer_Address_State"));
+		updatemember.setOfficer_Address_Postal_Code(params.get("Officer_Address_Postal_Code"));
+		updatemember.setOfficer_Address_Country(params.get("Officer_Address_Country"));
+		updatemember.setDate_of_Birth(params.get("Date_of_Birth"));
+		updatemember.setJoin_Date(params.get("Join_Date"));
+		updatemember.setHome_Phone(params.get("Home_Phone"));
+		updatemember.setCell_Phone(params.get("Cell_Phone"));
+		updatemember.setSpouse_Name(params.get("Spouse_Name"));
+		updatemember.setMembership_Type(params.get("Membership_Type"));
+		memberService.save(updatemember);
+		
+		model.addAttribute("updateMemberID",params.get("MemberID"));
 		
 		List<MemberAsperInternational> internationmemberList = memberInternationalService.findAll();
 
