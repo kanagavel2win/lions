@@ -122,7 +122,7 @@
                                                         <th>Spouse Name</th>
                                                         <th>Mobile No</th>
                                                         <th>View</th>                                                                                                             
-                                                        <th>Edit</th>
+                                                        
                                                         
 	
                                                     </tr>
@@ -134,8 +134,8 @@
                                                         <td th:text="${member['Title']}"></td>
                                                         <td th:text="${member['Spouse_Name']}"></td>
                                                         <td th:text="${member['Cell_Phone']}"></td>
-                                                        <td style="text-align: center"> <a th:href="'memberview?id=' + @{{id} (id=${member['id']})}"><i class="bx bx-search" style="font-size:26px"></i></a></td>
-                                                        <td style="text-align: center"><a th:href="'memberedit?id=' + @{{id} (id=${member['id']})}"><i class="bx bxs-edit-alt" style="font-size:26px"></i></a></td>
+                                                        
+                                                        <td style="text-align: center"><a th:href="'memberedit?id=' + @{{id} (id=${member['id']})}"><i class="bx bx-search" style="font-size:26px"></i></a></td>
                                                         	
 													</tr>
                                                     
@@ -150,7 +150,7 @@
                                                         <th>Spouse Name</th>
                                                         <th>Mobile No</th>   
                                                         <th>View</th>                                                     
-                                                        <th>Edit</th>
+                                                        
                                                         
 	
                                                     </tr>

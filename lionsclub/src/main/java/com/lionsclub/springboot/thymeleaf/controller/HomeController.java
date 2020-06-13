@@ -141,6 +141,23 @@ public class HomeController {
 	public String memberadd(@RequestParam("id") int memberid, Model theModel) {
 
 		Member editmemberDetails = memberService.findById(memberid);
+		//---------------------------
+		// Report View
+		List<MemberFamily> MemberFamilyList = memberFamilyService.FamilymemberSpecific(editmemberDetails.getMemberID());
+
+		ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
+
+		for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
+
+			Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
+
+			MemberFamilyListDetails.add(m1);
+		}
+		
+		theModel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
+		//----------------------------
+		
+		
 		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(editmemberDetails.getMemberID());
 		theModel.addAttribute("FamilymemberDetails", FamilymemberDetails);
 
@@ -215,6 +232,23 @@ public class HomeController {
 		memberService.save(member);
 		themodel.addAttribute("members", member);
 		themodel.addAttribute("savestatus", true);
+		
+		//---------------------------
+				// Report View
+				List<MemberFamily> MemberFamilyList = memberFamilyService.FamilymemberSpecific(member.getMemberID());
+
+				ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
+
+				for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
+
+					Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
+
+					MemberFamilyListDetails.add(m1);
+				}
+				
+				themodel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
+				//----------------------------
+				
 
 		List<MemberFamily> FamilymemberSpecific = memberFamilyService.FamilymemberSpecific(member.getMemberID());
 
