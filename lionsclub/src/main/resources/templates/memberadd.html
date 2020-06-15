@@ -3,6 +3,9 @@
 	data-textdirection="ltr">
 <!-- BEGIN: Head-->
 <head>
+<meta name="_csrf" content="${_csrf.token}" />
+<!-- default header name is X-CSRF-TOKEN -->
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -58,12 +61,11 @@
 <!-- END: Custom CSS-->
 
 <style type="text/css">
-.interDifferspan{
- color: #fff;
- background-color: green;
- padding:1px 10px;
- width: 100%;
- 
+.interDifferspan {
+	color: #fff;
+	background-color: green;
+	padding: 1px 10px;
+	width: 100%;
 }
 </style>
 <style type="text/css">
@@ -166,290 +168,283 @@ table thead th {
 						<div class="col-12"></div>
 					</div>
 				</div>
-			
-			<!---start------A4 page 595*842 ------------->
-<p>Directory View </p>			
-	<div align="center" width="100%" style="margin-left: 15px;"
-		th:if="${members.Title} =='' ">
+
+				<div th:if="${savestatus}" class="form-group col-12">
+					<button type="button" class="btn mb-1 btn-success btn-lg btn-block">Member
+						Info Updated Successfully</button>
+				</div>
+
+				<!---start------A4 page 595*842 ------------->
+				<p>Directory View</p>
+				<div align="center" width="100%" style="margin-left: 15px;"
+					th:if="${members.Title} =='' ">
 
 
 
-		<table border="1px" width="100%" cellspacing='0px'
-			style="font-size: 16px; float: left; min-height: 230px; background: #fff;">
-
-			<tr>
-				<td class="regulermemberNameColor" colspan="2"
-					th:style="'background-color:' + @{${members['bgColorValue']}} +'; color:' + @{${members['TextColorValue']}} +' ;min-width:150px;height: 30px;'"><span
-					th:text="${members['First_Name']} + ' ' +${members['Last_Name']}">
-				</span></td>
-			</tr>
-			<tr>
-
-				<td style="min-width: 300px;"><span class="memberName">
-						
-				<span th:if="${members.Rptaddresstype} == 'Home Address'">
-									<span class="memberaddline1"
-						th:if="${members['Member_Address_Line_1'] !=''}"><span
-							th:text="${members.Member_Address_Line_1}"> Address Line
-								1 </span></span> <span class="memberaddressLine2"
-						th:if="${members['Member_Address_Line_2'] !=''}"><span
-							th:text="${members['Member_Address_Line_2']}">Address Line
-								2 </span><br /></span> <span class="membercityPincode"
-						th:if="${members['Member_Address_City'] !=''}"><span
-							th:text="${members['Member_Address_City']} + ' - ' + ${members['Member_Address_Postal_Code']}">City
-								- Pincode </span><br /></span>
-							</span>
-							<span th:if="${members.Rptaddresstype} != 'Home Address'">
-							
-									<span class="memberaddline1"
-						th:if="${members['Officer_Address_Line_1'] !=''}"><span
-							th:text="${members['Officer_Address_Line_1']}"> Address Line
-								1 </span></span> <span class="memberaddressLine2"
-						th:if="${members['Officer_Address_Line_2'] !=''}"><span
-							th:text="${members['Officer_Address_Line_2']}">Address Line
-								2 </span><br /></span> <span class="membercityPincode"
-						th:if="${members['Officer_Address_City'] !=''}"><span
-							th:text="${members['Officer_Address_City']} + ' - ' + ${members['Officer_Address_Postal_Code']}">City
-								- Pincode </span><br /></span>
-							</span>
-					 
-						
- <span class="memberemail"
-						th:if="${members['Email'] !=''}"> <i class="bx bx-mail-send"></i>
-							&nbsp; <span th:text="${members['Email']}">Email </span><br /></span> <span
-						class="memberemail" th:if="${members['Date_of_Birth'] !=''}">D/B
-							&nbsp;:&nbsp; <span th:text="${members['Date_of_Birth']}">Date_of_Birth
-						</span>
-					</span> <span class="memberemail" th:if="${members['WeddingDate'] !=''}">
-							W/D &nbsp;:&nbsp; <span th:text="${members['WeddingDate']}">WeddingDate
-						</span>
-					</span> <br /> <span th:if="${members['Member_BloodGroup'] !=''}">
-							<i class="bx bxs-droplet"></i> &nbsp; <span
-							th:text="${members['Member_BloodGroup']}">Member_BloodGroup
-						</span>
-					</span> <span class="memberemail" th:if="${members['Spouse_Name'] !=''}">
-							<i class="bx bxs-group"></i> &nbsp; <span
-							th:text="${members['Spouse_Name']}">Spouse_Name </span>
-					</span> <br /></td>
-
-				<td width="40%" style="min-width: 150px;">
-					<table
-						style="width: 90%; margin-left: 5%; background: #fff; color: #000; margin-top: 5px;">
-						<tr>
-							<td align="center">M.No : <span
-								th:text="${members['MemberID']}"> </span></td>
-						</tr>
-						<td align="Center" width="200px"><img
-							th:src="${members['ProfileImg']}"
-							style="width: 100px; height: 100px;" /></td>
+					<table border="1px" width="100%" cellspacing='0px'
+						style="font-size: 16px; float: left; min-height: 230px; background: #fff;">
 
 						<tr>
-							<td align="center"><span class="membermoboff_no"
-								th:if="${members['Cell_Phone'] !=''}"> <i
-									class="bx bx-phone-call"></i> &nbsp; 
-									<span
-										th:text="${members['Home_Phone']}">Mobile Number- Office
-											Number</span>  | 
-									<span
-									th:text="${members['Cell_Phone']}">Mobile Number- Office
-										Number</span> <br /></span></td>
+							<td class="regulermemberNameColor" colspan="2"
+								th:style="'background-color:' + @{${members['bgColorValue']}} +'; color:' + @{${members['TextColorValue']}} +' ;min-width:150px;height: 30px;'"><span
+								th:text="${members['First_Name']} + ' ' +${members['Last_Name']}">
+							</span></td>
 						</tr>
+						<tr>
+
+							<td style="min-width: 300px;"><span class="memberName">
+
+									<span th:if="${members.Rptaddresstype} == 'Home Address'">
+										<span class="memberaddline1"
+										th:if="${members['Member_Address_Line_1'] !=''}"><span
+											th:text="${members.Member_Address_Line_1}"> Address
+												Line 1 </span></span> <span class="memberaddressLine2"
+										th:if="${members['Member_Address_Line_2'] !=''}"><span
+											th:text="${members['Member_Address_Line_2']}">Address
+												Line 2 </span><br /></span> <span class="membercityPincode"
+										th:if="${members['Member_Address_City'] !=''}"><span
+											th:text="${members['Member_Address_City']} + ' - ' + ${members['Member_Address_Postal_Code']}">City
+												- Pincode </span><br /></span>
+								</span> <span th:if="${members.Rptaddresstype} != 'Home Address'">
+
+										<span class="memberaddline1"
+										th:if="${members['Officer_Address_Line_1'] !=''}"><span
+											th:text="${members['Officer_Address_Line_1']}">
+												Address Line 1 </span></span> <span class="memberaddressLine2"
+										th:if="${members['Officer_Address_Line_2'] !=''}"><span
+											th:text="${members['Officer_Address_Line_2']}">Address
+												Line 2 </span><br /></span> <span class="membercityPincode"
+										th:if="${members['Officer_Address_City'] !=''}"><span
+											th:text="${members['Officer_Address_City']} + ' - ' + ${members['Officer_Address_Postal_Code']}">City
+												- Pincode </span><br /></span>
+								</span> <span class="memberemail" th:if="${members['Email'] !=''}">
+										<i class="bx bx-mail-send"></i> &nbsp; <span
+										th:text="${members['Email']}">Email </span><br />
+								</span> <span class="memberemail"
+									th:if="${members['Date_of_Birth'] !=''}">D/B
+										&nbsp;:&nbsp; <span th:text="${members['Date_of_Birth']}">Date_of_Birth
+									</span>
+								</span> <span class="memberemail"
+									th:if="${members['WeddingDate'] !=''}"> W/D
+										&nbsp;:&nbsp; <span th:text="${members['WeddingDate']}">WeddingDate
+									</span>
+								</span> <br /> <span th:if="${members['Member_BloodGroup'] !=''}">
+										<i class="bx bxs-droplet"></i> &nbsp; <span
+										th:text="${members['Member_BloodGroup']}">Member_BloodGroup
+									</span>
+								</span> <span class="memberemail"
+									th:if="${members['Spouse_Name'] !=''}"> <i
+										class="bx bxs-group"></i> &nbsp; <span
+										th:text="${members['Spouse_Name']}">Spouse_Name </span>
+								</span> <br /></td>
+
+							<td width="40%" style="min-width: 150px;">
+								<table
+									style="width: 90%; margin-left: 5%; background: #fff; color: #000; margin-top: 5px;">
+									<tr>
+										<td align="center">M.No : <span
+											th:text="${members['MemberID']}"> </span></td>
+									</tr>
+									<td align="Center" width="200px"><img
+										th:src="${members['ProfileImg']}"
+										style="width: 100px; height: 100px;" /></td>
+
+									<tr>
+										<td align="center"><span class="membermoboff_no"
+											th:if="${members['Cell_Phone'] !=''}"> <i
+												class="bx bx-phone-call"></i> &nbsp; <span
+												th:text="${members['Home_Phone']}">Mobile Number-
+													Office Number</span> | <span th:text="${members['Cell_Phone']}">Mobile
+													Number- Office Number</span> <br /></span></td>
+									</tr>
 
 
+								</table>
+
+
+							</td>
+						</tr>
 					</table>
 
+				</div>
 
-				</td>
-			</tr>
-		</table>
+				<div style="width: 100%; min-height: 300px;"
+					th:if="${members.Title} !='' ">
+					<div class="pc1" style="" align="center">
 
-	</div>
-	
-	<div style="width: 100%; min-height: 300px;"
-		th:if="${members.Title} !='' ">
-		<div class="pc1" style="" align="center">
-			
 
-			<br />
+						<br />
 
-			<table border="1px" width="98%" align="left" cellspacing='0px'
-				style="font-size: 16px; margin-left: 10px; background: #fff;">
-				<tr>
-					<td align="Center" rowspan="3"
-						style="max-width: 200px; width: 200px;"><img
-						th:src="${members['ProfileImg']}"
-						style="width: 100px; height: 100px;" /></td>
-
-					<td style="min-width: 300px;"><span class="memberstyle">
-							<br /> <span
-							th:text="${members['First_Name']} + ' ' +${members['Last_Name']}">
-						</span><br />
-					</span> 
-					
-					
-							<span th:if="${members.Rptaddresstype} == 'Home Address'">
-									<span class="memberaddline1"
-						th:if="${members['Member_Address_Line_1'] !=''}"><span
-							th:text="${members.Member_Address_Line_1}"> Address Line
-								1 </span></span> <span class="memberaddressLine2"
-						th:if="${members['Member_Address_Line_2'] !=''}"><span
-							th:text="${members['Member_Address_Line_2']}">Address Line
-								2 </span><br /></span> <span class="membercityPincode"
-						th:if="${members['Member_Address_City'] !=''}"><span
-							th:text="${members['Member_Address_City']} + ' - ' + ${members['Member_Address_Postal_Code']}">City
-								- Pincode </span><br /></span>
-							</span>
-							<span th:if="${members.Rptaddresstype} != 'Home Address'">
-							
-									<span class="memberaddline1"
-						th:if="${members['Officer_Address_Line_1'] !=''}"><span
-							th:text="${members['Officer_Address_Line_1']}"> Address Line
-								1 </span></span> <span class="memberaddressLine2"
-						th:if="${members['Officer_Address_Line_2'] !=''}"><span
-							th:text="${members['Officer_Address_Line_2']}">Address Line
-								2 </span><br /></span> <span class="membercityPincode"
-						th:if="${members['Officer_Address_City'] !=''}"><span
-							th:text="${members['Officer_Address_City']} + ' - ' + ${members['Officer_Address_Postal_Code']}">City
-								- Pincode </span><br /></span>
-							</span>
-					 
-					
-					
-					
-					 <b> <span class="membermoboff_no"
-							th:if="${members['Cell_Phone'] !=''}"> <i
-								class="bx bx-phone-call"></i> &nbsp; 
-								
-								<span
-										th:text="${members['Home_Phone']}">Mobile Number- Office
-											Number</span>  | 
-								<span
-								th:text="${members['Cell_Phone']}">Mobile NUmber- Office
-									Number</span> <br /></span>
-					</b> <span class="memberemail" th:if="${members['Email'] !=''}">
-							<i class="bx bx-mail-send" style="color: #CD2626;"></i> &nbsp; <span
-							th:text="${members['Email']}">Email </span><br />
-					</span> <span class="memberemail" th:if="${members['Spouse_Name'] !=''}">
-							<i class="bx bxs-group" style="color: #CD2626;"></i> &nbsp; <span
-							th:text="${members['Spouse_Name']}">Spouse_Name </span><br />
-					</span> <br /></td>
-
-					<td class="topmembertabletd"
-						th:style="'background-color:' + @{${members['bgColorValue']}} +' ;min-width:200px;width:20%;'">
-						<table
-							style="width: 90%; margin-left: 5%; background: #fff; color: #000; margin-top: 5px;">
+						<table border="1px" width="98%" align="left" cellspacing='0px'
+							style="font-size: 16px; margin-left: 10px; background: #fff;">
 							<tr>
-								<td class="memberstyle1">M.No</td>
-								<td class="memberstyle1">:</td>
-								<td class="memberstyle1"><span
-									th:text="${members['MemberID']}"> </span></td>
-							</tr>
-							<tr>
-								<td>DOB</td>
-								<td>:</td>
-								<td><span th:text="${members['Date_of_Birth']}"> </span></td>
-							</tr>
-							<tr>
-								<td>WD</td>
-								<td>:</td>
-								<td><span th:text="${members['WeddingDate']}"> </span></td>
-							</tr>
-							<tr>
-								<td style="color: #CD2626;"><i class="bx bxs-droplet"></i></td>
-								<td>:</td>
-								<td><span th:text="${members['Member_BloodGroup']}">
-								</span></td>
+								<td align="Center" rowspan="3"
+									style="max-width: 200px; width: 200px;"><img
+									th:src="${members['ProfileImg']}"
+									style="width: 100px; height: 100px;" /></td>
 
-							</tr>
+								<td style="min-width: 300px;"><span class="memberstyle">
+										<br /> <span
+										th:text="${members['First_Name']} + ' ' +${members['Last_Name']}">
+									</span><br />
+								</span> <span th:if="${members.Rptaddresstype} == 'Home Address'">
+										<span class="memberaddline1"
+										th:if="${members['Member_Address_Line_1'] !=''}"><span
+											th:text="${members.Member_Address_Line_1}"> Address
+												Line 1 </span></span> <span class="memberaddressLine2"
+										th:if="${members['Member_Address_Line_2'] !=''}"><span
+											th:text="${members['Member_Address_Line_2']}">Address
+												Line 2 </span><br /></span> <span class="membercityPincode"
+										th:if="${members['Member_Address_City'] !=''}"><span
+											th:text="${members['Member_Address_City']} + ' - ' + ${members['Member_Address_Postal_Code']}">City
+												- Pincode </span><br /></span>
+								</span> <span th:if="${members.Rptaddresstype} != 'Home Address'">
 
+										<span class="memberaddline1"
+										th:if="${members['Officer_Address_Line_1'] !=''}"><span
+											th:text="${members['Officer_Address_Line_1']}">
+												Address Line 1 </span></span> <span class="memberaddressLine2"
+										th:if="${members['Officer_Address_Line_2'] !=''}"><span
+											th:text="${members['Officer_Address_Line_2']}">Address
+												Line 2 </span><br /></span> <span class="membercityPincode"
+										th:if="${members['Officer_Address_City'] !=''}"><span
+											th:text="${members['Officer_Address_City']} + ' - ' + ${members['Officer_Address_Postal_Code']}">City
+												- Pincode </span><br /></span>
+								</span> <b> <span class="membermoboff_no"
+										th:if="${members['Cell_Phone'] !=''}"> <i
+											class="bx bx-phone-call"></i> &nbsp; <span
+											th:text="${members['Home_Phone']}">Mobile Number-
+												Office Number</span> | <span th:text="${members['Cell_Phone']}">Mobile
+												NUmber- Office Number</span> <br /></span>
+								</b> <span class="memberemail" th:if="${members['Email'] !=''}">
+										<i class="bx bx-mail-send" style="color: #CD2626;"></i> &nbsp;
+										<span th:text="${members['Email']}">Email </span><br />
+								</span> <span class="memberemail"
+									th:if="${members['Spouse_Name'] !=''}"> <i
+										class="bx bxs-group" style="color: #CD2626;"></i> &nbsp; <span
+										th:text="${members['Spouse_Name']}">Spouse_Name </span><br />
+								</span> <br /></td>
 
-						</table>
-
-						<hr />
-						<h6 class="membertitle" align="center"
-							th:text="${members['Title']}"
-							th:style="'background-color:' + @{${members['bgColorValue']}} +' ; color:' + @{${members['TextColorValue']}} +' ; width:100%;'">
-
-						</h6>
-					</td>
-				</tr>
-
-			</table>
-
-			<span th:if="${members.Family_Unit=='Head of Household'}">
-				<table border="1px" width="98%" align="left" cellspacing='0px'
-					style="font-size: 16px; margin-left: 10px; background: #fff;">
-					<tr>
-						<td align="center"
-							th:style="'background-color:' + @{${members['bgColorValue']}} +' ; color:' + @{${members['TextColorValue']}} +' ; width:100%;'">FAMILY
-							MEMBERS</td>
-					</tr>
-					<tr>
-						<td><span th:each="memberfamily : ${memberfamilyinfo}">
-
-								<div style="float: left;">
-									<table class="fnameTable">
+								<td class="topmembertabletd"
+									th:style="'background-color:' + @{${members['bgColorValue']}} +' ;min-width:200px;width:20%;'">
+									<table
+										style="width: 90%; margin-left: 5%; background: #fff; color: #000; margin-top: 5px;">
 										<tr>
-											<td rowspan="4" style="min-width: 150px; width: 150px;"
-												align="right"><img th:src="${memberfamily.ProfileImg}"
-												style="width: 100px; height: 100px;" /></td>
+											<td class="memberstyle1">M.No</td>
+											<td class="memberstyle1">:</td>
+											<td class="memberstyle1"><span
+												th:text="${members['MemberID']}"> </span></td>
 										</tr>
 										<tr>
-											<td class="fmemberno">M.No. <span
-												th:text="${memberfamily.MemberID}"></span></td>
+											<td>DOB</td>
+											<td>:</td>
+											<td><span th:text="${members['Date_of_Birth']}">
+											</span></td>
 										</tr>
 										<tr>
-											<td class="fmembername"><span
-												th:text="${memberfamily['First_Name']} + ' ' +${memberfamily['Last_Name']}"></span></td>
+											<td>WD</td>
+											<td>:</td>
+											<td><span th:text="${members['WeddingDate']}"> </span></td>
 										</tr>
 										<tr>
-											<td class="fmembersname"><span class="memberemail"
-												th:if="${memberfamily['Email'] !=''}"> <i
-													class="bx bx-mail-send"></i> &nbsp;&nbsp; &nbsp; : <span
-													th:text="${memberfamily['Email']}">Email </span><br /></span> <span
-												class="memberemail" th:if="${memberfamily['Date_of_Birth']}">DOB
-													&nbsp;:&nbsp; <span
-													th:text="${memberfamily['Date_of_Birth']}">Date_of_Birth
-												</span>
-											</span> <span class="memberemail"
-												th:if="${memberfamily['WeddingDate']}"> W/D
-													&nbsp;:&nbsp; <span
-													th:text="${memberfamily['WeddingDate']}">WeddingDate
-												</span>
-											</span> <br /> <span th:if="${memberfamily['Member_BloodGroup']}">
-													<i class="bx bxs-droplet"></i> &nbsp; <span
-													th:text="${memberfamily['Member_BloodGroup']}">Member_BloodGroup
-												</span>
-											</span> <span class="memberemail"
-												th:if="${memberfamily['Spouse_Name'] !=''}"> <i
-													class="bx bxs-group"></i> &nbsp;&nbsp; &nbsp;: <span
-													th:text="${memberfamily['Spouse_Name']}">Spouse_Name
-												</span>
-											</span> <br /></td>
+											<td style="color: #CD2626;"><i class="bx bxs-droplet"></i></td>
+											<td>:</td>
+											<td><span th:text="${members['Member_BloodGroup']}">
+											</span></td>
 
 										</tr>
+
 
 									</table>
 
-								</div>
+									<hr />
+									<h6 class="membertitle" align="center"
+										th:text="${members['Title']}"
+										th:style="'background-color:' + @{${members['bgColorValue']}} +' ; color:' + @{${members['TextColorValue']}} +' ; width:100%;'">
 
-						</span></td>
-					</tr>
-				</table>
+									</h6>
+								</td>
+							</tr>
 
-			</span>
+						</table>
+
+						<span th:if="${members.Family_Unit=='Head of Household'}">
+							<table border="1px" width="98%" align="left" cellspacing='0px'
+								style="font-size: 16px; margin-left: 10px; background: #fff;">
+								<tr>
+									<td align="center"
+										th:style="'background-color:' + @{${members['bgColorValue']}} +' ; color:' + @{${members['TextColorValue']}} +' ; width:100%;'">FAMILY
+										MEMBERS</td>
+								</tr>
+								<tr>
+									<td><span th:each="memberfamily : ${memberfamilyinfo}">
+
+											<div style="float: left;">
+												<table class="fnameTable">
+													<tr>
+														<td rowspan="4" style="min-width: 150px; width: 150px;"
+															align="right"><img
+															th:src="${memberfamily.ProfileImg}"
+															style="width: 100px; height: 100px;" /></td>
+													</tr>
+													<tr>
+														<td class="fmemberno">M.No. <span
+															th:text="${memberfamily.MemberID}"></span></td>
+													</tr>
+													<tr>
+														<td class="fmembername"><span
+															th:text="${memberfamily['First_Name']} + ' ' +${memberfamily['Last_Name']}"></span></td>
+													</tr>
+													<tr>
+														<td class="fmembersname"><span class="memberemail"
+															th:if="${memberfamily['Email'] !=''}"> <i
+																class="bx bx-mail-send"></i> &nbsp;&nbsp; &nbsp; : <span
+																th:text="${memberfamily['Email']}">Email </span><br /></span>
+															<span class="memberemail"
+															th:if="${memberfamily['Date_of_Birth']}">DOB
+																&nbsp;:&nbsp; <span
+																th:text="${memberfamily['Date_of_Birth']}">Date_of_Birth
+															</span>
+														</span> <span class="memberemail"
+															th:if="${memberfamily['WeddingDate']}"> W/D
+																&nbsp;:&nbsp; <span
+																th:text="${memberfamily['WeddingDate']}">WeddingDate
+															</span>
+														</span> <br /> <span
+															th:if="${memberfamily['Member_BloodGroup']}"> <i
+																class="bx bxs-droplet"></i> &nbsp; <span
+																th:text="${memberfamily['Member_BloodGroup']}">Member_BloodGroup
+															</span>
+														</span> <span class="memberemail"
+															th:if="${memberfamily['Spouse_Name'] !=''}"> <i
+																class="bx bxs-group"></i> &nbsp;&nbsp; &nbsp;: <span
+																th:text="${memberfamily['Spouse_Name']}">Spouse_Name
+															</span>
+														</span> <br /></td>
+
+													</tr>
+
+												</table>
+
+											</div>
+
+									</span></td>
+								</tr>
+							</table>
+
+						</span>
 
 
-		</div>
-	</div>
+					</div>
+				</div>
 
-	<!---End------A4 page 595*842 ------------->
+				<!---End------A4 page 595*842 ------------->
 			</div>
-			
-			
-			<br/>
+
+
+			<br />
 			<div class="content-body" style="border: solid #EBEBEB 2px;">
-				
+
 				<!-- Form wizard with icon tabs section start -->
 				<section id="icon-tabs">
 					<div class="row">
@@ -459,11 +454,6 @@ table thead th {
 									<h4 class="card-title">Member details update section</h4>
 
 
-									<div th:if="${savestatus}" class="form-group">
-										<button type="button"
-											class="btn mb-1 btn-success btn-lg btn-block">Member
-											Info Updated Successfully</button>
-									</div>
 
 
 								</div>
@@ -553,54 +543,43 @@ table thead th {
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Prefix *</label> 
-															<span
+															<label Style="Color: #B22222">Prefix *</label> <span
 																th:switch="${meminter.Prefix != members.Prefix }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Prefix}"></span></span>
-															</span>
-															 <input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Prefix']}" th:field="*{Prefix}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">First Name *</label> 
-															<span
+															<label Style="Color: #B22222">First Name *</label> <span
 																th:switch="${meminter.First_Name != members.First_Name }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.First_Name}"></span></span>
-															</span>
-															<input
-																type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['First_Name']}"
 																th:field="*{First_Name}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Middle Name</label>
-															<span
+															<label Style="Color: #B22222">Middle Name</label> <span
 																th:switch="${meminter.Middle_Name != members.Middle_Name }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Middle_Name}"></span></span>
-															</span>
-															 <input
-																type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Middle_Name']}"
 																th:field="*{Middle_Name}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Last Name *</label> 
-															<span
+															<label Style="Color: #B22222">Last Name *</label> <span
 																th:switch="${meminter.Last_Name != members.Last_Name }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Last_Name}"></span></span>
-															</span>
-															<input
-																type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Last_Name']}"
 																th:field="*{Last_Name}" />
 														</div>
@@ -614,243 +593,221 @@ table thead th {
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address Line
-																1 *</label>
-																<span
+																1 *</label> <span
 																th:switch="${meminter.Member_Address_Line_1 != members.Member_Address_Line_1 }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Member_Address_Line_1}"></span></span>
-															</span>
-																 <input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Line_1']}"
-																th:field="*{Member_Address_Line_1}" />
+																th:field="*{Member_Address_Line_1}"
+																id="Member_Address_Line_1" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address Line
-																2 *</label>
-																<span
+																2 *</label> <span
 																th:switch="${meminter.Member_Address_Line_2 != members.Member_Address_Line_2 }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Member_Address_Line_2}"></span></span>
-															</span>
-																 <input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Line_2']}"
-																th:field="*{Member_Address_Line_2}" />
+																th:field="*{Member_Address_Line_2}"
+																id="Member_Address_Line_2" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address Line
-																3 *</label>
-																
-																<span
+																3 *</label> <span
 																th:switch="${meminter.Member_Address_Line_3 != members.Member_Address_Line_3 }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Member_Address_Line_3}"></span></span>
-															</span>
-																 <input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Line_3']}"
-																th:field="*{Member_Address_Line_3}" />
+																th:field="*{Member_Address_Line_3}"
+																id="Member_Address_Line_3" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address Line
-																4 *</label>
-																<span
+																4 *</label> <span
 																th:switch="${meminter.Member_Address_Line_4 != members.Member_Address_Line_4 }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Member_Address_Line_4}"></span></span>
-															</span>
-																
-																 <input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Line_4']}"
-																th:field="*{Member_Address_Line_4}" />
+																th:field="*{Member_Address_Line_4}"
+																id="Member_Address_Line_4" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address City
-																*</label>
-																<span
+																*</label> <span
 																th:switch="${meminter.Member_Address_City != members.Member_Address_City }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Member_Address_City}"></span></span>
-															</span>
-																
-																 <input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Member_Address_City']}"
-																th:field="*{Member_Address_City}" />
+																th:field="*{Member_Address_City}"
+																id="Member_Address_Line_City" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address
-																State</label>
-																<span
+																State</label> <span
 																th:switch="${meminter.Member_Address_State != members.Member_Address_State }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Member_Address_State}"></span></span>
-															</span>
-																 <input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Member_Address_State']}"
-																th:field="*{Member_Address_State}" />
+																th:field="*{Member_Address_State}"
+																id="Member_Address_Line_State" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address
-																PostalCode *</label> 
-																
-																<span
+																PostalCode *</label> <span
 																th:switch="${meminter.Member_Address_Postal_Code != members.Member_Address_Postal_Code }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Member_Address_Postal_Code}"></span></span>
-															</span>
-																<input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Postal_Code']}"
-																th:field="*{Member_Address_Postal_Code}" />
+																th:field="*{Member_Address_Postal_Code}"
+																id="Member_Address_Line_PostalCode" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address
-																Country </label> 
-																
-																<span
+																Country </label> <span
 																th:switch="${meminter.Member_Address_Country != members.Member_Address_Country }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Member_Address_Country}"></span></span>
-															</span>
-																<input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Member_Address_Country']}"
-																th:field="*{Member_Address_Country}" />
+																th:field="*{Member_Address_Country}"
+																id="Member_Address_Line_Country" />
 														</div>
 													</div>
 													<div class="col-sm-12">
 														<hr style="border: dashed 1px #CCCCCC;" />
+
 														Office Address :
+														<p>
+															<input class="form-control" type="checkbox"
+																id="sameasHomeaddress" style="width: 20px; float: left;" />
+															<label style="margin-top: 10px;">&nbsp;&nbsp;&nbsp;Office
+																Address is same as home address</label>
+														</p>
 														<hr style="border: dashed 1px #fff;" />
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
-																Line 1 *</label> 
-																
-																<span
+																Line 1 *</label> <span
 																th:switch="${meminter.Officer_Address_Line_1 != members.Officer_Address_Line_1 }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Officer_Address_Line_1}"></span></span>
-															</span>
-																<input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Officer_Address_Line_1']}"
-																th:field="*{Officer_Address_Line_1}" />
+																th:field="*{Officer_Address_Line_1}"
+																id="Off_Address_Line_1" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
-																Line 2 *</label> 
-																
-																<span
+																Line 2 *</label> <span
 																th:switch="${meminter.Officer_Address_Line_2 != members.Officer_Address_Line_2 }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Officer_Address_Line_2}"></span></span>
-															</span>
-																<input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Officer_Address_Line_2']}"
-																th:field="*{Officer_Address_Line_2}" />
+																th:field="*{Officer_Address_Line_2}"
+																id="Off_Address_Line_2" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
-																Line 3 *</label> 
-																<span
+																Line 3 *</label> <span
 																th:switch="${meminter.Officer_Address_Line_3 != members.Officer_Address_Line_3 }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Officer_Address_Line_3}"></span></span>
-															</span>
-																
-																<input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Officer_Address_Line_3']}"
-																th:field="*{Officer_Address_Line_3}" />
+																th:field="*{Officer_Address_Line_3}"
+																id="Off_Address_Line_3" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
-																Line 4 *</label>
-																
-																<span
+																Line 4 *</label> <span
 																th:switch="${meminter.Officer_Address_Line_4 != members.Officer_Address_Line_4 }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Officer_Address_Line_4}"></span></span>
-															</span>
-																 <input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Officer_Address_Line_4']}"
-																th:field="*{Officer_Address_Line_4}" />
+																th:field="*{Officer_Address_Line_4}"
+																id="Off_Address_Line_4" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
-																City *</label> 
-																
-																<span
+																City *</label> <span
 																th:switch="${meminter.Officer_Address_City != members.Officer_Address_City }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Officer_Address_City}"></span></span>
-															</span>
-																<input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Officer_Address_City']}"
-																th:field="*{Officer_Address_City}" />
+																th:field="*{Officer_Address_City}"
+																id="Off_Address_Line_City" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
-																State *</label> 
-																<span
+																State *</label> <span
 																th:switch="${meminter.Officer_Address_State != members.Officer_Address_State }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Officer_Address_State}"></span></span>
-															</span>
-																
-																<input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Officer_Address_State']}"
-																th:field="*{Officer_Address_State}" />
+																th:field="*{Officer_Address_State}"
+																id="Off_Address_Line_State" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
-																PostalCode *</label> 
-																<span
+																PostalCode *</label> <span
 																th:switch="${meminter.Officer_Address_Postal_Code != members.Officer_Address_Postal_Code }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Officer_Address_Postal_Code}"></span></span>
-															</span>
-																
-																<input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Officer_Address_Postal_Code']}"
-																th:field="*{Officer_Address_Postal_Code}" />
+																th:field="*{Officer_Address_Postal_Code}"
+																id="Off_Address_Line_PostalCode" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
-																Country *</label> 
-																<span
+																Country *</label> <span
 																th:switch="${meminter.Officer_Address_Country != members.Officer_Address_Country }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Officer_Address_Country}"></span></span>
-															</span>
-																
-																<input type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Officer_Address_Country']}"
-																th:field="*{Officer_Address_Country}" />
+																th:field="*{Officer_Address_Country}"
+																id="Off_Address_Line_Country" />
 														</div>
 													</div>
 													<div class="col-sm-12">
@@ -860,14 +817,11 @@ table thead th {
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Date of Birth *</label> 
-															<span
+															<label Style="Color: #B22222">Date of Birth *</label> <span
 																th:switch="${meminter.Date_of_Birth != members.Date_of_Birth }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Date_of_Birth}"></span></span>
-															</span>
-															<input
-																type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Date_of_Birth']}"
 																th:field="*{Date_of_Birth}" />
 														</div>
@@ -875,42 +829,33 @@ table thead th {
 
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Join Date *</label>
-															<span
+															<label Style="Color: #B22222">Join Date *</label> <span
 																th:switch="${meminter.Join_Date != members.Join_Date }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Join_Date}"></span></span>
-															</span>
-															 <input
-																type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Join_Date']}"
 																th:field="*{Join_Date}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Home Phone *</label> 
-															<span
+															<label Style="Color: #B22222">Home Phone *</label> <span
 																th:switch="${meminter.Home_Phone != members.Home_Phone }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Home_Phone}"></span></span>
-															</span>
-															<input
-																type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Home_Phone']}"
 																th:field="*{Home_Phone}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Cell Phone *</label> 
-															<span
+															<label Style="Color: #B22222">Cell Phone *</label> <span
 																th:switch="${meminter.Cell_Phone != members.Cell_Phone }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Cell_Phone}"></span></span>
-															</span>
-															<input
-																type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Cell_Phone']}"
 																th:field="*{Cell_Phone}" />
 														</div>
@@ -918,28 +863,22 @@ table thead th {
 
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Spouse Name *</label> 
-															<span
+															<label Style="Color: #B22222">Spouse Name *</label> <span
 																th:switch="${meminter.Spouse_Name != members.Spouse_Name }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Spouse_Name}"></span></span>
-															</span>
-															<input
-																type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Spouse_Name']}"
 																th:field="*{Spouse_Name}" />
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label Style="Color: #B22222">Membership Type *</label> 
-															<span
+															<label Style="Color: #B22222">Membership Type *</label> <span
 																th:switch="${meminter.Membership_Type != members.Membership_Type }? ${true} : ${false}">
-																<span th:case="${true}" class="interDifferspan"><span 
+																<span th:case="${true}" class="interDifferspan"><span
 																	th:text="${meminter.Membership_Type}"></span></span>
-															</span>
-															<input
-																type="text" class="form-control"
+															</span> <input type="text" class="form-control"
 																th:value="${members['Membership_Type']}"
 																th:field="*{Membership_Type}" />
 														</div>
@@ -964,145 +903,69 @@ table thead th {
 
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Club Branch Name</label> <input type="text"
-																class="form-control"
-																th:value="${members['Club_Branch_Name']}"
-																th:field="*{Club_Branch_Name}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>International Discount</label> <input type="text"
-																class="form-control"
-																th:value="${members['International_Discount']}"
-																th:field="*{International_Discount}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>International DiscountReason</label> <input
-																type="text" class="form-control"
-																th:value="${members['International_Discount_Reason']}"
-																th:field="*{International_Discount_Reason}"
-																readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Multiple District Name</label> <input type="text"
-																class="form-control"
-																th:value="${members['Multiple_District_Name']}"
-																th:field="*{Multiple_District_Name}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>District Name</label> <input type="text"
-																class="form-control"
-																th:value="${members['District_Name']}"
-																th:field="*{District_Name}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Region Name</label> <input type="text"
-																class="form-control"
-																th:value="${members['Region_Name']}"
-																th:field="*{Region_Name}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Zone Name</label> <input type="text"
-																class="form-control" th:value="${members['Zone_Name']}"
-																th:field="*{Zone_Name}" readonly="readonly" />
-														</div>
-													</div>
-
-
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Suffix</label> <input type="text"
-																class="form-control" th:value="${members['Suffix']}"
-																th:field="*{Suffix}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Invalid Member AddressFlag</label> <input
-																type="text" class="form-control"
-																th:value="${members['Invalid_Member_Address_Flag']}"
-																th:field="*{Invalid_Member_Address_Flag}"
-																readonly="readonly" />
-														</div>
-													</div>
-
-
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Invalid Officer AddressFlag</label> <input
-																type="text" class="form-control"
-																th:value="${members['Invalid_Officer_Address_Flag']}"
-																th:field="*{Invalid_Officer_Address_Flag}"
-																readonly="readonly" />
-														</div>
-													</div>
-
-
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Fax Number</label> <input type="text"
-																class="form-control" th:value="${members['Fax_Number']}"
-																th:field="*{Fax_Number}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Work Phone</label> <input type="text"
-																class="form-control" th:value="${members['Work_Phone']}"
-																th:field="*{Work_Phone}" readonly="readonly" />
-														</div>
-													</div>
-
-
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Gender</label> <input type="text"
-																class="form-control" th:value="${members['Gender']}"
-																th:field="*{Gender}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Nick Name</label> <input type="text"
-																class="form-control" th:value="${members['Nick_Name']}"
-																th:field="*{Nick_Name}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Occupation</label> <input type="text"
+															<label>Occupation </label> <input type="text"
 																class="form-control" th:value="${members['Occupation']}"
-																th:field="*{Occupation}" readonly="readonly" />
+																th:field="*{Occupation}" />
+
 														</div>
 													</div>
 
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Life Member</label> <input type="text"
-																class="form-control"
-																th:value="${members['Life_Member']}"
-																th:field="*{Life_Member}" readonly="readonly" />
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>Family Unit</label> <input type="text"
-																class="form-control"
-																th:value="${members['Family_Unit']}"
-																th:field="*{Family_Unit}" readonly="readonly" />
-														</div>
-													</div>
+
+
+
+													<input type="text" class="form-control"
+														th:value="${members['Club_Branch_Name']}"
+														th:field="*{Club_Branch_Name}" readonly="readonly"
+														hidden="" /> <input type="text" class="form-control"
+														th:value="${members['International_Discount']}"
+														th:field="*{International_Discount}" readonly="readonly"
+														hidden="" /> <input type="text" class="form-control"
+														th:value="${members['International_Discount_Reason']}"
+														th:field="*{International_Discount_Reason}"
+														readonly="readonly" hidden="" /> <input type="text"
+														class="form-control"
+														th:value="${members['Multiple_District_Name']}"
+														th:field="*{Multiple_District_Name}" readonly="readonly"
+														hidden="" /> <input type="text" class="form-control"
+														th:value="${members['District_Name']}"
+														th:field="*{District_Name}" readonly="readonly" hidden="" />
+													<input type="text" class="form-control"
+														th:value="${members['Region_Name']}"
+														th:field="*{Region_Name}" readonly="readonly" hidden="" />
+													<input type="text" class="form-control"
+														th:value="${members['Zone_Name']}" th:field="*{Zone_Name}"
+														readonly="readonly" hidden="" /> <input type="text"
+														class="form-control" th:value="${members['Suffix']}"
+														th:field="*{Suffix}" readonly="readonly" hidden="" /> <input
+														type="text" class="form-control"
+														th:value="${members['Invalid_Member_Address_Flag']}"
+														th:field="*{Invalid_Member_Address_Flag}"
+														readonly="readonly" hidden="" /> <input type="text"
+														class="form-control"
+														th:value="${members['Invalid_Officer_Address_Flag']}"
+														th:field="*{Invalid_Officer_Address_Flag}"
+														readonly="readonly" hidden="" /> <input type="text"
+														class="form-control" th:value="${members['Fax_Number']}"
+														th:field="*{Fax_Number}" readonly="readonly" hidden="" />
+													<input type="text" class="form-control"
+														th:value="${members['Work_Phone']}"
+														th:field="*{Work_Phone}" readonly="readonly" hidden="" />
+													<input type="text" class="form-control"
+														th:value="${members['Gender']}" th:field="*{Gender}"
+														readonly="readonly" hidden="" /> <input type="text"
+														class="form-control" th:value="${members['Nick_Name']}"
+														th:field="*{Nick_Name}" readonly="readonly" hidden="" />
+
+													<input type="text" class="form-control"
+														th:value="${members['Life_Member']}"
+														th:field="*{Life_Member}" readonly="readonly" hidden="" />
+													<input type="text" class="form-control"
+														th:value="${members['Family_Unit']}"
+														th:field="*{Family_Unit}" readonly="readonly" hidden="" />
+													<input type="text" class="form-control"
+														th:value="${members['ProfileImg']}"
+														th:field="*{ProfileImg}" readonly="readonly" hidden="" />
+
 
 													<input type="hidden" class="form-control"
 														th:value="${members['id']}" th:field="*{id}"
@@ -1440,10 +1303,23 @@ table thead th {
 
 							$(".removeFmember").click(function() {
 								var deleteId = $(this).attr('id');
-								$.post('memberFamilyDelete', {
-									deleteId : deleteId
-								}, function(output) {
-									//$('#result').append(output).show();
+
+								var formData = {
+									deleteId : $(this).attr('id')
+
+								}
+
+								// DO POST
+								$.ajax({
+									type : "POST",
+									url : "memberFamilyDelete",
+									data : formData,
+									success : function(result) {
+										console.log(result);
+									},
+									error : function(e) {
+										console.log("ERROR: ", e);
+									}
 								});
 
 								var tr = $(this).closest('tr');
@@ -1452,6 +1328,74 @@ table thead th {
 								$('#slide-toast').click();
 
 							});
+
+							$('#sameasHomeaddress')
+									.click(
+											function() {
+												if ($("input[type=checkbox]")
+														.is(":checked")) {
+
+													$("#Off_Address_Line_1")
+															.val(
+																	$(
+																			"#Member_Address_Line_1")
+																			.val());
+													$("#Off_Address_Line_2")
+															.val(
+																	$(
+																			"#Member_Address_Line_2")
+																			.val());
+													$("#Off_Address_Line_3")
+															.val(
+																	$(
+																			"#Member_Address_Line_3")
+																			.val());
+													$("#Off_Address_Line_4")
+															.val(
+																	$(
+																			"#Member_Address_Line_4")
+																			.val());
+													$("#Off_Address_Line_City")
+															.val(
+																	$(
+																			"#Member_Address_Line_City")
+																			.val());
+													$("#Off_Address_Line_State")
+															.val(
+																	$(
+																			"#Member_Address_Line_State")
+																			.val());
+													$(
+															"#Off_Address_Line_PostalCode")
+															.val(
+																	$(
+																			"#Member_Address_Line_PostalCode")
+																			.val());
+													$(
+															"#Off_Address_Line_Country")
+															.val(
+																	$(
+																			"#Member_Address_Line_Country")
+																			.val());
+
+												} else {
+
+												}
+											});
+
+							//--------------------------------------------------------------------------------------------------------------------------------------		 
+							//--------------------------------------------------------------------------------------------------------------------------------------		 		
+
+							$(function() {
+								var token = $("input[name='_csrf']").val();
+								var header = 'X-CSRF-TOKEN';//$("meta[name='_csrf_header']").attr("content");
+								$(document).ajaxSend(function(e, xhr, options) {
+									xhr.setRequestHeader(header, token);
+								});
+							});
+							//--------------------------------------------------------------------------------------------------------------------------------------		 
+							//--------------------------------------------------------------------------------------------------------------------------------------		 		
+
 						});
 	</script>
 </body>

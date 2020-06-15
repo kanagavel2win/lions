@@ -131,7 +131,6 @@ public class HomeController {
 			MemberFamilyListDetails.add(m1);
 		}
 
-		
 		theModel.addAttribute("member", editmemberDetails);
 		theModel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
 		return "rptMemberview";
@@ -141,7 +140,7 @@ public class HomeController {
 	public String memberadd(@RequestParam("id") int memberid, Model theModel) {
 
 		Member editmemberDetails = memberService.findById(memberid);
-		//---------------------------
+		// ---------------------------
 		// Report View
 		List<MemberFamily> MemberFamilyList = memberFamilyService.FamilymemberSpecific(editmemberDetails.getMemberID());
 
@@ -153,11 +152,10 @@ public class HomeController {
 
 			MemberFamilyListDetails.add(m1);
 		}
-		
+
 		theModel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
-		//----------------------------
-		
-		
+		// ----------------------------
+
 		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(editmemberDetails.getMemberID());
 		theModel.addAttribute("FamilymemberDetails", FamilymemberDetails);
 
@@ -191,24 +189,26 @@ public class HomeController {
 			@RequestParam("fa_member_orderid") int[] fa_member_orderid, Model themodel) {
 
 		// Start image Upload area----------------------------------------
-		String uploadRootPath = request.getServletContext().getRealPath("profilepic");
-		System.out.println("uploadRootPath=" + uploadRootPath);
+		if (profilepicture.getOriginalFilename().toString().length() > 0) {
+			String uploadRootPath = request.getServletContext().getRealPath("profilepic");
+			System.out.println("uploadRootPath=" + uploadRootPath);
 
-		File uploadRootDir = new File(uploadRootPath);
-		// Create directory if it not exists.
-		if (!uploadRootDir.exists()) {
-			uploadRootDir.mkdirs();
-		}
+			File uploadRootDir = new File(uploadRootPath);
+			// Create directory if it not exists.
+			if (!uploadRootDir.exists()) {
+				uploadRootDir.mkdirs();
+			}
 
-		StringBuilder filename = new StringBuilder();
-		Path fileNameandPath = Paths.get(uploadRootPath, profilepicture.getOriginalFilename());
-		filename.append(profilepicture.getOriginalFilename());
-
-		try {
-			Files.write(fileNameandPath, profilepicture.getBytes());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			StringBuilder filename = new StringBuilder();
+			Path fileNameandPath = Paths.get(uploadRootPath, profilepicture.getOriginalFilename());
+			filename.append(profilepicture.getOriginalFilename());
+			member.setProfileImg("profilepic/" + filename);
+			try {
+				Files.write(fileNameandPath, profilepicture.getBytes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		// End image Upload area----------------------------------------
@@ -228,27 +228,26 @@ public class HomeController {
 		// End family Member Details adding---------------------------
 		// -------------------------------------------------------------
 		// System.out.println(fileNameandPath);
-		member.setProfileImg("profilepic/" + filename);
+
 		memberService.save(member);
 		themodel.addAttribute("members", member);
 		themodel.addAttribute("savestatus", true);
-		
-		//---------------------------
-				// Report View
-				List<MemberFamily> MemberFamilyList = memberFamilyService.FamilymemberSpecific(member.getMemberID());
 
-				ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
+		// ---------------------------
+		// Report View
+		List<MemberFamily> MemberFamilyList = memberFamilyService.FamilymemberSpecific(member.getMemberID());
 
-				for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
+		ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
 
-					Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
+		for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
 
-					MemberFamilyListDetails.add(m1);
-				}
-				
-				themodel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
-				//----------------------------
-				
+			Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
+
+			MemberFamilyListDetails.add(m1);
+		}
+
+		themodel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
+		// ----------------------------
 
 		List<MemberFamily> FamilymemberSpecific = memberFamilyService.FamilymemberSpecific(member.getMemberID());
 
@@ -581,7 +580,7 @@ public class HomeController {
 			List<Member> ReportAllmemberdetails = memberService.findAll();
 			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
 			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
-		
+
 			// Start Member Details process--------------------------------------------
 			// --------------------------------------------------------------------------
 			List<Member> houseHolder = memberService.getHouseholderdetails();
@@ -617,8 +616,6 @@ public class HomeController {
 			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
 			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
 
-		
-
 			// Start Member Details process--------------------------------------------
 			// --------------------------------------------------------------------------
 			// List<Member> houseHolder = memberService.getHouseholderdetails();
@@ -634,7 +631,7 @@ public class HomeController {
 
 					Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
 					// m1.setSpouse_Name(MemberFamilyList.get(hhif).getRelationship());
-					
+
 					MemberFamilyListDetails.add(m1);
 				}
 
@@ -780,11 +777,8 @@ public class HomeController {
 	}
 
 	@PostMapping("ReportDifferentIntvslocal")
-	public String ReportDifferentIntvslocalSave( Model model,@RequestParam Map<String,String> params) {
-		
-		
-		
-		
+	public String ReportDifferentIntvslocalSave(Model model, @RequestParam Map<String, String> params) {
+
 		Member updatemember = memberService.findByMemberID(params.get("MemberID")).get(0);
 		updatemember.setPrefix(params.get("Prefix"));
 		updatemember.setFirst_Name(params.get("First_Name"));
@@ -813,9 +807,9 @@ public class HomeController {
 		updatemember.setSpouse_Name(params.get("Spouse_Name"));
 		updatemember.setMembership_Type(params.get("Membership_Type"));
 		memberService.save(updatemember);
-		
-		model.addAttribute("updateMemberID",params.get("MemberID"));
-		
+
+		model.addAttribute("updateMemberID", params.get("MemberID"));
+
 		List<MemberAsperInternational> internationmemberList = memberInternationalService.findAll();
 
 		TreeMap<MemberAsperInternational, Member> compareMember = new TreeMap<MemberAsperInternational, Member>();
@@ -833,8 +827,9 @@ public class HomeController {
 		model.addAttribute("compareMember", compareMember);
 
 		return "rptMemberDiffDBEdit";
-		
+
 	}
+
 	/*
 	 * private boolean compareLocalAndInter(MemberAsperInternational mIt, Member
 	 * mLoc) {
@@ -945,7 +940,5 @@ public class HomeController {
 
 		return "403";
 	}
-	
-
 
 }
