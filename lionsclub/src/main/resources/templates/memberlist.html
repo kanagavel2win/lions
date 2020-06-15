@@ -119,7 +119,7 @@
                                                         <th>OrderID</th>
                                                         <th>Name</th>
                                                         <th>Designation</th>
-                                                        <th>Spouse Name</th>
+                                                        <th>Occupation</th>
                                                         <th>Mobile No</th>
                                                         <th>View</th>                                                                                                             
                                                         
@@ -132,7 +132,7 @@
 													    <td th:text="${member['ReportPriorityOrder']}"></td>
 													    <td><span th:text="${member['First_Name']} +' '+ ${member['Last_Name']} + '(' + ${member['MemberID']} +')'"></span></td>
                                                         <td th:text="${member['Title']}"></td>
-                                                        <td th:text="${member['Spouse_Name']}"></td>
+                                                        <td th:text="${member['Occupation']}"></td>
                                                         <td th:text="${member['Cell_Phone']}"></td>
                                                         
                                                         <td style="text-align: center"><a th:href="'memberedit?id=' + @{{id} (id=${member['id']})}" target="blank"><i class="bx bx-search" style="font-size:26px"></i></a></td>
@@ -147,7 +147,7 @@
                                                         <th>S.No</th>
                                                         <th>Name</th>
                                                         <th>Designation</th>
-                                                        <th>Spouse Name</th>
+                                                        <th>Occupation</th>
                                                         <th>Mobile No</th>   
                                                         <th>View</th>                                                     
                                                         
