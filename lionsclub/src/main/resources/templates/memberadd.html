@@ -139,6 +139,11 @@ table thead th {
 	color: #104E8B;
 	border-color: #DCDCDC;
 }
+
+
+.profile-fill{display: none;}
+.messages-fill{display: none;}
+.settings-fill{display: none;}
 </style>
 </head>
 <!-- END: Head-->
@@ -453,15 +458,37 @@ table thead th {
 								<div class="card-header">
 									<h4 class="card-title">Member details update section</h4>
 
-
-
-
 								</div>
 								<div class="card-content mt-2">
 									<div class="card-body">
 										<form th:action="@{/memberedit}" th:object="${members}"
 											method="POST" class="wizard-horizontal"
 											enctype="multipart/form-data">
+											
+											 <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab-fill" data-toggle="tab" href="home-fill" role="tab" aria-controls="home-fill" aria-selected="true">
+                                                    Home
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="profile-tab-fill" data-toggle="tab" href="profile-fill" role="tab" aria-controls="profile-fill" aria-selected="false">
+                                                    Home Address
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="messages-tab-fill" data-toggle="tab" href="messages-fill" role="tab" aria-controls="messages-fill" aria-selected="false">
+                                                    Office Address 
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="settings-tab-fill" data-toggle="tab" href="settings-fill" role="tab" aria-controls="settings-fill" aria-selected="false">
+                                                   Additional information 
+                                                </a>
+                                            </li>
+                                        </ul>
+											
+											<div class="tab-content pt-1">
 											<!-- body content step 1 -->
 											<fieldset>
 												<div class="row">
@@ -475,8 +502,9 @@ table thead th {
 															class="bx bx-search" style="font-size: 19px;"></i>&nbsp;&nbsp;&nbsp;Goto
 															- Profile Preview</a>
 													</div>-->
+													
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Order Number to
 																Display in the Report</label> <input type="text"
@@ -485,7 +513,7 @@ table thead th {
 																th:field="*{ReportPriorityOrder}" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Backgroud
 																Color / Text Color</label>
@@ -512,7 +540,7 @@ table thead th {
 														</div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Select Directory
 																Address</label> <select class="form-control" id="basicSelect"
@@ -527,21 +555,21 @@ table thead th {
 													</div>
 
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label>Title</label> <input type="text"
 																class="form-control" th:value="${members['Title']}"
 																th:field="*{Title}" readonly="readonly" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label>Member ID</label> <input type="text"
 																class="form-control" th:value="${members['MemberID']}"
 																th:field="*{MemberID}" readonly="readonly" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Prefix *</label> <span
 																th:switch="${meminter.Prefix != members.Prefix }? ${true} : ${false}">
@@ -551,7 +579,7 @@ table thead th {
 																th:value="${members['Prefix']}" th:field="*{Prefix}" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">First Name *</label> <span
 																th:switch="${meminter.First_Name != members.First_Name }? ${true} : ${false}">
@@ -562,7 +590,7 @@ table thead th {
 																th:field="*{First_Name}" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Middle Name</label> <span
 																th:switch="${meminter.Middle_Name != members.Middle_Name }? ${true} : ${false}">
@@ -573,7 +601,7 @@ table thead th {
 																th:field="*{Middle_Name}" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Last Name *</label> <span
 																th:switch="${meminter.Last_Name != members.Last_Name }? ${true} : ${false}">
@@ -584,13 +612,14 @@ table thead th {
 																th:field="*{Last_Name}" />
 														</div>
 													</div>
-													<div class="col-sm-12">
+													
+													<div class="col-sm-12 profile-fill">
 
 														<hr style="border: dashed 1px #CCCCCC;" />
 														Home Address :
 														<hr style="border: dashed 1px #fff;" />
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 profile-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address Line
 																1 *</label> <span
@@ -603,7 +632,7 @@ table thead th {
 																id="Member_Address_Line_1" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 profile-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address Line
 																2 *</label> <span
@@ -616,7 +645,7 @@ table thead th {
 																id="Member_Address_Line_2" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 profile-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address Line
 																3 *</label> <span
@@ -629,7 +658,7 @@ table thead th {
 																id="Member_Address_Line_3" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 profile-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address Line
 																4 *</label> <span
@@ -642,7 +671,7 @@ table thead th {
 																id="Member_Address_Line_4" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 profile-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address City
 																*</label> <span
@@ -655,7 +684,7 @@ table thead th {
 																id="Member_Address_Line_City" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 profile-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address
 																State</label> <span
@@ -668,7 +697,7 @@ table thead th {
 																id="Member_Address_Line_State" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 profile-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address
 																PostalCode *</label> <span
@@ -681,7 +710,7 @@ table thead th {
 																id="Member_Address_Line_PostalCode" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 profile-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member Address
 																Country </label> <span
@@ -694,7 +723,8 @@ table thead th {
 																id="Member_Address_Line_Country" />
 														</div>
 													</div>
-													<div class="col-sm-12">
+													
+													<div class="col-sm-12 messages-fill">
 														<hr style="border: dashed 1px #CCCCCC;" />
 
 														Office Address :
@@ -706,7 +736,7 @@ table thead th {
 														</p>
 														<hr style="border: dashed 1px #fff;" />
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 messages-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
 																Line 1 *</label> <span
@@ -719,7 +749,7 @@ table thead th {
 																id="Off_Address_Line_1" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 messages-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
 																Line 2 *</label> <span
@@ -732,7 +762,7 @@ table thead th {
 																id="Off_Address_Line_2" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 messages-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
 																Line 3 *</label> <span
@@ -745,7 +775,7 @@ table thead th {
 																id="Off_Address_Line_3" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 messages-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
 																Line 4 *</label> <span
@@ -758,7 +788,7 @@ table thead th {
 																id="Off_Address_Line_4" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 messages-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
 																City *</label> <span
@@ -771,7 +801,7 @@ table thead th {
 																id="Off_Address_Line_City" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 messages-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
 																State *</label> <span
@@ -784,7 +814,7 @@ table thead th {
 																id="Off_Address_Line_State" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 messages-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
 																PostalCode *</label> <span
@@ -797,7 +827,7 @@ table thead th {
 																id="Off_Address_Line_PostalCode" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 messages-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Officer Address
 																Country *</label> <span
@@ -810,12 +840,13 @@ table thead th {
 																id="Off_Address_Line_Country" />
 														</div>
 													</div>
-													<div class="col-sm-12">
+													
+													<div class="col-sm-12  settings-fill">
 														<hr style="border: dashed 1px #CCCCCC;" />
 														Other Info :
 														<hr style="border: dashed 1px #fff;" />
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Date of Birth *</label> <span
 																th:switch="${meminter.Date_of_Birth != members.Date_of_Birth }? ${true} : ${false}">
@@ -827,7 +858,7 @@ table thead th {
 														</div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Join Date *</label> <span
 																th:switch="${meminter.Join_Date != members.Join_Date }? ${true} : ${false}">
@@ -838,7 +869,7 @@ table thead th {
 																th:field="*{Join_Date}" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Home Phone *</label> <span
 																th:switch="${meminter.Home_Phone != members.Home_Phone }? ${true} : ${false}">
@@ -849,7 +880,7 @@ table thead th {
 																th:field="*{Home_Phone}" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Cell Phone *</label> <span
 																th:switch="${meminter.Cell_Phone != members.Cell_Phone }? ${true} : ${false}">
@@ -861,7 +892,7 @@ table thead th {
 														</div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Spouse Name *</label> <span
 																th:switch="${meminter.Spouse_Name != members.Spouse_Name }? ${true} : ${false}">
@@ -872,7 +903,7 @@ table thead th {
 																th:field="*{Spouse_Name}" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Membership Type *</label> <span
 																th:switch="${meminter.Membership_Type != members.Membership_Type }? ${true} : ${false}">
@@ -885,7 +916,7 @@ table thead th {
 													</div>
 
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label>Sponsor Name </label> <input type="text"
 																class="form-control"
@@ -893,7 +924,7 @@ table thead th {
 																th:field="*{Sponsor_Name}" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label>Email </label> <input type="text"
 																class="form-control" th:value="${members['Email']}"
@@ -901,7 +932,7 @@ table thead th {
 														</div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label>Occupation </label> <input type="text"
 																class="form-control" th:value="${members['Occupation']}"
@@ -971,22 +1002,22 @@ table thead th {
 														th:value="${members['id']}" th:field="*{id}"
 														readonly="readonly" />
 
-												</div>
+												
 												<br /> <br /> <br />
 
-												<div class="row">
-													<div class="col-12">
+												<div class="row ">
+													<div class="col-12 settings-fill">
 														<h6 class="py-50">
 															<b>Additional information</b>
 														</h6>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Profile Pic *</label> <input
 																type="file" class="form-control" name="profilepicture" />
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Member BloodGroup *</label>
 
@@ -1006,7 +1037,7 @@ table thead th {
 													</div>
 
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Wedding Date *</label> <input
 																type="date" class="form-control"
@@ -1015,7 +1046,7 @@ table thead th {
 														</div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label Style="Color: #B22222">Business Link *</label> <input
 																type="text" class="form-control"
@@ -1024,7 +1055,7 @@ table thead th {
 														</div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label>Spouse DOB</label> <input type="date"
 																class="form-control" th:value="${members['Spouse_DOB']}"
@@ -1032,7 +1063,7 @@ table thead th {
 														</div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label>Spouse BloodGroup </label> <select
 																class="form-control" id="basicSelect"
@@ -1053,7 +1084,7 @@ table thead th {
 													</div>
 
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label>Member Designation</label> <input type="text"
 																class="form-control"
@@ -1062,7 +1093,7 @@ table thead th {
 														</div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label>No.of Sons </label> <input type="text"
 																class="form-control" th:value="${members['NoofSon']}"
@@ -1070,7 +1101,7 @@ table thead th {
 														</div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-6 settings-fill">
 														<div class="form-group">
 															<label>No.of Daughter </label> <input type="text"
 																class="form-control"
@@ -1088,7 +1119,7 @@ table thead th {
 
 												<div class="row"
 													th:if="${members['Family_Unit']}=='Head of Household'">
-													<div class="col-12">
+													<div class="col-12 settings-fill">
 
 														<h6 class="py-50">
 															<b>Family information </b>
@@ -1135,7 +1166,7 @@ table thead th {
 															</table>
 														</div>
 													</div>
-													<div class="col-12" align="center">
+													<div class="col-12 settings-fill" align="center">
 														<div class="table-responsive">
 															<table class="table zero-configuration" id="add_fields"
 																style="background: #E8E8E8; min-width: 700px;">
@@ -1201,8 +1232,13 @@ table thead th {
 
 												</div>
 												<br /> <br /> <br />
+												</div>
+												
 											</fieldset>
 											<!-- body content of step 2 end-->
+											</div>
+											
+											
 											<input type="submit" class="btn btn-primary mr-1 mb-1"
 												value="Update" />
 										</form>
@@ -1268,7 +1304,9 @@ table thead th {
 	<script th:src="@{/app-assets/js/scripts/forms/wizard-steps.js}"></script>
 	<script th:src="@{/app-assets/js/scripts/extensions/toastr.js}"></script>
 	<!-- END: Page JS-->
-
+	<!-- BEGIN: Page JS-->
+    <script th:src="@{/app-assets/js/scripts/navs/navs.js}"></script>
+    <!-- END: Page JS-->
 	<script type="text/javascript">
 		$(document)
 				.ready(
@@ -1396,8 +1434,19 @@ table thead th {
 							//--------------------------------------------------------------------------------------------------------------------------------------		 
 							//--------------------------------------------------------------------------------------------------------------------------------------		 		
 
+						$(".nav-link").click(function(){
+							var activetab= $(this).attr("href");
+							$(".profile-fill").css("display","none");
+							$(".messages-fill").css("display","none");
+							$(".settings-fill").css("display","none");
+							$(".home-fill").css("display","none");
+							
+							$("."+activetab).css("display","block");
+						});
+						
 						});
 	</script>
+	 
 </body>
 <!-- END: Body-->
 
