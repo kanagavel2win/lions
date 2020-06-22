@@ -133,11 +133,11 @@ width:100%;
 				District</span> Login System.
 		</p>
 		<p style="color: #D1D1D1; font-size: 17px; line-height: 20px;">Your
-			MyClub Account Usernameand password allows you access</p>
+			MyClub Account UserName and Password allows you to access all Lions information</p>
 		<p style="color: #D1D1D1; font-size: 17px; line-height: 15px;">to
 			all Lions Information and service Insights.</p>
 		<p style="color: #D1D1D1; font-size: 14px; line-height: 15px;">(Lions
-			Club users who do not have a MyClub username and password - Redister
+			Club users who do not have a MyClub UserName and Password - Register
 			for Your Account Today.)</p>
 
 
@@ -153,7 +153,7 @@ width:100%;
 		<p style="color: #fff;">SIGN IN</p>
 		<form th:action="@{/login}" method="post">
 			<div th:if="${param.error}">
-				<div class="alert alert-danger">Invalid username or password.</div>
+				<div class="alert alert-danger">Invalid UserName or Password.</div>
 			</div>
 			<div th:if="${param.logout}">
 				<div class="alert alert-danger">You have been logged out.</div>
