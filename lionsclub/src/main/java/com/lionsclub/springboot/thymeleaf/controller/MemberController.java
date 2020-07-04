@@ -55,6 +55,14 @@ public class MemberController {
 
 	}
 
+	@PostMapping("memberDelete")
+	@ResponseBody
+	public String MemberDelete(@RequestParam("deleteId") int deleteId) {
+		memberService.deleteById(deleteId);
+		return "Member Removed Successfully";
+
+	}
+
 	@GetMapping("/MemberviewRoleMember")
 	public String rptMemberview(Model theModel) {
 		Member editmemberDetails = memberService.findByMemberID(getLoginMemberID()).get(0);

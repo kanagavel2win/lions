@@ -106,6 +106,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.getHouseholderdetails();
 	}
 
+	@Override
+	public List<String> getAllMemberID() {
+		// TODO Auto-generated method stub
+		return memberRepository.getAllMemberID();
+	}
+
 	
 }
 

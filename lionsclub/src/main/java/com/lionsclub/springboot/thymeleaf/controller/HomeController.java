@@ -309,7 +309,8 @@ public class HomeController {
 		} else {
 
 			memberInternationalService.deleteAll();
-
+			List<String> memberallIDList=memberService.getAllMemberID();
+			
 			try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 				String line = br.readLine(); // Reading header, Ignoring
 				while ((line = br.readLine()) != null && !line.isEmpty()) {
@@ -377,7 +378,10 @@ public class HomeController {
 					String Rptaddresstype = "Home Address";
 					// Report Priority Order
 					int ReportPriorityOrder = Integer.parseInt(MemberID);
-
+					// ------------------------------------------------------------------------------------
+					// delete operation to get list of member not available in the Internation site
+					memberallIDList.remove(MemberID);
+					
 					// ------------------------------------------------------------------------------------
 					// ------------------------------------------------------------------------------------
 					Member newMember;
@@ -492,7 +496,15 @@ public class HomeController {
 
 			model.addAttribute("status", true);
 			model.addAttribute("newMemberIDdetails", newMemberIDdetailsCount);
-
+			
+			
+			ArrayList<Member> memberIDList =new ArrayList();
+			for(int di=0;di<memberallIDList.size();di++)
+			{
+				memberIDList.add(memberService.findByMemberID(memberallIDList.get(di)).get(0));
+			}
+				
+			model.addAttribute("memberIDList",memberIDList);
 		}
 
 		model.addAttribute("savestatus", false);

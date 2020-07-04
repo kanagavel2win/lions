@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en" data-textdirection="ltr">
+<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en"
+	data-textdirection="ltr">
 
 <!-- BEGIN: Head-->
 
 <head>
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -101,11 +105,30 @@
 								<div class="card-header">
 									<h4 class="card-title">Upload Member Details</h4>
 									<div th:if="${status}" class="form-group toast-header">
-											<span th:text="*{newMemberIDdetails}"></span>
-										  &nbsp; &nbsp; -&nbsp;&nbsp;  New Member details are added successfully 
-										  
+										<span th:text="*{newMemberIDdetails}"></span> &nbsp; &nbsp;
+										-&nbsp;&nbsp; New Member details are added successfully
+
+
 									</div>
-									
+
+									<span th:if="${not #lists.isEmpty(memberIDList)}">
+										<table class="table">
+											<tr>
+												<td colspan="2" style="background:#DAA520;color: #fff;">Below Listed
+													Members are not available in the International DB</td>
+
+											</tr>
+											<span th:each="memberIDListVal : ${memberIDList}">
+											<tr>
+												<td><span
+													th:text="${memberIDListVal.First_Name}+ ' '+${memberIDListVal.Last_Name}+'('+ ${memberIDListVal.MemberID}+ ')'" /></td>
+												<td><i th:id="${memberIDListVal.id}" class="bx bxs-trash deletememberfromDB" style="font-size:26px"></i></td>
+											</tr>
+											</span>
+										</table>
+									</span>
+
+
 								</div>
 								<div class="card-content">
 									<div class="card-body card-dashboard">
@@ -113,12 +136,14 @@
 										<form method="POST" th:action="@{/memberupload}"
 											enctype="multipart/form-data">
 											<div class="form-group">
-												<p><label for="file">Select a CSV file</label> <input
-													type="file" name="file" class="form-control-file" id="file"
-													accept=".csv">
+												<p>
+													<label for="file">Select a CSV file</label> <input
+														type="file" name="file" class="form-control-file"
+														id="file" accept=".csv">
 												</p>
 											</div>
-											<button type="submit" class="btn btn-primary">Import Member Details</button>
+											<button type="submit" class="btn btn-primary">Import
+												Member Details</button>
 										</form>
 									</div>
 								</div>
@@ -135,7 +160,7 @@
 
 
 
-	
+
 	<div class="sidenav-overlay"></div>
 	<div class="drag-target"></div>
 
@@ -191,8 +216,53 @@
 	<!-- BEGIN: Page JS-->
 	<script th:src="@{/app-assets/js/scripts/datatables/datatable.js}"></script>
 	<!-- END: Page JS-->
+		
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$(".deletememberfromDB").click(function(){
+			
+			var memberID=$(this).attr("id");
+			
+			var formData = {
+					deleteId : $(this).attr('id')
 
+				}
+			// DO POST
+			 $.ajax({
+				type : "POST",
+				url : "memberDelete",
+				data : formData,
+				success : function(result) {
+					console.log(result);
+					alert("Member removed successfully..!");
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+				}
+			}); 
+			
+			var tr = $(this).closest('tr');
+			tr.remove();
+			
+		});
+		//--------------------------------------------------------------------------------------------------------------------------------------		 
+		//--------------------------------------------------------------------------------------------------------------------------------------		 		
+
+		$(function() {
+			var token = $("input[name='_csrf']").val();
+			var header = 'X-CSRF-TOKEN';//$("meta[name='_csrf_header']").attr("content");
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader(header, token);
+			});
+		});
+		//--------------------------------------------------------------------------------------------------------------------------------------		 
+		//--------------------------------------------------------------------------------------------------------------------------------------
+	});
+	
+	</script>
 </body>
 <!-- END: Body-->
+
 
 </html>

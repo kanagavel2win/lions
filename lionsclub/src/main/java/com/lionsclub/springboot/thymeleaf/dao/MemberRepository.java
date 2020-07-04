@@ -44,4 +44,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
 	@Query("Select m From Member m where m.Family_Unit ='Head of Household'")
 	public List<Member> getHouseholderdetails();
+	
+	@Query("Select m.MemberID From Member m")
+	public List<String>  getAllMemberID();
 }
