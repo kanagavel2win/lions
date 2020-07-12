@@ -115,14 +115,13 @@
 										<table class="table">
 											<tr>
 												<td colspan="2" style="background:#DAA520;color: #fff;">Below Listed
-													Members are not available in the International DB</td>
+													Members are removed from Database</td>
 
 											</tr>
 											<span th:each="memberIDListVal : ${memberIDList}">
 											<tr>
 												<td><span
 													th:text="${memberIDListVal.First_Name}+ ' '+${memberIDListVal.Last_Name}+'('+ ${memberIDListVal.MemberID}+ ')'" /></td>
-												<td><i th:id="${memberIDListVal.id}" class="bx bxs-trash deletememberfromDB" style="font-size:26px"></i></td>
 											</tr>
 											</span>
 										</table>

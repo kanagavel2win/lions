@@ -67,18 +67,15 @@ public class MemberController {
 	public String rptMemberview(Model theModel) {
 		Member editmemberDetails = memberService.findByMemberID(getLoginMemberID()).get(0);
 		List<MemberFamily> MemberFamilyList = memberFamilyService.FamilymemberSpecific(editmemberDetails.getMemberID());
-		
+
 		// Set office or home address
-					
-		
+
 		ArrayList<Member> MemberFamilyListDetails = new ArrayList<Member>();
 		for (int hhif = 0; hhif < MemberFamilyList.size(); hhif++) {
 			Member m1 = memberService.findByMemberID(MemberFamilyList.get(hhif).getMemberID()).get(0);
 			MemberFamilyListDetails.add(m1);
 		}
 
-		
-		
 		theModel.addAttribute("member", editmemberDetails);
 		theModel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
 		return "rptMemberviewRoleMember";
@@ -113,9 +110,10 @@ public class MemberController {
 
 		theModel.addAttribute("members", editmemberDetails);
 		theModel.addAttribute("savestatus", false);
-		MemberAsperInternational meminter=memberInternationalService.findMemberID(editmemberDetails.getMemberID()).get(0);
+		MemberAsperInternational meminter = memberInternationalService.findMemberID(editmemberDetails.getMemberID())
+				.get(0);
 		theModel.addAttribute("meminter", meminter);
-		
+
 		return "memberaddRoleMember";
 	}
 
@@ -182,7 +180,7 @@ public class MemberController {
 		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(String.valueOf(member.getMemberID()));
 		themodel.addAttribute("FamilymemberDetails", FamilymemberDetails);
 
-		MemberAsperInternational meminter=memberInternationalService.findMemberID(member.getMemberID()).get(0);
+		MemberAsperInternational meminter = memberInternationalService.findMemberID(member.getMemberID()).get(0);
 		themodel.addAttribute("meminter", meminter);
 
 		return "memberaddRoleMember";

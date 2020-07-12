@@ -469,7 +469,7 @@ public class HomeController {
 					newMember.setInternational_Discount(International_Discount);
 					newMember.setInternational_Discount_Reason(International_Discount_Reason);
 					newMember.setRptaddresstype(Rptaddresstype);
-
+					newMember.setDeletedStatus(false);
 					if (newMember.getReportPriorityOrder() == 0) {
 						newMember.setReportPriorityOrder(ReportPriorityOrder);
 					}
@@ -501,7 +501,11 @@ public class HomeController {
 			ArrayList<Member> memberIDList =new ArrayList();
 			for(int di=0;di<memberallIDList.size();di++)
 			{
-				memberIDList.add(memberService.findByMemberID(memberallIDList.get(di)).get(0));
+				Member mtemp=memberService.findByMemberID(memberallIDList.get(di)).get(0);
+				mtemp.setDeletedStatus(true);
+				memberService.save(mtemp);
+				memberIDList.add(mtemp);
+				
 			}
 				
 			model.addAttribute("memberIDList",memberIDList);
@@ -564,6 +568,7 @@ public class HomeController {
 		mInter.setClub_Branch_Name(newMember.getClub_Branch_Name());
 		mInter.setInternational_Discount(newMember.getInternational_Discount());
 		mInter.setInternational_Discount_Reason(newMember.getInternational_Discount_Reason());
+		mInter.setDeletedStatus(newMember.getDeletedStatus());
 		memberInternationalService.save(mInter);
 	}
 
@@ -615,6 +620,24 @@ public class HomeController {
 			e.printStackTrace();
 		} finally {
 			return "rptMemberFullDetails";
+		}
+
+	}
+	
+	@SuppressWarnings("finally")
+	@GetMapping("ReportAllmemberdetailsF2")
+	public String rptMemberDetailsFullA4For2(Model model) {
+		try {
+
+			List<Member> ReportAllmemberdetails = memberService.findAll();
+			ReportAllmemberdetails.sort(null);
+			model.addAttribute("ReportAllmemberdetails", ReportAllmemberdetails);
+			
+						
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			return "rptMemberFullDetailsFormat2";
 		}
 
 	}

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "memberinternational")
-public class MemberAsperInternational implements  Comparable<MemberAsperInternational> {
+public class MemberAsperInternational implements Comparable<MemberAsperInternational> {
 
 	// define fields
 	@Id
@@ -116,74 +116,17 @@ public class MemberAsperInternational implements  Comparable<MemberAsperInternat
 	@Column
 	private String International_Discount_Reason;
 
+	@Column
+	private Boolean deletedStatus;
+
 	public MemberAsperInternational() {
 
 	}
 
-	public MemberAsperInternational(int id, String multiple_District_Name, String district_Name, String region_Name,
-			String zone_Name, String title, String club_ID, String club_Name, String memberID, String prefix,
-			String first_Name, String middle_Name, String last_Name, String suffix, String invalid_Member_Address_Flag,
-			String member_Address_Line_1, String member_Address_Line_2, String member_Address_Line_3,
-			String member_Address_Line_4, String member_Address_City, String member_Address_State,
-			String member_Address_Postal_Code, String member_Address_Country, String invalid_Officer_Address_Flag,
-			String officer_Address_Line_1, String officer_Address_Line_2, String officer_Address_Line_3,
-			String officer_Address_Line_4, String officer_Address_City, String officer_Address_State,
-			String officer_Address_Postal_Code, String officer_Address_Country, String email, String home_Phone,
-			String cell_Phone, String fax_Number, String work_Phone, String spouse_Name, String membership_Type,
-			String date_of_Birth, String gender, String nick_Name, String occupation, String join_Date,
-			String life_Member, String family_Unit, String sponsor_Name, String club_Branch_Name,
-			String international_Discount, String international_Discount_Reason) {
-		super();
-		this.id = id;
-		Multiple_District_Name = multiple_District_Name;
-		District_Name = district_Name;
-		Region_Name = region_Name;
-		Zone_Name = zone_Name;
-		Title = title;
-		Club_ID = club_ID;
-		Club_Name = club_Name;
-		MemberID = memberID;
-		Prefix = prefix;
-		First_Name = first_Name;
-		Middle_Name = middle_Name;
-		Last_Name = last_Name;
-		Suffix = suffix;
-		Invalid_Member_Address_Flag = invalid_Member_Address_Flag;
-		Member_Address_Line_1 = member_Address_Line_1;
-		Member_Address_Line_2 = member_Address_Line_2;
-		Member_Address_Line_3 = member_Address_Line_3;
-		Member_Address_Line_4 = member_Address_Line_4;
-		Member_Address_City = member_Address_City;
-		Member_Address_State = member_Address_State;
-		Member_Address_Postal_Code = member_Address_Postal_Code;
-		Member_Address_Country = member_Address_Country;
-		Invalid_Officer_Address_Flag = invalid_Officer_Address_Flag;
-		Officer_Address_Line_1 = officer_Address_Line_1;
-		Officer_Address_Line_2 = officer_Address_Line_2;
-		Officer_Address_Line_3 = officer_Address_Line_3;
-		Officer_Address_Line_4 = officer_Address_Line_4;
-		Officer_Address_City = officer_Address_City;
-		Officer_Address_State = officer_Address_State;
-		Officer_Address_Postal_Code = officer_Address_Postal_Code;
-		Officer_Address_Country = officer_Address_Country;
-		Email = email;
-		Home_Phone = home_Phone;
-		Cell_Phone = cell_Phone;
-		Fax_Number = fax_Number;
-		Work_Phone = work_Phone;
-		Spouse_Name = spouse_Name;
-		Membership_Type = membership_Type;
-		Date_of_Birth = date_of_Birth;
-		Gender = gender;
-		Nick_Name = nick_Name;
-		Occupation = occupation;
-		Join_Date = join_Date;
-		Life_Member = life_Member;
-		Family_Unit = family_Unit;
-		Sponsor_Name = sponsor_Name;
-		Club_Branch_Name = club_Branch_Name;
-		International_Discount = international_Discount;
-		International_Discount_Reason = international_Discount_Reason;
+	@Override
+	public int compareTo(MemberAsperInternational o) {
+
+		return (this.getId() - o.getId());
 	}
 
 	public int getId() {
@@ -586,6 +529,14 @@ public class MemberAsperInternational implements  Comparable<MemberAsperInternat
 		International_Discount_Reason = international_Discount_Reason;
 	}
 
+	public Boolean getDeletedStatus() {
+		return deletedStatus;
+	}
+
+	public void setDeletedStatus(Boolean deletedStatus) {
+		this.deletedStatus = deletedStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberAsperInternational [id=" + id + ", Multiple_District_Name=" + Multiple_District_Name
@@ -610,13 +561,75 @@ public class MemberAsperInternational implements  Comparable<MemberAsperInternat
 				+ ", Occupation=" + Occupation + ", Join_Date=" + Join_Date + ", Life_Member=" + Life_Member
 				+ ", Family_Unit=" + Family_Unit + ", Sponsor_Name=" + Sponsor_Name + ", Club_Branch_Name="
 				+ Club_Branch_Name + ", International_Discount=" + International_Discount
-				+ ", International_Discount_Reason=" + International_Discount_Reason + "]";
+				+ ", International_Discount_Reason=" + International_Discount_Reason + ", deletedStatus="
+				+ deletedStatus + "]";
 	}
 
-	@Override
-	public int compareTo(MemberAsperInternational o) {
-		
-		return (this.getId() - o.getId());
+	public MemberAsperInternational(int id, String multiple_District_Name, String district_Name, String region_Name,
+			String zone_Name, String title, String club_ID, String club_Name, String memberID, String prefix,
+			String first_Name, String middle_Name, String last_Name, String suffix, String invalid_Member_Address_Flag,
+			String member_Address_Line_1, String member_Address_Line_2, String member_Address_Line_3,
+			String member_Address_Line_4, String member_Address_City, String member_Address_State,
+			String member_Address_Postal_Code, String member_Address_Country, String invalid_Officer_Address_Flag,
+			String officer_Address_Line_1, String officer_Address_Line_2, String officer_Address_Line_3,
+			String officer_Address_Line_4, String officer_Address_City, String officer_Address_State,
+			String officer_Address_Postal_Code, String officer_Address_Country, String email, String home_Phone,
+			String cell_Phone, String fax_Number, String work_Phone, String spouse_Name, String membership_Type,
+			String date_of_Birth, String gender, String nick_Name, String occupation, String join_Date,
+			String life_Member, String family_Unit, String sponsor_Name, String club_Branch_Name,
+			String international_Discount, String international_Discount_Reason, Boolean deletedStatus) {
+		super();
+		this.id = id;
+		Multiple_District_Name = multiple_District_Name;
+		District_Name = district_Name;
+		Region_Name = region_Name;
+		Zone_Name = zone_Name;
+		Title = title;
+		Club_ID = club_ID;
+		Club_Name = club_Name;
+		MemberID = memberID;
+		Prefix = prefix;
+		First_Name = first_Name;
+		Middle_Name = middle_Name;
+		Last_Name = last_Name;
+		Suffix = suffix;
+		Invalid_Member_Address_Flag = invalid_Member_Address_Flag;
+		Member_Address_Line_1 = member_Address_Line_1;
+		Member_Address_Line_2 = member_Address_Line_2;
+		Member_Address_Line_3 = member_Address_Line_3;
+		Member_Address_Line_4 = member_Address_Line_4;
+		Member_Address_City = member_Address_City;
+		Member_Address_State = member_Address_State;
+		Member_Address_Postal_Code = member_Address_Postal_Code;
+		Member_Address_Country = member_Address_Country;
+		Invalid_Officer_Address_Flag = invalid_Officer_Address_Flag;
+		Officer_Address_Line_1 = officer_Address_Line_1;
+		Officer_Address_Line_2 = officer_Address_Line_2;
+		Officer_Address_Line_3 = officer_Address_Line_3;
+		Officer_Address_Line_4 = officer_Address_Line_4;
+		Officer_Address_City = officer_Address_City;
+		Officer_Address_State = officer_Address_State;
+		Officer_Address_Postal_Code = officer_Address_Postal_Code;
+		Officer_Address_Country = officer_Address_Country;
+		Email = email;
+		Home_Phone = home_Phone;
+		Cell_Phone = cell_Phone;
+		Fax_Number = fax_Number;
+		Work_Phone = work_Phone;
+		Spouse_Name = spouse_Name;
+		Membership_Type = membership_Type;
+		Date_of_Birth = date_of_Birth;
+		Gender = gender;
+		Nick_Name = nick_Name;
+		Occupation = occupation;
+		Join_Date = join_Date;
+		Life_Member = life_Member;
+		Family_Unit = family_Unit;
+		Sponsor_Name = sponsor_Name;
+		Club_Branch_Name = club_Branch_Name;
+		International_Discount = international_Discount;
+		International_Discount_Reason = international_Discount_Reason;
+		this.deletedStatus = deletedStatus;
 	}
 
 }

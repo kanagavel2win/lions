@@ -33,5 +33,7 @@ public interface MemberService {
 	public List<Member> getHouseholderdetails();
 	
 	public List<String> getAllMemberID();
+
+	
 	
 }

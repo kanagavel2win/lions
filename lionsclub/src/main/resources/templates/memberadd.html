@@ -941,7 +941,12 @@ table thead th {
 														</div>
 													</div>
 
-
+											
+													<input type="text" class="form-control"
+														th:value="${members['deletedStatus']}"
+														th:field="*{deletedStatus}" readonly="readonly"
+														hidden="" /> 
+														
 
 
 													<input type="text" class="form-control"

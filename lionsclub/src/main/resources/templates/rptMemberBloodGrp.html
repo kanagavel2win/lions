@@ -96,8 +96,8 @@
 							<div class="card">
 								<div class="card-header">
 									<h4 class="card-title">
-										<form method="POST" class="wizard-horizontal"
-											action="ReportBloodGroup" enctype="multipart/form-data">
+										<form method="POST" class="wizard-horizontal" th:action="@{/ReportBloodGroup}"
+											 enctype="multipart/form-data">
 											
 											<select class="form-control"  name="bloodGroup" required="required" style="max-width: 170px;float: left;">
 												<option value=""></option>
