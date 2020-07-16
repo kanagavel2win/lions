@@ -641,6 +641,33 @@ public class HomeController {
 		}
 
 	}
+	
+	
+	@SuppressWarnings("finally")
+	@GetMapping("ReportAllmemberFamilydetailsF2")
+	public String ReportAllmemberFamilydetailsF2(Model model) {
+		try {
+
+			List<MemberFamily> ReportAllmemberdetails = memberFamilyService.findAll();
+			
+			TreeMap<Member, MemberFamily> rptFormat2 =new TreeMap<Member, MemberFamily>();
+			
+			for (int hhi = 0; hhi < ReportAllmemberdetails.size(); hhi++) {
+				
+				rptFormat2.put(memberService.findByMemberID(ReportAllmemberdetails.get(hhi).getMemberID()).get(0), ReportAllmemberdetails.get(hhi));
+			}
+			
+			model.addAttribute("ReportAllmemberdetails", rptFormat2);
+			
+			
+						
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			return "rptMemberFullDetailsFamilyFormat2";
+		}
+
+	}
 
 	@SuppressWarnings("finally")
 	@GetMapping("ReportAllmemberdetailswithFamily")

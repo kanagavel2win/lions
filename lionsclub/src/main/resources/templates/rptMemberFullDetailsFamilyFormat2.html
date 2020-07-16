@@ -111,14 +111,17 @@
 <!-- BEGIN: Body-->
 
 <body style="background: #EDEDED;">
-
+	
 	
 	<div align="center" style="margin-left: 15px;">
 <br/><br/>
-		<span th:each="member : ${ReportAllmemberdetails}">
+		<h4 style="color: #000; ">FAMILY MEMBERS</h4>
+		<span th:each="membermaster : ${ReportAllmemberdetails}">
+			<span
+				th:each="member : ${membermaster.key}">
 
-			<table border="1px" width="33%" cellspacing='0px'
-				style="font-size: 16px; float: left; min-height: 310px;background: #fff;">
+			<table border="1px" width="25%" cellspacing='0px'
+				style="font-size: 16px; float: left; min-height: 210px;background: #fff;">
 
 				<tr>
 					<td class="regulermemberNameColor" colspan="2" th:style="'background-color:' + @{${member['bgColorValue']}} +'; color:' + @{${member['TextColorValue']}} +' ;min-width:150px;height: 30px;'"><span
@@ -130,123 +133,52 @@
 						style="min-width:100px;">
 						<table
 							style="width: 90%; background: #fff; color: #000; margin-top:0px;">
-							<tr>
-								<td align="left" style="font-size:14px;">M.No : <span th:text="${member['MemberID']}"> </span></td>
-							</tr>
+							
 							<tr>
 							<td align="left" width="200px"><img
 						th:src="${member['ProfileImg']}"
 						style="width: 100px; height: 100px;" /></td>
 							</tr>
-							
+							<tr>
+								<td align="left" style="font-size:14px;">M.No : <span th:text="${member['MemberID']}"> </span></td>
+							</tr>
 						</table>
 
 
 					</td>
 
-					<td style="min-width: 300px;"><span class="memberName">
-					<br/>
-					
-					<span th:if="${member.Rptaddresstype} == 'Home Address'">
-									<span class="memberaddline1"
-						th:if="${member['Member_Address_Line_1'] !=''}"><span
-							th:text="${member.Member_Address_Line_1}"> Address Line
-								1 </span></span> <span class="memberaddressLine2"
-						th:if="${member['Member_Address_Line_2'] !=''}"><span
-							th:text="${member['Member_Address_Line_2']}">Address Line
-								2 </span><br /></span> <span class="membercityPincode"
-						th:if="${member['Member_Address_City'] !=''}"><span
-							th:text="${member['Member_Address_City']} + ' - ' + ${member['Member_Address_Postal_Code']}">City
-								- Pincode </span><br /></span>
-							</span>
-							<span th:if="${member.Rptaddresstype} != 'Home Address'">
-							
-									<span class="memberaddline1"
-						th:if="${member['Officer_Address_Line_1'] !=''}"><span
-							th:text="${member['Officer_Address_Line_1']}"> Address Line
-								1 </span></span> <span class="memberaddressLine2"
-						th:if="${member['Officer_Address_Line_2'] !=''}"><span
-							th:text="${member['Officer_Address_Line_2']}">Address Line
-								2 </span><br /></span> <span class="membercityPincode"
-						th:if="${member['Officer_Address_City'] !=''}"><span
-							th:text="${member['Officer_Address_City']} + ' - ' + ${member['Officer_Address_Postal_Code']}">City
-								- Pincode </span><br /></span>
-							</span>
-					 
-					 
-					<span class="membermoboff_no"
-									th:if="${member['Occupation'] !=''}"> 
-										Profession &nbsp;:
-										 <span
-										th:text="${member['Occupation']}">Occupation</span> <br /></span>
-
-					<span class="membermoboff_no">
-									 <i
-										class="bx bx-phone-call"></i> &nbsp;
-										 <span
-										th:text="${member['Cell_Phone']}">Mobile Number- Office
-											Number</span> | 
-										<span
-										th:text="${member['Work_Phone']}">Office
-											Number</span>
-											
-											 <br /></span>
-					
-								</td>
-								
-								
-
-					
-				</tr>
-				<tr>
-					<td colspan="2">
-						<span class="memberemail"
-							th:if="${member['Email'] !=''}"> <i
-								class="bx bx-mail-send"></i> &nbsp; <span
-								th:text="${member['Email']}">Email </span><br /></span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td colspan="2">
-						<table style="width:100%;">
-							<tr>
-								<td width="50%"> <span
-							class="memberemail" th:if="${member['Date_of_Birth'] !=''}" >DB
+					<td>
+					<span>
+								<i class="bx bxs-group"></i> &nbsp;:&nbsp; <span
+								th:text="${member['Spouse_Name']}">Spouse_Name </span>
+						</span>
+						<br/>
+						HOH :
+						<br/>
+						<span>DB
 							&nbsp;:&nbsp; <span th:text="${member['Date_of_Birth']}">Date_of_Birth
 							</span>
 						</span> 
-							</td><td>
-						<span class="memberemail" th:if="${member['WeddingDate'] !=''}">
+						<br/>
+						<span>
 								WD&nbsp;:&nbsp; <span th:text="${member['WeddingDate']}">WeddingDate
 							</span>
 						</span> 
-							</td>
-							</tr>
-							<tr>
-								<td><span class="memberemail" th:if="${member['Spouse_Name'] !=''}">
-								<i class="bx bxs-group"></i> &nbsp;:&nbsp; <span
-								th:text="${member['Spouse_Name']}">Spouse_Name </span>
-						</span></td>
-								<td>
-								<span
-							th:if="${member['Member_BloodGroup'] !=''}"> <i
+						<br/>
+						<span> <i
 								class="bx bxs-droplet"></i>  &nbsp;:&nbsp; <span
 								th:text="${member['Member_BloodGroup']}">Member_BloodGroup
 							</span></span>
-								</td>
-							</tr>	
-											
+							
 						
-						</table>
-							
-							
-						 
 					</td>
+					
 				</tr>
+				
+			
 			</table>
 
-
+			</span>
 		</span>
 
 

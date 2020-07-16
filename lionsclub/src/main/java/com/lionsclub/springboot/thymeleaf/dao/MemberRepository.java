@@ -51,6 +51,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	@Query("Select m From Member m where m.deletedStatus = false ")
 	public List<Member>  findAll();
 
+
 	
 }
 
