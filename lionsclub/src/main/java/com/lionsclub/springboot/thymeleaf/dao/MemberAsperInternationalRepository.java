@@ -2,7 +2,10 @@ package com.lionsclub.springboot.thymeleaf.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -13,7 +16,9 @@ public interface MemberAsperInternationalRepository extends JpaRepository<Member
 	@Query("SELECT m FROM MemberAsperInternational m WHERE m.MemberID = :memberid")
 	public List<MemberAsperInternational> getMemberID(@Param("memberid") String memberid);
 
-	@Query("Delete FROM MemberAsperInternational m WHERE  m.Club_ID = :clubID")
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM MemberAsperInternational m WHERE  m.Club_ID = :clubID")
 	public void deleteAll(@Param("clubID") String clubID);
 
 	@Query("SELECT m FROM MemberAsperInternational m WHERE m.Club_ID = :clubID")
