@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lionsclub.springboot.thymeleaf.dao.MemberFamilyRepository;
+import com.lionsclub.springboot.thymeleaf.entity.Member;
 import com.lionsclub.springboot.thymeleaf.entity.MemberFamily;
 
 @Service
@@ -24,6 +25,7 @@ public class MemberFamilyServiceImpl implements MemberFamilyService {
 		return memberFamilyRepository.findAll();
 	}
 
+	
 	@Override
 	public MemberFamily findById(int theId) {
 		Optional<MemberFamily> result = memberFamilyRepository.findById(theId);

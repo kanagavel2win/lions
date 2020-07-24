@@ -16,9 +16,9 @@ public class MemberAsperInternationalServiceImp implements MemberAsperInternatio
 	private MemberAsperInternationalRepository memberInternationRep;
 
 	@Override
-	public List<MemberAsperInternational> findAll() {
+	public List<MemberAsperInternational> findAll(String clubID) {
 		// TODO Auto-generated method stub
-		return memberInternationRep.findAll();
+		return memberInternationRep.findAll(clubID);
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class MemberAsperInternationalServiceImp implements MemberAsperInternatio
 	}
 
 	@Override
-	public void deleteAll() {
-		memberInternationRep.deleteAll();
+	public void deleteAll(String clubID) {
+		memberInternationRep.deleteAll(clubID);
 		
 	}
 

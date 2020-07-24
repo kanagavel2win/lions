@@ -89,12 +89,20 @@ public class MemberController {
 		return user2.getmemberID();
 
 	}
+	public String getLoginClubID() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user2 = userRepository.findByEmail(currentPrincipalName);
+		return user2.getClubID();
+
+	}
 
 	@GetMapping("/membereditRoleMember")
 	public String memberadd(Model theModel) {
 
 		Member editmemberDetails = memberService.findByMemberID(getLoginMemberID()).get(0);
-		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(editmemberDetails.getMemberID());
+		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(editmemberDetails.getMemberID(),getLoginClubID());
 		theModel.addAttribute("FamilymemberDetails", FamilymemberDetails);
 
 		List<MemberFamily> FamilymemberSpecific = memberFamilyService
@@ -177,7 +185,7 @@ public class MemberController {
 		}
 		themodel.addAttribute("FamilymemberSpecific", FamilymemberSpecific);
 
-		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(String.valueOf(member.getMemberID()));
+		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(String.valueOf(member.getMemberID()),getLoginClubID());
 		themodel.addAttribute("FamilymemberDetails", FamilymemberDetails);
 
 		MemberAsperInternational meminter = memberInternationalService.findMemberID(member.getMemberID()).get(0);
@@ -189,7 +197,7 @@ public class MemberController {
 	@GetMapping("ReportDifferentIntvslocalRoleMember")
 	public String ReportDifferentIntvslocalRoleMember(Model model) {
 
-		List<MemberAsperInternational> internationmemberList = memberInternationalService.findAll();
+		List<MemberAsperInternational> internationmemberList = memberInternationalService.findAll(getLoginClubID());
 
 		TreeMap<MemberAsperInternational, Member> compareMember = new TreeMap<MemberAsperInternational, Member>();
 

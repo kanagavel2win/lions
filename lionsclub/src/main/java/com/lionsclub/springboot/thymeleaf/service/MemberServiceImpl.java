@@ -20,8 +20,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public List<Member> findAll() {
-		return memberRepository.findAll();
+	public List<Member> findAll(String clubID) {
+		return memberRepository.findAll(clubID);
 	}
 
 	@Override
@@ -59,57 +59,57 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> getNotfilledMandatoryFields() {
+	public List<Member> getNotfilledMandatoryFields(String clubID) {
 		// TODO Auto-generated method stub
-		return memberRepository.getNotfilledMandatoryFields();
+		return memberRepository.getNotfilledMandatoryFields(clubID);
 	}
 
 	@Override
-	public List<Member> getRptMemberDetails() {
+	public List<Member> getRptMemberDetails(String clubID) {
 		// TODO Auto-generated method stub
-		return memberRepository.getRptMemberDetails();
+		return memberRepository.getRptMemberDetails(clubID);
 	}
 
 	@Override
-	public List<Member> getRptTopMemberDetails() {
+	public List<Member> getRptTopMemberDetails(String clubID) {
 		// TODO Auto-generated method stub
-		return memberRepository.getRptTopMemberDetails();
+		return memberRepository.getRptTopMemberDetails(clubID);
 	}
 
 	@Override
-	public List<Member> findDOBReport(String dobDate) {
+	public List<Member> findDOBReport(String dobDate,String clubID) {
 		// TODO Auto-generated method stub
-		return memberRepository.getRptMemberDetailsDOB(dobDate);
+		return memberRepository.getRptMemberDetailsDOB(dobDate,clubID);
 	}
 
 	@Override
-	public List<Member> findWOBReport(String wobDate) {
+	public List<Member> findWOBReport(String wobDate,String clubID) {
 		// TODO Auto-generated method stub
-		return memberRepository.getRptMemberDetailsWOB(wobDate);
+		return memberRepository.getRptMemberDetailsWOB(wobDate,clubID);
 	}
 
 	@Override
-	public List<Member> findBloodGReport(String bloodGroup) {
+	public List<Member> findBloodGReport(String bloodGroup,String clubID) {
 		// TODO Auto-generated method stub
-		return memberRepository.getRptMemberDetailsBloodGroup(bloodGroup);
+		return memberRepository.getRptMemberDetailsBloodGroup(bloodGroup,clubID);
 	}
 
 	@Override
-	public List<Member> findFamilyMemberDetails(String MemberID) {
+	public List<Member> findFamilyMemberDetails(String MemberID,String clubID) {
 		
-		return memberRepository.getFamilyMemberDetails(MemberID);
+		return memberRepository.getFamilyMemberDetails(MemberID,clubID);
 	}
 
 	@Override
-	public List<Member> getHouseholderdetails() {
+	public List<Member> getHouseholderdetails(String clubID) {
 		// TODO Auto-generated method stub
-		return memberRepository.getHouseholderdetails();
+		return memberRepository.getHouseholderdetails(clubID);
 	}
 
 	@Override
-	public List<String> getAllMemberID() {
+	public List<String> getAllMemberID(String clubID) {
 		// TODO Auto-generated method stub
-		return memberRepository.getAllMemberID();
+		return memberRepository.getAllMemberID(clubID);
 	}
 
 

@@ -6,7 +6,7 @@ import com.lionsclub.springboot.thymeleaf.entity.Member;
 
 public interface MemberService {
 
-	public List<Member> findAll();
+	public List<Member> findAll(String clubID);
 	
 	public Member findById(int theId);
 	
@@ -16,23 +16,23 @@ public interface MemberService {
 	
 	public List<Member> findByMemberID(String MemberID);
 	
-	public List<Member> getNotfilledMandatoryFields();
+	public List<Member> getNotfilledMandatoryFields(String clubID);
 	
-	public List<Member> getRptMemberDetails();
+	public List<Member> getRptMemberDetails(String clubID);
 	
-	public List<Member> getRptTopMemberDetails();
+	public List<Member> getRptTopMemberDetails(String clubID);
 	
-	public List<Member> findDOBReport(String dobDate);
+	public List<Member> findDOBReport(String dobDate,String clubID);
 	
-	public List<Member> findWOBReport(String wobDate);
+	public List<Member> findWOBReport(String wobDate,String clubID);
 	
-	public List<Member> findBloodGReport(String bloodGroup);
+	public List<Member> findBloodGReport(String bloodGroup,String clubID);
 	
-	public List<Member> findFamilyMemberDetails(String MemberID);
+	public List<Member> findFamilyMemberDetails(String MemberID,String clubID);
 	
-	public List<Member> getHouseholderdetails();
+	public List<Member> getHouseholderdetails(String clubID);
 	
-	public List<String> getAllMemberID();
+	public List<String> getAllMemberID(String clubID);
 
 
 	

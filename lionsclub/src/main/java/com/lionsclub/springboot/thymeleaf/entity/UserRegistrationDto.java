@@ -12,7 +12,10 @@ import com.lionsclub.springboot.thymeleaf.constraint.FieldMatch;
 })
 public class UserRegistrationDto {
 
-    @NotEmpty
+	@NotEmpty
+	private String clubID;
+	
+	@NotEmpty
     private String memberID;
 
 
@@ -82,4 +85,13 @@ public class UserRegistrationDto {
         this.terms = terms;
     }
 
+	public String getClubID() {
+		return clubID;
+	}
+
+	public void setClubID(String clubID) {
+		this.clubID = clubID;
+	}
+
+    
 }

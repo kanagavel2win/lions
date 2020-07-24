@@ -157,7 +157,16 @@ width:100%;
 					<p class="error-message" th:if="${#fields.hasGlobalErrors()}"
 						th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
 						error</p>
-
+					
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('clubID')}? 'has-error':''">
+						<input
+							id="memberID" class="txtbox" th:field="*{clubID}" placeholder="Club ID : 123456"  required="required"/>
+						<p class="error-message"
+							th:each="error: ${#fields.errors('clubID')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('memberID')}? 'has-error':''">
 						<input

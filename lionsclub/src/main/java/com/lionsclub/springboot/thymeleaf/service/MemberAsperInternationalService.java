@@ -7,7 +7,7 @@ import com.lionsclub.springboot.thymeleaf.entity.MemberAsperInternational;
 
 public interface MemberAsperInternationalService {
 
-	public List<MemberAsperInternational> findAll();
+	public List<MemberAsperInternational> findAll(String clubID);
 
 	public Optional<MemberAsperInternational> findById(int theId);
 
@@ -15,7 +15,7 @@ public interface MemberAsperInternationalService {
 
 	public void deleteById(int theId);
 
-	public void deleteAll();
+	public void deleteAll(String clubID);
 	
 	public List<MemberAsperInternational> findMemberID(String memberid);
 }

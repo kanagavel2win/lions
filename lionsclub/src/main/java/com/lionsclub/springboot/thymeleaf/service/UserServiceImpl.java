@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
     
     public User save(UserRegistrationDto registration){
         User user = new User();
+        user.setClubID(registration.getClubID());
         user.setmemberID(registration.getMemberID());
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
     		 
     		
         }
-        
+       
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
@@ -69,6 +70,8 @@ public class UserServiceImpl implements UserService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
+
+	
 
 		
 }

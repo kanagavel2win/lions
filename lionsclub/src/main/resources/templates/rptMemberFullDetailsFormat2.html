@@ -185,11 +185,13 @@
 										class="bx bx-phone-call"></i> &nbsp;
 										 <span
 										th:text="${member['Cell_Phone']}">Mobile Number- Office
-											Number</span> | 
-										<span
-										th:text="${member['Work_Phone']}">Office
-											Number</span>
+											Number</span> 
 											
+									<span th:if="${member['Work_Phone'] !=''}"> | 		
+										<span
+										th:text=" ${member['Work_Phone']}" >Office
+											Number</span>
+									</span>
 											 <br /></span>
 					
 								</td>

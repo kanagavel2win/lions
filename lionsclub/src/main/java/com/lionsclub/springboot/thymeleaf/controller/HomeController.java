@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -56,8 +57,8 @@ public class HomeController {
 	private UserRepository userRepository;
 
 	@GetMapping("/")
-	public String home(Model theModel) {
-
+	public String home(Model theModel,HttpSession session) {
+		
 		if (logintype("ROLE_MEMBER")) {
 
 			theModel.addAttribute("MemberID", getLoginMemberID());
@@ -94,6 +95,15 @@ public class HomeController {
 		String currentPrincipalName = authentication.getName();
 		User user2 = userRepository.findByEmail(currentPrincipalName);
 		return user2.getmemberID();
+
+	}
+	
+	public String getLoginClubID() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user2 = userRepository.findByEmail(currentPrincipalName);
+		return user2.getClubID();
 
 	}
 
@@ -156,7 +166,7 @@ public class HomeController {
 		theModel.addAttribute("memberfamilyinfo", MemberFamilyListDetails);
 		// ----------------------------
 
-		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(editmemberDetails.getMemberID());
+		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(editmemberDetails.getMemberID(),getLoginClubID());
 		theModel.addAttribute("FamilymemberDetails", FamilymemberDetails);
 
 		List<MemberFamily> FamilymemberSpecific = memberFamilyService
@@ -259,7 +269,7 @@ public class HomeController {
 		}
 		themodel.addAttribute("FamilymemberSpecific", FamilymemberSpecific);
 
-		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(String.valueOf(member.getMemberID()));
+		List<Member> FamilymemberDetails = memberService.findFamilyMemberDetails(String.valueOf(member.getMemberID()),getLoginClubID());
 		themodel.addAttribute("FamilymemberDetails", FamilymemberDetails);
 
 		MemberAsperInternational meminter = memberInternationalService.findMemberID(member.getMemberID()).get(0);
@@ -272,7 +282,7 @@ public class HomeController {
 	public String memberlist(Model theModel) {
 
 		// get members from db
-		List<Member> themembers = memberService.findAll();
+		List<Member> themembers = memberService.findAll(getLoginClubID());
 
 		// add to the spring model
 		theModel.addAttribute("members", themembers);
@@ -308,8 +318,8 @@ public class HomeController {
 			model.addAttribute("status", false);
 		} else {
 
-			memberInternationalService.deleteAll();
-			List<String> memberallIDList=memberService.getAllMemberID();
+			memberInternationalService.deleteAll(getLoginClubID());
+			List<String> memberallIDList=memberService.getAllMemberID(getLoginClubID());
 			
 			try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 				String line = br.readLine(); // Reading header, Ignoring
@@ -575,7 +585,7 @@ public class HomeController {
 	@GetMapping("MemberPendingInfo")
 	public String rptMemberPendingdetails(Model model) {
 		try {
-			List<Member> NotfilledMandatoryFieldsmemberDetails = memberService.getNotfilledMandatoryFields();
+			List<Member> NotfilledMandatoryFieldsmemberDetails = memberService.getNotfilledMandatoryFields(getLoginClubID());
 
 			model.addAttribute("NotfilledMandatoryFieldsmemberDetails", NotfilledMandatoryFieldsmemberDetails);
 		} catch (Exception ex) {
@@ -594,13 +604,13 @@ public class HomeController {
 	public String rptMemberDetailsFullA4(Model model) {
 		try {
 
-			List<Member> ReportAllmemberdetails = memberService.findAll();
-			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
-			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
+			List<Member> ReportAllmemberdetails = memberService.findAll(getLoginClubID());
+			List<Member> RptMemberDetails = memberService.getRptMemberDetails(getLoginClubID());
+			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails(getLoginClubID());
 
 			// Start Member Details process--------------------------------------------
 			// --------------------------------------------------------------------------
-			List<Member> houseHolder = memberService.getHouseholderdetails();
+			List<Member> houseHolder = memberService.getHouseholderdetails(getLoginClubID());
 
 			TreeMap<Member, List<MemberFamily>> Familymap = new TreeMap<Member, List<MemberFamily>>();
 			for (int hhi = 0; hhi < houseHolder.size(); hhi++) {
@@ -629,7 +639,7 @@ public class HomeController {
 	public String rptMemberDetailsFullA4For2(Model model) {
 		try {
 
-			List<Member> ReportAllmemberdetails = memberService.findAll();
+			List<Member> ReportAllmemberdetails = memberService.findAll(getLoginClubID());
 			ReportAllmemberdetails.sort(null);
 			model.addAttribute("ReportAllmemberdetails", ReportAllmemberdetails);
 			
@@ -674,9 +684,9 @@ public class HomeController {
 	public String ReportAllmemberdetailswithFamily1(Model model) {
 		try {
 
-			List<Member> ReportAllmemberdetails = memberService.findAll();
-			List<Member> RptMemberDetails = memberService.getRptMemberDetails();
-			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails();
+			List<Member> ReportAllmemberdetails = memberService.findAll(getLoginClubID());
+			List<Member> RptMemberDetails = memberService.getRptMemberDetails(getLoginClubID());
+			List<Member> RptTopMemberDetails = memberService.getRptTopMemberDetails(getLoginClubID());
 
 			// Start Member Details process--------------------------------------------
 			// --------------------------------------------------------------------------
@@ -733,7 +743,7 @@ public class HomeController {
 
 		String dobDate = dateFormat.format(new Date());
 		// dobDate="1/1";
-		List<Member> membersDOBlist = memberService.findDOBReport(dobDate);
+		List<Member> membersDOBlist = memberService.findDOBReport(dobDate,getLoginClubID());
 		model.addAttribute("members", membersDOBlist);
 		model.addAttribute("dobDate", java.time.LocalDate.now());
 		return "rptMemberDOB";
@@ -748,7 +758,7 @@ public class HomeController {
 			date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dobDate);
 			SimpleDateFormat dateFormat = new SimpleDateFormat("M/d");
 			String dobDateStr = dateFormat.format(date1);
-			List<Member> membersDOBlist = memberService.findDOBReport(dobDateStr);
+			List<Member> membersDOBlist = memberService.findDOBReport(dobDateStr,getLoginClubID());
 			model.addAttribute("members", membersDOBlist);
 			model.addAttribute("dobDate", dobDate);
 
@@ -767,7 +777,7 @@ public class HomeController {
 
 		String wobDate = dateFormat.format(new Date());
 		// dobDate="1/1";
-		List<Member> membersWOBlist = memberService.findWOBReport(wobDate);
+		List<Member> membersWOBlist = memberService.findWOBReport(wobDate,getLoginClubID());
 		model.addAttribute("members", membersWOBlist);
 		model.addAttribute("wobDate", java.time.LocalDate.now());
 		return "rptMemberWedding";
@@ -781,7 +791,7 @@ public class HomeController {
 			date1 = new SimpleDateFormat("yyyy-MM-dd").parse(wobDate);
 			SimpleDateFormat dateFormat = new SimpleDateFormat("M-d");
 			String wobDateStr = dateFormat.format(date1);
-			List<Member> membersWOBlist = memberService.findWOBReport(wobDateStr);
+			List<Member> membersWOBlist = memberService.findWOBReport(wobDateStr,getLoginClubID());
 			model.addAttribute("members", membersWOBlist);
 			model.addAttribute("wobDate", wobDate);
 
@@ -804,7 +814,7 @@ public class HomeController {
 
 		try {
 
-			List<Member> membersWOBlist = memberService.findBloodGReport(bloodGroup);
+			List<Member> membersWOBlist = memberService.findBloodGReport(bloodGroup,getLoginClubID());
 			model.addAttribute("members", membersWOBlist);
 			model.addAttribute("bloodGroup", bloodGroup);
 
@@ -819,7 +829,7 @@ public class HomeController {
 	@GetMapping("ReportDifferentIntvslocal")
 	public String ReportDifferentIntvslocal(Model model) {
 
-		List<MemberAsperInternational> internationmemberList = memberInternationalService.findAll();
+		List<MemberAsperInternational> internationmemberList = memberInternationalService.findAll(getLoginClubID());
 
 		TreeMap<MemberAsperInternational, Member> compareMember = new TreeMap<MemberAsperInternational, Member>();
 
@@ -872,7 +882,7 @@ public class HomeController {
 
 		model.addAttribute("updateMemberID", params.get("MemberID"));
 
-		List<MemberAsperInternational> internationmemberList = memberInternationalService.findAll();
+		List<MemberAsperInternational> internationmemberList = memberInternationalService.findAll(getLoginClubID());
 
 		TreeMap<MemberAsperInternational, Member> compareMember = new TreeMap<MemberAsperInternational, Member>();
 

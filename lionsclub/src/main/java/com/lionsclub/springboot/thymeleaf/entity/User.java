@@ -14,7 +14,8 @@ public class User {
     private String memberID;
     private String email;
     private String password;
-
+    private String clubID;
+    
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -27,22 +28,32 @@ public class User {
     public User() {
     }
 
-    public User(String memberID,  String email, String password) {
+    public User(String memberID,  String email, String password,String clubID) {
         this.memberID = memberID;
         
         this.email = email;
         this.password = password;
+        this.clubID =clubID;
     }
 
-    public User(String memberID,  String email, String password, Collection<UserRole> roles) {
+    public User(String memberID,  String email, String password, String clubID,Collection<UserRole> roles) {
         this.memberID = memberID;
-        
+        this.clubID =clubID;
         this.email = email;
         this.password = password;
         this.roles = roles;
     }
 
-    public Long getId() {
+        
+	public String getClubID() {
+		return clubID;
+	}
+
+	public void setClubID(String clubID) {
+		this.clubID = clubID;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -83,14 +94,11 @@ public class User {
         this.roles = roles;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", memberID='" + memberID + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + "*********" + '\'' +
-                ", roles=" + roles +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", memberID=" + memberID + ", email=" + email + ", password=" + password + ", clubID="
+				+ clubID + ", roles=" + roles + "]";
+	}
+
+   
 }
