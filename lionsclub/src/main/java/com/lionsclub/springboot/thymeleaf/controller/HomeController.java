@@ -283,9 +283,14 @@ public class HomeController {
 
 		// get members from db
 		List<Member> themembers = memberService.findAll(getLoginClubID());
-
+		String clubName="";
+		if(themembers.size()>0)
+		{
+		 clubName=themembers.get(0).getClub_Name();
+		}
 		// add to the spring model
 		theModel.addAttribute("members", themembers);
+		theModel.addAttribute("clubName", clubName);
 
 		return "memberlist";
 	}
