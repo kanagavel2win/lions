@@ -53,132 +53,128 @@
 	th:href="@{/assets/css/style.css}">
 <!-- END: Custom CSS-->
 
- <style type="text/css">
-    
-    table
-    {
-    	font-family: calibri;
-    	border-color: #004b93;
-    	
-    }
-    table td
-    {
-    	font-family: calibri;
-    	padding: 5px;
-    	color: #104E8B;    	
-    	border: none;
-    	
-    }
-    table thead th {
-    
-    background: #CD5B45;
-    font-weight: normal;
-    color: #8B7E66;
-    	
-    }
-    .memberstyle
-    {
-    	color:#CD2626;
-    	font-size: 18px;
-    	font-weight: bold;
-    }
-    .memberstyle1
-    {
-    	color:#CD2626;
-    	font-size: 14px;
-    	font-weight: bold;
-    }
-    .regulermemberNameColor
-    {
-    	font-size: 14px;
-    	font-weight: bold;
-    	
-    }
-    .topmembertabletd
-    {
-    	border-bottom-color: #fff;
-    }
-    .membertitle
-    {
-    	font-family: calibri;
-    	font-weight: bold;
-    }
-    </style>
-    
+<style type="text/css">
+table {
+	font-family: calibri;
+	border-color: #004b93;
+}
+
+table td {
+	font-family: calibri;
+	padding: 5px;
+	color: #104E8B;
+	border: none;
+}
+
+table thead th {
+	background: #CD5B45;
+	font-weight: normal;
+	color: #8B7E66;
+}
+
+.memberstyle {
+	color: #CD2626;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.memberstyle1 {
+	color: #CD2626;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.regulermemberNameColor {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.topmembertabletd {
+	border-bottom-color: #fff;
+}
+
+.membertitle {
+	font-family: calibri;
+	font-weight: bold;
+}
+</style>
+
 </head>
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
 
 <body style="background: #EDEDED;">
-	
-	
+
+
 	<div align="center" style="margin-left: 15px;">
-<br/><br/>
-		<h4 style="color: #000; ">FAMILY MEMBERS</h4>
-		<span th:each="membermaster : ${ReportAllmemberdetails}">
-			<span
-				th:each="member : ${membermaster.key}">
+		<br />
+		<br />
+		<h4 style="color: #000;">FAMILY MEMBERS</h4>
+		<span th:each="membermaster : ${ReportAllmemberdetails}"> <span
+			th:each="member : ${membermaster.key}">
 
-			<table border="1px" width="25%" cellspacing='0px'
-				style="font-size: 16px; float: left; min-height: 210px;background: #fff;">
+				<table border="1px" width="33%" cellspacing='0px'
+					style="font-size: 16px; float: left; min-height: 240px; min-width: 25%; max-width: 33%; background: #fff;">
 
-				<tr>
-					<td class="regulermemberNameColor" colspan="2" th:style="'background-color:' + @{${member['bgColorValue']}} +'; color:' + @{${member['TextColorValue']}} +' ;min-width:150px;height: 30px;'"><span
-						th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">
-					</span></td>
-				</tr>
-				<tr>
-					<td width="40%"
-						style="min-width:100px;">
-						<table
-							style="width: 90%; background: #fff; color: #000; margin-top:0px;">
-							
-							<tr>
-							<td align="left" width="200px"><img
-						th:src="${member['ProfileImg']}"
-						style="width: 100px; height: 100px;" /></td>
-							</tr>
-							<tr>
-								<td align="left" style="font-size:14px;">M.No : <span th:text="${member['MemberID']}"> </span></td>
-							</tr>
-						</table>
+					<tr>
+						<td class="regulermemberNameColor" colspan="2"
+							th:style="'background-color:' + @{${member['bgColorValue']}} +'; color:' + @{${member['TextColorValue']}} +' ;min-width:150px;height: 30px;'"><span
+							th:text="${member['First_Name']} + ' ' +${member['Last_Name']}">
+						</span></td>
+					</tr>
+					<tr>
+						<td width="30%" style="min-width: 100px;">
+							<table
+								style="width: 90%; background: #fff; color: #000; margin-top: 0px;">
 
+								<tr>
+									<td align="left" width="200px"><img
+										th:src="${member['ProfileImg']}"
+										style="width: 100px; height: 100px;" /></td>
+								</tr>
+								<tr>
+									<td align="left" style="font-size: 14px;">M.No : <span
+										th:text="${member['MemberID']}"> </span></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<tr>
+									<td><i class="bx bxs-group"></i></td>
+									<td>:</td>
+									<td><span th:text="${member['Spouse_Name']}"> </span></td>
+								</tr>
+								<tr>
+									<td>HOH</td>
+									<td>:</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>DB</td>
+									<td>:</td>
+									<td><span th:text="${member['Date_of_Birth']}"> </span></td>
+								</tr>
+								<tr>
+									<td>WD</td>
+									<td>:</td>
+									<td><span th:text="${member['WeddingDate']}"> </span></td>
+								</tr>
+								<tr>
+									<td><i class="bx bxs-droplet"></i></td>
+									<td>:</td>
+									<td><span th:text="${member['Member_BloodGroup']}">
+									</span></td>
+								</tr>
 
-					</td>
+							</table>
 
-					<td>
-					<span>
-								<i class="bx bxs-group"></i> &nbsp;:&nbsp; <span
-								th:text="${member['Spouse_Name']}">Spouse_Name </span>
-						</span>
-						<br/>
-						HOH :
-						<br/>
-						<span>DB
-							&nbsp;:&nbsp; <span th:text="${member['Date_of_Birth']}">Date_of_Birth
-							</span>
-						</span> 
-						<br/>
-						<span>
-								WD&nbsp;:&nbsp; <span th:text="${member['WeddingDate']}">WeddingDate
-							</span>
-						</span> 
-						<br/>
-						<span> <i
-								class="bx bxs-droplet"></i>  &nbsp;:&nbsp; <span
-								th:text="${member['Member_BloodGroup']}">Member_BloodGroup
-							</span></span>
-							
-						
-					</td>
-					
-				</tr>
-				
-			
-			</table>
+						</td>
+					</tr>
+				</table>
 
-			</span>
+		</span>
 		</span>
 
 

@@ -59,6 +59,12 @@ public class MemberFamilyServiceImpl implements MemberFamilyService {
 		return memberFamilyRepository.FamilymemberSpecific(memberid);
 	}
 
+	@Override
+	public List<MemberFamily> findAll(List<String> rptMemberdetails) {
+		// TODO Auto-generated method stub
+		return memberFamilyRepository.FamilymemberAllclubmmeber(rptMemberdetails);
+	}
+
 	
 
 		

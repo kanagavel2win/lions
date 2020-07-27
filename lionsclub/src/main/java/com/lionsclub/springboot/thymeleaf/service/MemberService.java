@@ -34,6 +34,8 @@ public interface MemberService {
 	
 	public List<String> getAllMemberID(String clubID);
 
+	
+
 
 	
 	

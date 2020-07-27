@@ -16,5 +16,8 @@ public interface MemberFamilyRepository extends JpaRepository<MemberFamily, Inte
 	@Query("Select m From MemberFamily m Where m.houseofHeadMemberID = :memberid Order By orderID")
 	public List<MemberFamily> FamilymemberSpecific(@Param("memberid") String memberid);
 
+	@Query("Select m From MemberFamily m Where m.MemberID IN :rptMemberdetails Order By orderID")
+	public List<MemberFamily> FamilymemberAllclubmmeber(@Param("rptMemberdetails") List<String> rptMemberdetails);
+
 
  }
