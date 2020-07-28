@@ -18,6 +18,12 @@ public class ServiceMaster {
 
 	@Column
 	private String activityName;
+	
+	@Column
+	private String activityPoint;
+	
+	@Column
+	private String lionshours;
 
 	@Column
 	private String beneficiary;
@@ -28,64 +34,95 @@ public class ServiceMaster {
 	@Column
 	private String donate;
 
+	
 	public int getId() {
 		return id;
 	}
+
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
+
 	public String getActivityName() {
 		return activityName;
 	}
+
 
 	public void setActivityName(String activityName) {
 		this.activityName = activityName;
 	}
 
+
+	public String getActivityPoint() {
+		return activityPoint;
+	}
+
+
+	public void setActivityPoint(String activityPoint) {
+		this.activityPoint = activityPoint;
+	}
+
+
+	public String getLionshours() {
+		return lionshours;
+	}
+
+
+	public void setLionshours(String lionshours) {
+		this.lionshours = lionshours;
+	}
+
+
 	public String getBeneficiary() {
 		return beneficiary;
 	}
+
 
 	public void setBeneficiary(String beneficiary) {
 		this.beneficiary = beneficiary;
 	}
 
+
 	public String getVolunteers() {
 		return volunteers;
 	}
+
 
 	public void setVolunteers(String volunteers) {
 		this.volunteers = volunteers;
 	}
 
+
 	public String getDonate() {
 		return donate;
 	}
+
 
 	public void setDonate(String donate) {
 		this.donate = donate;
 	}
 
-	@Override
-	public String toString() {
-		return "ServiceMaster [id=" + id + ", activityName=" + activityName + ", beneficiary=" + beneficiary
-				+ ", volunteers=" + volunteers + ", donate=" + donate + "]";
-	}
 
-	public ServiceMaster(int id, String activityName, String beneficiary, String volunteers, String donate) {
-		super();
-		this.id = id;
-		this.activityName = activityName;
-		this.beneficiary = beneficiary;
-		this.volunteers = volunteers;
-		this.donate = donate;
-	}
 	public ServiceMaster()
 	{
 		
 	}
+
+
+	public ServiceMaster(int id, String activityName, String activityPoint, String lionshours, String beneficiary,
+			String volunteers, String donate) {
+		super();
+		this.id = id;
+		this.activityName = activityName;
+		this.activityPoint = activityPoint;
+		this.lionshours = lionshours;
+		this.beneficiary = beneficiary;
+		this.volunteers = volunteers;
+		this.donate = donate;
+	}
 	
+
 	
 }

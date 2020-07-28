@@ -80,7 +80,7 @@
 				<div class="content-header-left col-12 mb-2 mt-1">
 					<div class="row breadcrumbs-top">
 						<div class="col-12">
-							<h5 class="content-header-title float-left pr-1 mb-0">Service Master</h5>
+							<h5 class="content-header-title float-left pr-1 mb-0">Service Points Master</h5>
 
 						</div>
 					</div>
@@ -108,9 +108,11 @@
 													<tr>
 														<th>S.No</th>
 														<th>Activity Name</th>
+														<th>Activity Point</th>
 														<th>Beneficiary</th>
 														<th>Volunteers</th>
 														<th>Donate(Rs.100)</th>
+														<th>Lions hours points</th>
 
 
 													</tr>
@@ -120,9 +122,11 @@
 														<td><span th:text="${iter.index+1}"></span></td>
 														<td><a
 															th:href="'Serviceadd?id='  + @{{id} (id=${ser['id']})}"><span th:text="${ser['activityName']}"></span></a></td>
+														<td th:text="${ser['activityPoint']}"></td>
 														<td th:text="${ser['beneficiary']}"></td>
 														<td th:text="${ser['volunteers']}"></td>
 														<td th:text="${ser['donate']}"></td>
+														<td th:text="${ser['lionshours']}"></td>
 
 													</tr>
 
@@ -133,9 +137,11 @@
 													<tr>
 														<th>S.No</th>
 														<th>Activity Name</th>
+														<th>Activity Point</th>
 														<th>Beneficiary</th>
 														<th>Volunteers</th>
 														<th>Donate(Rs.100)</th>
+														<th>Lions hours points</th>
 
 													</tr>
 												</tfoot>

@@ -190,7 +190,7 @@ table thead th {
 						<div class="col-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Service details update section</h4>
+									<h4 class="card-title">Service Points details update section</h4>
 
 								</div>
 								<div class="card-content mt-2">
@@ -216,6 +216,13 @@ table thead th {
 													</div>
 													<div class="col-sm-6 home-fill">
 														<div class="form-group">
+															<label>Activity Point</label> <input type="text"
+																class="form-control" th:value="${service.activityPoint}"
+																th:field="*{activityPoint}"  />
+														</div>
+													</div>
+													<div class="col-sm-6 home-fill">
+														<div class="form-group">
 															<label>Beneficiary Point</label> <input type="text"
 																class="form-control" th:value="${service.beneficiary}"
 																th:field="*{beneficiary}"/>
@@ -235,6 +242,17 @@ table thead th {
 																th:field="*{donate}"/>
 														</div>
 													</div>
+													<div class="col-sm-6 home-fill">
+														<div class="form-group">
+															<label>Lions hours points</label> <input type="text"
+																class="form-control" th:value="${service.lionshours}"
+																th:field="*{lionshours}"/>
+																 <input type="hidden"
+																class="form-control" th:value="${service.id}"
+																th:field="*{id}"/>
+														</div>
+													</div>
+													
 													
 												</div>	
 											</fieldset>
