@@ -46,6 +46,18 @@ import com.lionsclub.springboot.thymeleaf.service.MemberService;
 
 public class HomeController {
 
+	@Autowired
+	private MemberService memberService;
+
+	@Autowired
+	private MemberFamilyService memberFamilyService;
+
+	@Autowired
+	private MemberAsperInternationalService memberInternationalService;
+
+	@Autowired
+	private UserRepository userRepository;
+
 	@ModelAttribute
 	public void addAttributes(Model themodel, HttpSession session, HttpServletRequest request) {
 
@@ -78,18 +90,6 @@ public class HomeController {
 		}
 
 	}
-
-	@Autowired
-	private MemberService memberService;
-
-	@Autowired
-	private MemberFamilyService memberFamilyService;
-
-	@Autowired
-	private MemberAsperInternationalService memberInternationalService;
-
-	@Autowired
-	private UserRepository userRepository;
 
 	@GetMapping("/")
 	public String home(Model theModel, HttpSession session, HttpServletRequest request) {
@@ -704,9 +704,9 @@ public class HomeController {
 	@GetMapping("ReportAllmemberFamilydetailsF2")
 	public String ReportAllmemberFamilydetailsF2(Model model) {
 		try {
-			
+
 			List<String> RptMemberdetails = memberService.getAllMemberID(getLoginClubID());
-			
+
 			List<MemberFamily> ReportAllmemberdetails = memberFamilyService.findAll(RptMemberdetails);
 
 			TreeMap<Member, MemberFamily> rptFormat2 = new TreeMap<Member, MemberFamily>();
