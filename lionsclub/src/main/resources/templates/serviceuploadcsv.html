@@ -5,6 +5,9 @@
 <!-- BEGIN: Head-->
 
 <head>
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -12,7 +15,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="ICC">
-<title>Member Service Master</title>
+<title>Upload - Service details</title>
 <link rel="apple-touch-icon"
 	th:href="@{/app-assets/images/ico/apple-icon-120.png}">
 <link rel="shortcut icon" type="image/x-icon"
@@ -80,8 +83,14 @@
 				<div class="content-header-left col-12 mb-2 mt-1">
 					<div class="row breadcrumbs-top">
 						<div class="col-12">
-							<h5 class="content-header-title float-left pr-1 mb-0">Service Points Master</h5>
-
+							<h5 class="content-header-title float-left pr-1 mb-0">Service </h5>
+							<div class="breadcrumb-wrapper col-12">
+								<ol class="breadcrumb p-0 mb-0">
+									<li class="breadcrumb-item"><a href="index.html"><i
+											class="bx bx-home-alt"></i></a></li>
+									<li class="breadcrumb-item active">Upload Service Details</li>
+								</ol>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -94,59 +103,27 @@
 						<div class="col-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">
-										<a href="Serviceadd?id=0" class="btn btn-primary"style="float: left; margin-left: 10px">Add Service Item</a>
-										<a href="serviceupload" class="btn btn-primary"style="float: left; margin-left: 10px">Upload Service Data</a>
-									</h4>
-									
+									<h4 class="card-title">Upload Service Details</h4>
+									<div th:if="${status}" class="form-group toast-header">
+										 Service details are added successfully
+									</div>
+
 								</div>
 								<div class="card-content">
 									<div class="card-body card-dashboard">
-										<div class="table-responsive">
-											<table class="table zero-configuration">
-												<thead>
-													<tr>
-														<th>S.No</th>
-														<th>Activity Name</th>
-														<th>Activity Point</th>
-														<th>Beneficiary</th>
-														<th>Volunteers</th>
-														<th>Donate(Rs.100)</th>
-														<th>Lions hours points</th>
-
-
-													</tr>
-												</thead>
-												<tbody>
-													<tr th:each="ser,iter  : ${services}">
-														<td><span th:text="${iter.index+1}"></span></td>
-														<td><a
-															th:href="'Serviceadd?id='  + @{{id} (id=${ser['id']})}"><span th:text="${ser['activityName']}"></span></a></td>
-														<td th:text="${ser['activityPoint']}"></td>
-														<td th:text="${ser['beneficiary']}"></td>
-														<td th:text="${ser['volunteers']}"></td>
-														<td th:text="${ser['donate']}"></td>
-														<td th:text="${ser['lionshours']}"></td>
-
-													</tr>
-
-
-
-												</tbody>
-												<tfoot>
-													<tr>
-														<th>S.No</th>
-														<th>Activity Name</th>
-														<th>Activity Point</th>
-														<th>Beneficiary</th>
-														<th>Volunteers</th>
-														<th>Donate(Rs.100)</th>
-														<th>Lions hours points</th>
-
-													</tr>
-												</tfoot>
-											</table>
-										</div>
+										<p class="card-text"></p>
+										<form method="POST" th:action="@{/serviceupload}"
+											enctype="multipart/form-data">
+											<div class="form-group">
+												<p>
+													<label for="file">Select a CSV file</label> <input
+														type="file" name="file" class="form-control-file"
+														id="file" accept=".csv">
+												</p>
+											</div>
+											<button type="submit" class="btn btn-primary">Import
+												Service Details</button>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -218,8 +195,53 @@
 	<!-- BEGIN: Page JS-->
 	<script th:src="@{/app-assets/js/scripts/datatables/datatable.js}"></script>
 	<!-- END: Page JS-->
+		
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$(".deletememberfromDB").click(function(){
+			
+			var memberID=$(this).attr("id");
+			
+			var formData = {
+					deleteId : $(this).attr('id')
 
+				}
+			// DO POST
+			 $.ajax({
+				type : "POST",
+				url : "memberDelete",
+				data : formData,
+				success : function(result) {
+					console.log(result);
+					alert("Member removed successfully..!");
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+				}
+			}); 
+			
+			var tr = $(this).closest('tr');
+			tr.remove();
+			
+		});
+		//--------------------------------------------------------------------------------------------------------------------------------------		 
+		//--------------------------------------------------------------------------------------------------------------------------------------		 		
+
+		$(function() {
+			var token = $("input[name='_csrf']").val();
+			var header = 'X-CSRF-TOKEN';//$("meta[name='_csrf_header']").attr("content");
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader(header, token);
+			});
+		});
+		//--------------------------------------------------------------------------------------------------------------------------------------		 
+		//--------------------------------------------------------------------------------------------------------------------------------------
+	});
+	
+	</script>
 </body>
 <!-- END: Body-->
+
 
 </html>

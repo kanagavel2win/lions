@@ -122,6 +122,14 @@ public class ServiceMaster {
 		this.volunteers = volunteers;
 		this.donate = donate;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ServiceMaster [id=" + id + ", activityName=" + activityName + ", activityPoint=" + activityPoint
+				+ ", lionshours=" + lionshours + ", beneficiary=" + beneficiary + ", volunteers=" + volunteers
+				+ ", donate=" + donate + "]";
+	}
 	
 
 	
