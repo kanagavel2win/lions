@@ -191,7 +191,7 @@ table thead th {
 							<div class="card">
 								<div class="card-header">
 									<h4 class="card-title">Service Points details update section</h4>
-
+									
 								</div>
 								<div class="card-content mt-2">
 									<div class="card-body">
@@ -228,13 +228,7 @@ table thead th {
 																th:field="*{beneficiary}"/>
 														</div>
 													</div>
-													<div class="col-sm-6 home-fill">
-														<div class="form-group">
-															<label>Volunteer Point</label> <input type="text"
-																class="form-control" th:value="${service.volunteers}"
-																th:field="*{volunteers}"/>
-														</div>
-													</div>
+													
 													<div class="col-sm-6 home-fill">
 														<div class="form-group">
 															<label>Donate (Per Rs.100)Point</label> <input type="text"
@@ -262,6 +256,8 @@ table thead th {
 											
 											<input type="submit" class="btn btn-primary mr-1 mb-1"
 												value="Update" />
+											
+											<a href="ServiceMaster" class="btn btn-primary"style=" margin-top: -15px">Back</a>
 										</form>
 									</div>
 								</div>

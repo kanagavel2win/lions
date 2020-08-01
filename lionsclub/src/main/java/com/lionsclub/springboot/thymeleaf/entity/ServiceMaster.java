@@ -28,8 +28,6 @@ public class ServiceMaster {
 	@Column
 	private String beneficiary;
 	
-	@Column
-	private String volunteers;
 	
 	@Column
 	private String donate;
@@ -85,15 +83,6 @@ public class ServiceMaster {
 	}
 
 
-	public String getVolunteers() {
-		return volunteers;
-	}
-
-
-	public void setVolunteers(String volunteers) {
-		this.volunteers = volunteers;
-	}
-
 
 	public String getDonate() {
 		return donate;
@@ -112,14 +101,14 @@ public class ServiceMaster {
 
 
 	public ServiceMaster(int id, String activityName, String activityPoint, String lionshours, String beneficiary,
-			String volunteers, String donate) {
+			 String donate) {
 		super();
 		this.id = id;
 		this.activityName = activityName;
 		this.activityPoint = activityPoint;
 		this.lionshours = lionshours;
 		this.beneficiary = beneficiary;
-		this.volunteers = volunteers;
+		
 		this.donate = donate;
 	}
 
@@ -127,8 +116,7 @@ public class ServiceMaster {
 	@Override
 	public String toString() {
 		return "ServiceMaster [id=" + id + ", activityName=" + activityName + ", activityPoint=" + activityPoint
-				+ ", lionshours=" + lionshours + ", beneficiary=" + beneficiary + ", volunteers=" + volunteers
-				+ ", donate=" + donate + "]";
+				+ ", lionshours=" + lionshours + ", beneficiary=" + beneficiary + ", donate=" + donate + "]";
 	}
 	
 

@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="ICC">
-<title>Member Service Master</title>
+<title>Service Report</title>
 <link rel="apple-touch-icon"
 	th:href="@{/app-assets/images/ico/apple-icon-120.png}">
 <link rel="shortcut icon" type="image/x-icon"
@@ -80,7 +80,8 @@
 				<div class="content-header-left col-12 mb-2 mt-1">
 					<div class="row breadcrumbs-top">
 						<div class="col-12">
-							<h5 class="content-header-title float-left pr-1 mb-0">Service Points Master</h5>
+							<h5 class="content-header-title float-left pr-1 mb-0">Service
+								Report</h5>
 
 						</div>
 					</div>
@@ -88,6 +89,21 @@
 			</div>
 			<div class="content-body">
 
+<style>
+
+table
+{
+  font-size: 12px;
+}
+ table thead tr th
+ {
+  font-family:verdana;
+  font-size: 8px;
+  font-weight: normal;
+  background: #F0F0F0;
+  
+ }
+</style>
 				<!-- Zero configuration table -->
 				<section id="basic-datatable">
 					<div class="row">
@@ -95,9 +111,7 @@
 							<div class="card">
 								<div class="card-header">
 									<h4 class="card-title">
-										<a href="Serviceadd?id=0" class="btn btn-primary"style="float: left; margin-left: 10px">Add Service Item</a>
-										<a href="serviceupload" class="btn btn-primary"style="float: left; margin-left: 10px">Upload Service Data</a>
-										<a href="servicereport" class="btn btn-primary"style="float: left; margin-left: 10px">Report</a>
+										<a href="ServiceMaster" class="btn btn-primary"style="float: left; margin-left: 10px">Back</a>										
 									</h4>
 									
 								</div>
@@ -108,41 +122,63 @@
 												<thead>
 													<tr>
 														<th>S.No</th>
-														<th>Activity Name</th>
-														<th>Activity Point</th>
-														<th>Beneficiary</th>
-														<th>Donate(Rs.100)</th>
-														<th>Lions hours points</th>
-														<th>Delete</th>
-
+														<th>Club Number</th>
+														<th>Club Name</th>
+														<th>Activities Count</th>
+														<th>Hunger Count</th>
+														<th>Environment Count</th>
+														<th>Childhood cancer Count</th>
+														<th>Diadetes Count</th>
+														<th>Vision Count</th>
+														<th>Others Count</th>
+														<th>People serves</th>
+														<th>Fund Donated in Rupees</th>
+														<th>Lion hours</th>
+														<th>Total points obtained - Activities</th>
 
 													</tr>
 												</thead>
 												<tbody>
-													<tr th:each="ser,iter  : ${services}">
-														<td><span th:text="${iter.index+1}"></span></td>
-														<td><a
-															th:href="'Serviceadd?id='  + @{{id} (id=${ser['id']})}"><span th:text="${ser['activityName']}"></span></a></td>
-														<td th:text="${ser['activityPoint']}"></td>
-														<td th:text="${ser['beneficiary']}"></td>
-														<td th:text="${ser['donate']}"></td>
-														<td th:text="${ser['lionshours']}"></td>
-														<td></td>
 
-													</tr>
-
-
-
+													<span th:each="servicestemp,iter : ${services}">
+														<span th:each="serv : ${servicestemp.value}">
+															<tr>
+															<td th:text="${iter.index+1}"></td>
+															<td th:text="${serv.CompanyId}"></td>
+															<td th:text="${serv.CompanyName}"></td>
+															<td th:text="${serv.TotalRowCount}"></td>
+															<td th:text="${serv.HungerCount}"></td>
+															<td th:text="${serv.EnvironmentCount}"></td>
+															<td th:text="${serv.PediatricCancerActivityCount}"></td>
+															<td th:text="${serv.DiabetesCount}"></td>
+															<td th:text="${serv.VisionCount}"></td>
+															<td th:text="${serv.NonCampaignActivityCount}"></td>
+															<td th:text="${serv.OverallNumberOfPeopleServed}"></td>
+															<td th:text="${serv.OverallFundsDonated}"></td>
+															<td th:text="${serv.OverallVolunteerHours}"></td>
+															<td th:text="${servicestemp.key}"></td>
+															
+															</tr>
+		
+														</span>
+													</span>
 												</tbody>
 												<tfoot>
 													<tr>
 														<th>S.No</th>
-														<th>Activity Name</th>
-														<th>Activity Point</th>
-														<th>Beneficiary</th>
-														<th>Donate(Rs.100)</th>
-														<th>Lions hours points</th>
-														<th>Delete</th>	
+														<th>Club Number</th>
+														<th>Club Name</th>
+														<th>Activities Count</th>
+														<th>Hunger Count</th>
+														<th>Environment Count</th>
+														<th>Childhood cancer Count</th>
+														<th>Diadetes Count</th>
+														<th>Vision Count</th>
+														<th>Others Count</th>
+														<th>People serves</th>
+														<th>Fund Donated in Rupees</th>
+														<th>Lion hours</th>
+														<th>Total points obtained - Activities</th>
 													</tr>
 												</tfoot>
 											</table>
