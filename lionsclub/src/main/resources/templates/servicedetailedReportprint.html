@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="loading" lang="en"
+	data-textdirection="ltr">
+
+<!-- BEGIN: Head-->
+
+<head>
+<title>LC- Point Detailed - Report</title>
+
+<style>
+table, th,td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: right;
+}
+</style>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body>
+
+	<table>
+												<thead>
+													<tr>
+														<th>S.No</th>
+														<th>Club Number</th>
+														<th>Club Name</th>
+														<th>Activities Count</th>
+														<th>Hunger Count</th>
+														<th>Environment Count</th>
+														<th>Childhood cancer Count</th>
+														<th>Diadetes Count</th>
+														<th>Vision Count</th>
+														<th>Others Count</th>
+														<th>People serves</th>
+														<th>Fund Donated in Rupees</th>
+														<th>Lion hours</th>
+														<th>Total points obtained - Activities</th>
+
+													</tr>
+												</thead>
+												<tbody>
+
+													<span th:each="servicestemp,iter : ${servicestempObj}">
+														<span th:each="servStep1 : ${servicestemp.value}">
+														  <span th:each="serv : ${servStep1.value}">
+															<span th:each="serv : ${servStep1.value}">
+															
+															<tr>
+															<td th:text="${iter.index+1}"></td>
+															<td th:text="${serv.CompanyId}" style="text-align: center"></td>
+															<td th:text="${serv.CompanyName}" style="text-align: left"></td>
+															<td th:text="${serv.OverallActivityCount}"></td>
+															<td th:text="${serv.HungerCount + ' ('+ servStep1.Key[1]+')'}"></td>
+															<td th:text="${serv.EnvironmentCount + ' ('+ servStep1.Key[2]+')'}"></td>
+															<td th:text="${serv.PediatricCancerActivityCount + ' ('+ servStep1.Key[4]+')'}"></td>
+															<td th:text="${serv.DiabetesCount + ' ('+ servStep1.Key[3]+')'}"></td>
+															<td th:text="${serv.VisionCount + ' ('+ servStep1.Key[0]+')'}"></td>
+															<td th:text="${serv.NonCampaignActivityCount + ' ('+ servStep1.Key[5]+')'}"></td>
+															<td th:text="${serv.OverallNumberOfPeopleServed + ' ('+ servStep1.Key[6]+')'}"></td>
+															<td th:text="${serv.OverallFundsDonated + ' ('+ servStep1.Key[7]+')'}"></td>
+															<td th:text="${serv.OverallVolunteerHours + ' ('+ servStep1.Key[8]+')'}"></td>
+															<td th:text="${servicestemp.key}"></td>
+															
+															</tr>
+															</span>
+															</span>				
+														</span>
+													</span>
+												</tbody>
+												
+											</table>
+										
+</body>
+<!-- END: Body-->
+
+<script type="text/javascript">
+window.print();
+</script>
+</html>

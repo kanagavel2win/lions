@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="ICC">
-<title>Member Service Master</title>
+<title>Service Report</title>
 <link rel="apple-touch-icon"
 	th:href="@{/app-assets/images/ico/apple-icon-120.png}">
 <link rel="shortcut icon" type="image/x-icon"
@@ -53,7 +53,6 @@
 	th:href="@{/assets/css/style.css}">
 <!-- END: Custom CSS-->
 
-
 </head>
 <!-- END: Head-->
 
@@ -65,23 +64,18 @@
 
 	<!-- BEGIN: Header-->
 	<!-- BEGIN: Header-->
-	<div th:insert="header"></div>
-	<!-- END: Header-->
-
-
-	<!-- BEGIN: Main Menu-->
-	<div th:insert="menu"></div>
 	<!-- END: Main Menu-->
 
 	<!-- BEGIN: Content-->
-	<div class="app-content content">
+	<div class="">
 		<div class="content-overlay"></div>
 		<div class="content-wrapper">
 			<div class="content-header row">
 				<div class="content-header-left col-12 mb-2 mt-1">
 					<div class="row breadcrumbs-top">
 						<div class="col-12">
-							<h5 class="content-header-title float-left pr-1 mb-0">Service Points Master</h5>
+							<h5 class="content-header-title float-left pr-1 mb-0">Service Detailed
+								Report</h5>
 
 						</div>
 					</div>
@@ -89,6 +83,21 @@
 			</div>
 			<div class="content-body">
 
+<style>
+
+table
+{
+  font-size: 12px;
+}
+ table thead tr th
+ {
+  font-family:verdana;
+  font-size: 8px;
+  font-weight: normal;
+  background: #F0F0F0;
+  
+ }
+</style>
 				<!-- Zero configuration table -->
 				<section id="basic-datatable">
 					<div class="row">
@@ -96,53 +105,80 @@
 							<div class="card">
 								<div class="card-header">
 									<h4 class="card-title">
-										<!-- <a href="Serviceadd?id=0" class="btn btn-primary"style="float: left; margin-left: 10px">Add Service Item</a> -->
-										<a href="serviceupload" class="btn btn-primary"style="float: left; margin-left: 10px">Upload Service Data</a>
-										<a href="servicereport" class="btn btn-primary"style="float: left; margin-left: 10px">Report</a>
-										<button id="export" class="btn btn-primary"style="float: left; margin-left: 10px">Export to Excel</button>
+										<a href="servicereport" class="btn btn-primary"style="float: left; margin-left: 10px">Back</a>
+										<a href="servicedetailedReportprint" class="btn btn-primary"style="float: left; margin-left: 10px">Print</a>
+										<button id="export" class="btn btn-primary"style="float: left; margin-left: 10px">Export to Excel</button>										
 									</h4>
 									
 								</div>
 								<div class="card-content">
 									<div class="card-body card-dashboard">
 										<div class="table-responsive">
-											<table  id="table" class="table zero-configuration">
+											<table id="table" class="table zero-configuration">
 												<thead>
 													<tr>
 														<th>S.No</th>
-														<th>Activity Name</th>
-														<th>Activity Point</th>
-														<th>Beneficiary</th>
-														<th>Donate(Rs.100)</th>
-														<th>Lions hours points</th>
-														
+														<th>Club Number</th>
+														<th>Club Name</th>
+														<th>Activities Count</th>
+														<th>Hunger Count</th>
+														<th>Environment Count</th>
+														<th>Childhood cancer Count</th>
+														<th>Diadetes Count</th>
+														<th>Vision Count</th>
+														<th>Others Count</th>
+														<th>People serves</th>
+														<th>Fund Donated in Rupees</th>
+														<th>Lion hours</th>
+														<th>Total points obtained - Activities</th>
 
 													</tr>
 												</thead>
 												<tbody>
-													<tr th:each="ser,iter  : ${services}">
-														<td><span th:text="${iter.index+1}"></span></td>
-														<td><a
-															th:href="'Serviceadd?id='  + @{{id} (id=${ser['id']})}"><span th:text="${ser['activityName']}"></span></a></td>
-														<td th:text="${ser['activityPoint']}"></td>
-														<td th:text="${ser['beneficiary']}"></td>
-														<td th:text="${ser['donate']}"></td>
-														<td th:text="${ser['lionshours']}"></td>
-														
-													</tr>
 
-
-
+													<span th:each="servicestemp,iter : ${servicestempObj}">
+														<span th:each="servStep1 : ${servicestemp.value}">
+														  <span th:each="serv : ${servStep1.value}">
+															<span th:each="serv : ${servStep1.value}">
+															
+															<tr>
+															<td th:text="${iter.index+1}"></td>
+															<td th:text="${serv.CompanyId}"></td>
+															<td th:text="${serv.CompanyName}"></td>
+															<td th:text="${serv.OverallActivityCount}"></td>
+															<td th:text="${serv.HungerCount + '('+ servStep1.Key[1]+')'}"></td>
+															<td th:text="${serv.EnvironmentCount + '('+ servStep1.Key[2]+')'}"></td>
+															<td th:text="${serv.PediatricCancerActivityCount + '('+ servStep1.Key[4]+')'}"></td>
+															<td th:text="${serv.DiabetesCount + '('+ servStep1.Key[3]+')'}"></td>
+															<td th:text="${serv.VisionCount + '('+ servStep1.Key[0]+')'}"></td>
+															<td th:text="${serv.NonCampaignActivityCount + '('+ servStep1.Key[5]+')'}"></td>
+															<td th:text="${serv.OverallNumberOfPeopleServed + '('+ servStep1.Key[6]+')'}"></td>
+															<td th:text="${serv.OverallFundsDonated + '('+ servStep1.Key[7]+')'}"></td>
+															<td th:text="${serv.OverallVolunteerHours + '('+ servStep1.Key[8]+')'}"></td>
+															<td th:text="${servicestemp.key}"></td>
+															
+															</tr>
+															</span>
+															</span>				
+														</span>
+													</span>
 												</tbody>
 												<tfoot>
 													<tr>
 														<th>S.No</th>
-														<th>Activity Name</th>
-														<th>Activity Point</th>
-														<th>Beneficiary</th>
-														<th>Donate(Rs.100)</th>
-														<th>Lions hours points</th>
-															
+														<th>Club Number</th>
+														<th>Club Name</th>
+														<th>Activities Count</th>
+														<th>Hunger Count</th>
+														<th>Environment Count</th>
+														<th>Childhood cancer Count</th>
+														<th>Diadetes Count</th>
+														<th>Vision Count</th>
+														<th>Others Count</th>
+														<th>People serves</th>
+														<th>Fund Donated in Rupees</th>
+														<th>Lion hours</th>
+														<th>Total points obtained - Activities</th>
 													</tr>
 												</tfoot>
 											</table>
@@ -218,6 +254,7 @@
 	<!-- BEGIN: Page JS-->
 	<script th:src="@{/app-assets/js/scripts/datatables/datatable.js}"></script>
 	<!-- END: Page JS-->
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script th:src="@{/js/jquery.table2excel.min.js}"></script>
 	<script>
@@ -226,8 +263,8 @@
 		        $("#table").table2excel({
 		            exclude: ".noExport",
 		            name:"Worksheet Name",
-		            filename: "LC Service Points",
-		            exclude_links:true,
+		            filename: "Service Report",
+		            exclude_links:true,		            
 		            fileext:".xls"
 		           // columns: [0, 1, 2] // export first three columns
 		        });

@@ -111,14 +111,16 @@ table
 							<div class="card">
 								<div class="card-header">
 									<h4 class="card-title">
-										<a href="ServiceMaster" class="btn btn-primary"style="float: left; margin-left: 10px">Back</a>										
+										<a href="ServiceMaster" class="btn btn-primary"style="float: left; margin-left: 10px">Goto The Points table</a>
+										<a href="servicedetailedreport" class="btn btn-primary"style="float: left; margin-left: 10px">Detailed Report</a>
+										<button id="export" class="btn btn-primary"style="float: left; margin-left: 10px">Export to Excel</button>										
 									</h4>
 									
 								</div>
 								<div class="card-content">
 									<div class="card-body card-dashboard">
 										<div class="table-responsive">
-											<table class="table zero-configuration">
+											<table id="table" class="table zero-configuration">
 												<thead>
 													<tr>
 														<th>S.No</th>
@@ -254,7 +256,23 @@ table
 	<!-- BEGIN: Page JS-->
 	<script th:src="@{/app-assets/js/scripts/datatables/datatable.js}"></script>
 	<!-- END: Page JS-->
-
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script th:src="@{/js/jquery.table2excel.min.js}"></script>
+	<script>
+		$(document).ready(function() {
+		    $('#export').on('click', function(e){
+		        $("#table").table2excel({
+		            exclude: ".noExport",
+		            name:"Worksheet Name",
+		            filename: "Service Report",
+		            exclude_links:true,		            
+		            fileext:".xls"
+		           // columns: [0, 1, 2] // export first three columns
+		        });
+		    });
+		});
+	</script>
 </body>
 <!-- END: Body-->
 
