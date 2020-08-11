@@ -53,6 +53,26 @@
 	th:href="@{/assets/css/style.css}">
 <!-- END: Custom CSS-->
 
+<style type="text/css">
+.table {
+	font-family: calibri;
+	font-size: 13px;
+}
+
+.table td {
+	padding: 5px;
+	text-align: left;
+	color: #104E8B;
+}
+
+.table thead th {
+	background: #E0E0E0;
+	font-weight: normal;
+	color: #8B7E66;
+	text-align: left;
+}
+</style>
+
 </head>
 <!-- END: Head-->
 
@@ -82,47 +102,43 @@
 						<div class="col-12">
 							<h5 class="content-header-title float-left pr-1 mb-0">Service
 								Report</h5>
-
+							<div class="breadcrumb-wrapper col-12"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="content-body">
 
-<style>
-
-table
-{
-  font-size: 12px;
-}
- table thead tr th
- {
-  font-family:verdana;
-  font-size: 8px;
-  font-weight: normal;
-  background: #F0F0F0;
-  
- }
-</style>
 				<!-- Zero configuration table -->
 				<section id="basic-datatable">
 					<div class="row">
 						<div class="col-12">
+							<h5 th:text="${clubName}" style="background: #ccc;"></h5>
 							<div class="card">
 								<div class="card-header">
 									<h4 class="card-title">
-										<a href="ServiceMaster" class="btn btn-primary"style="float: left; margin-left: 10px">Goto The Points table</a>
-										<a href="servicedetailedreport" class="btn btn-primary"style="float: left; margin-left: 10px">Detailed Report</a>
-										<button id="export" class="btn btn-primary"style="float: left; margin-left: 10px">Export to Excel</button>										
+										<a href="ServiceMaster" class="btn btn-primary"
+											style="float: left; margin-left: 10px">Goto The Points
+											table</a> <a href="servicedetailedreport" class="btn btn-primary"
+											style="float: left; margin-left: 10px">Detailed Report</a> <a
+											href="serviceClubCategory" class="btn btn-primary"
+											style="float: left; margin-left: 10px">Category Master</a>
+										<button id="export" class="btn btn-primary"
+											style="float: left; margin-left: 10px">Export to
+											Excel</button>
 									</h4>
-									
+
 								</div>
 								<div class="card-content">
 									<div class="card-body card-dashboard">
+										<p class="card-text"></p>
 										<div class="table-responsive">
-											<table id="table" class="table zero-configuration">
-												<thead>
-													<tr>
+											<form th:action="@{/serviceClubCategory}" method="POST"
+												class="wizard-horizontal" enctype="multipart/form-data">
+
+												<table id="table"  class="table zero-configuration">
+													<thead>
+														<tr>
 														<th>S.No</th>
 														<th>Club Number</th>
 														<th>Club Name</th>
@@ -139,10 +155,9 @@ table
 														<th>Total points obtained - Activities</th>
 
 													</tr>
-												</thead>
-												<tbody>
-
-													<span th:each="servicestemp,iter : ${services}">
+													</thead>
+													<tbody>
+														<span th:each="servicestemp,iter : ${services}">
 														<span th:each="serv : ${servicestemp.value}">
 															<tr>
 															<td th:text="${iter.index+1}"></td>
@@ -164,9 +179,10 @@ table
 		
 														</span>
 													</span>
-												</tbody>
-												<tfoot>
-													<tr>
+
+													</tbody>
+													<tfoot>
+														<tr>
 														<th>S.No</th>
 														<th>Club Number</th>
 														<th>Club Name</th>
@@ -181,9 +197,13 @@ table
 														<th>Fund Donated in Rupees</th>
 														<th>Lion hours</th>
 														<th>Total points obtained - Activities</th>
+
 													</tr>
-												</tfoot>
-											</table>
+													</tfoot>
+												</table>
+												<input type="submit" class="btn btn-primary mr-1 mb-1"
+													value="Update" />
+											</form>
 										</div>
 									</div>
 								</div>
@@ -256,8 +276,6 @@ table
 	<!-- BEGIN: Page JS-->
 	<script th:src="@{/app-assets/js/scripts/datatables/datatable.js}"></script>
 	<!-- END: Page JS-->
-	
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script th:src="@{/js/jquery.table2excel.min.js}"></script>
 	<script>
 		$(document).ready(function() {

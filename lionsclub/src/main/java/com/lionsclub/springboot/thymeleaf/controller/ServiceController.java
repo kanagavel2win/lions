@@ -25,9 +25,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lionsclub.springboot.thymeleaf.dao.UserRepository;
+import com.lionsclub.springboot.thymeleaf.entity.ServiceCategory;
 import com.lionsclub.springboot.thymeleaf.entity.ServiceData;
 import com.lionsclub.springboot.thymeleaf.entity.ServiceMaster;
 import com.lionsclub.springboot.thymeleaf.entity.User;
+import com.lionsclub.springboot.thymeleaf.service.ServiceCategoryInterf;
 import com.lionsclub.springboot.thymeleaf.service.ServiceDataInterf;
 import com.lionsclub.springboot.thymeleaf.service.ServiceInterf;
 
@@ -41,6 +43,9 @@ public class ServiceController {
 
 	@Autowired
 	private ServiceDataInterf serviceDataRepository;
+
+	@Autowired
+	private ServiceCategoryInterf serviceCategoryRepository;
 
 	@ModelAttribute
 	public void addAttributes(Model themodel, HttpSession session, HttpServletRequest request) {
@@ -203,9 +208,9 @@ public class ServiceController {
 	public String servicedetailedreport(Model model) {
 
 		List<ServiceMaster> serviceMaster_temp = serviceRepository.findAll();
-		List<ServiceMaster> serviceMaster=new ArrayList<ServiceMaster>();
+		List<ServiceMaster> serviceMaster = new ArrayList<ServiceMaster>();
 		serviceMaster.addAll(serviceMaster_temp);
-		
+
 		HashMap<String, ServiceMaster> serviceMasterObj = new HashMap<String, ServiceMaster>();
 
 		for (ServiceMaster serviceMaster2 : serviceMaster) {
@@ -214,29 +219,27 @@ public class ServiceController {
 
 		TreeMap<Integer, Object> tMapServiceData = new TreeMap<Integer, Object>(Collections.reverseOrder());
 		List<ServiceData> serviceData = serviceDataRepository.findAll();
-		
+
 		for (ServiceData serviceData2 : serviceData) {
 
-			
 			int Vision_ActivityPoint = Integer.parseInt(serviceData2.getVisionCount())
 					* Integer.parseInt(serviceMasterObj.get("Vision").getActivityPoint());
-			
-			
+
 			int Hunger_ActivityPoint = Integer.parseInt(serviceData2.getHungerCount())
 					* Integer.parseInt(serviceMasterObj.get("Hunger").getActivityPoint());
-			
+
 			int Environment_ActivityPoint = Integer.parseInt(serviceData2.getEnvironmentCount())
 					* Integer.parseInt(serviceMasterObj.get("Environment").getActivityPoint());
-			
+
 			int Diabetes_ActivityPoint = Integer.parseInt(serviceData2.getDiabetesCount())
 					* Integer.parseInt(serviceMasterObj.get("Diabetes").getActivityPoint());
-		
+
 			int PediatricCancer_ActivityPoint = Integer.parseInt(serviceData2.getPediatricCancerActivityCount())
 					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getActivityPoint());
-			
+
 			int NonCampaign_ActivityPoint = Integer.parseInt(serviceData2.getNonCampaignActivityCount())
 					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getActivityPoint());
-			
+
 			int Vision_Beneficiary = Integer.parseInt(serviceData2.getVisionCountCampaignNumberOfPeopleServed())
 					* Integer.parseInt(serviceMasterObj.get("Vision").getBeneficiary());
 
@@ -305,24 +308,24 @@ public class ServiceController {
 
 			int totalPoint = totalPointActivity + totalPointBeneficiary + totalPointDonate + totalPointLionsHr;
 
-			ArrayList<Integer> CountingValue= new ArrayList<>();
+			ArrayList<Integer> CountingValue = new ArrayList<>();
 			CountingValue.add(Vision_ActivityPoint);
 			CountingValue.add(Hunger_ActivityPoint);
 			CountingValue.add(Environment_ActivityPoint);
 			CountingValue.add(Diabetes_ActivityPoint);
 			CountingValue.add(PediatricCancer_ActivityPoint);
 			CountingValue.add(NonCampaign_ActivityPoint);
-			
+
 			CountingValue.add(totalPointBeneficiary);
 			CountingValue.add(totalPointDonate);
 			CountingValue.add(totalPointLionsHr);
-			
-			Map<ArrayList,ServiceData> obj=new HashMap<ArrayList,ServiceData>();
+
+			Map<ArrayList, ServiceData> obj = new HashMap<ArrayList, ServiceData>();
 			obj.put(CountingValue, serviceData2);
-			
+
 			tMapServiceData.put(totalPoint, obj);
 		}
-		
+
 		model.addAttribute("servicestempObj", tMapServiceData);
 
 		return "servicedetailedreport";
@@ -332,9 +335,9 @@ public class ServiceController {
 	public String servicedetailedReportptint(Model model) {
 
 		List<ServiceMaster> serviceMaster_temp = serviceRepository.findAll();
-		List<ServiceMaster> serviceMaster=new ArrayList<ServiceMaster>();
+		List<ServiceMaster> serviceMaster = new ArrayList<ServiceMaster>();
 		serviceMaster.addAll(serviceMaster_temp);
-		
+
 		HashMap<String, ServiceMaster> serviceMasterObj = new HashMap<String, ServiceMaster>();
 
 		for (ServiceMaster serviceMaster2 : serviceMaster) {
@@ -343,29 +346,27 @@ public class ServiceController {
 
 		TreeMap<Integer, Object> tMapServiceData = new TreeMap<Integer, Object>(Collections.reverseOrder());
 		List<ServiceData> serviceData = serviceDataRepository.findAll();
-		
+
 		for (ServiceData serviceData2 : serviceData) {
 
-			
 			int Vision_ActivityPoint = Integer.parseInt(serviceData2.getVisionCount())
 					* Integer.parseInt(serviceMasterObj.get("Vision").getActivityPoint());
-			
-			
+
 			int Hunger_ActivityPoint = Integer.parseInt(serviceData2.getHungerCount())
 					* Integer.parseInt(serviceMasterObj.get("Hunger").getActivityPoint());
-			
+
 			int Environment_ActivityPoint = Integer.parseInt(serviceData2.getEnvironmentCount())
 					* Integer.parseInt(serviceMasterObj.get("Environment").getActivityPoint());
-			
+
 			int Diabetes_ActivityPoint = Integer.parseInt(serviceData2.getDiabetesCount())
 					* Integer.parseInt(serviceMasterObj.get("Diabetes").getActivityPoint());
-		
+
 			int PediatricCancer_ActivityPoint = Integer.parseInt(serviceData2.getPediatricCancerActivityCount())
 					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getActivityPoint());
-			
+
 			int NonCampaign_ActivityPoint = Integer.parseInt(serviceData2.getNonCampaignActivityCount())
 					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getActivityPoint());
-			
+
 			int Vision_Beneficiary = Integer.parseInt(serviceData2.getVisionCountCampaignNumberOfPeopleServed())
 					* Integer.parseInt(serviceMasterObj.get("Vision").getBeneficiary());
 
@@ -434,24 +435,24 @@ public class ServiceController {
 
 			int totalPoint = totalPointActivity + totalPointBeneficiary + totalPointDonate + totalPointLionsHr;
 
-			ArrayList<Integer> CountingValue= new ArrayList<>();
+			ArrayList<Integer> CountingValue = new ArrayList<>();
 			CountingValue.add(Vision_ActivityPoint);
 			CountingValue.add(Hunger_ActivityPoint);
 			CountingValue.add(Environment_ActivityPoint);
 			CountingValue.add(Diabetes_ActivityPoint);
 			CountingValue.add(PediatricCancer_ActivityPoint);
 			CountingValue.add(NonCampaign_ActivityPoint);
-			
+
 			CountingValue.add(totalPointBeneficiary);
 			CountingValue.add(totalPointDonate);
 			CountingValue.add(totalPointLionsHr);
-			
-			Map<ArrayList,ServiceData> obj=new HashMap<ArrayList,ServiceData>();
+
+			Map<ArrayList, ServiceData> obj = new HashMap<ArrayList, ServiceData>();
 			obj.put(CountingValue, serviceData2);
-			
+
 			tMapServiceData.put(totalPoint, obj);
 		}
-		
+
 		model.addAttribute("servicestempObj", tMapServiceData);
 
 		return "servicedetailedReportprint";
@@ -594,6 +595,74 @@ public class ServiceController {
 		}
 
 		return "serviceuploadcsv";
+	}
+
+	@GetMapping("serviceClubCategory")
+	public String serviceClubCategory(Model model) {
+
+		List<ServiceData> servicemaster = serviceDataRepository.findAll();
+
+		List<ServiceData> servicemastertemp = new ArrayList<ServiceData>();
+		for (ServiceData serviceData : servicemaster) {
+
+			List<ServiceCategory> serviceCategorylist = serviceCategoryRepository
+					.getServiceUsingClubID(serviceData.getCompanyId());
+			if (serviceCategorylist.size() > 0) {
+				serviceData.setCompanyMembership(serviceCategorylist.get(0).getClubCatogery());
+
+			} else {
+				serviceData.setCompanyMembership("Not_in_AnyCategory");
+			}
+
+			servicemastertemp.add(serviceData);
+		}
+
+		model.addAttribute("servicemaster", servicemastertemp);
+		return "serviceClubCategory";
+	}
+
+	@PostMapping("serviceClubCategory")
+	public String serviceClubCategoryPost(Model model, @RequestParam("CompanyId") String[] CompanyIdArr,
+			@RequestParam("ClubCategory") String[] ClubCategoryArr) {
+
+		for (int i = 0; i < ClubCategoryArr.length; i++) {
+
+			String clubIDtemp = CompanyIdArr[i];
+			String clubCategoryTemp = ClubCategoryArr[i];
+
+			List<ServiceCategory> serviceCategorylist = serviceCategoryRepository.getServiceUsingClubID(clubIDtemp);
+			if (serviceCategorylist.size() > 0) {
+
+				ServiceCategory obj = serviceCategorylist.get(0);
+				obj.setClubCatogery(clubCategoryTemp);
+				serviceCategoryRepository.save(obj);
+			} else {
+				ServiceCategory obj = new ServiceCategory();
+				obj.setClubCatogery(clubCategoryTemp);
+				obj.setClubID(clubIDtemp);
+				serviceCategoryRepository.save(obj);
+			}
+
+		}
+
+		List<ServiceData> servicemaster = serviceDataRepository.findAll();
+		List<ServiceData> servicemastertemp = new ArrayList<ServiceData>();
+		for (ServiceData serviceData : servicemaster) {
+
+			List<ServiceCategory> serviceCategorylist = serviceCategoryRepository
+					.getServiceUsingClubID(serviceData.getCompanyId());
+			if (serviceCategorylist.size() > 0) {
+				serviceData.setCompanyMembership(serviceCategorylist.get(0).getClubCatogery());
+
+			} else {
+				serviceData.setCompanyMembership("Not_in_AnyCategory");
+			}
+
+			servicemastertemp.add(serviceData);
+		}
+		model.addAttribute("savestatus", true);
+		model.addAttribute("servicemaster", servicemastertemp);
+		return "serviceClubCategory";
 	}
 
 	public String getLoginemailID() {
