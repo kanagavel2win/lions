@@ -5,6 +5,10 @@
 <!-- BEGIN: Head-->
 
 <head>
+<meta name="_csrf" content="${_csrf.token}" />
+<!-- default header name is X-CSRF-TOKEN -->
+<meta name="_csrf_header" content="${_csrf.headerName}" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -130,78 +134,88 @@
 
 								</div>
 								<div class="card-content">
+									<br /> Category <select id="FilterData">
+										<option value="All">ALL</option>
+										<option value="A">A</option>
+										<option value="B">B</option>
+										<option value="C">C</option>
+										<option value="D">D</option>
+
+									</select>
+									<button id="applyFilter" class="btn btn-primary"
+										style="margin-left: 10px">Apply Filter</button>
+
 									<div class="card-body card-dashboard">
 										<p class="card-text"></p>
 										<div class="table-responsive">
 											<form th:action="@{/serviceClubCategory}" method="POST"
 												class="wizard-horizontal" enctype="multipart/form-data">
-
-												<table id="table"  class="table zero-configuration">
-													<thead>
-														<tr>
-														<th>S.No</th>
-														<th>Club Number</th>
-														<th>Club Name</th>
-														<th>Activities Count</th>
-														<th>Hunger Count</th>
-														<th>Environment Count</th>
-														<th>Childhood cancer Count</th>
-														<th>Diadetes Count</th>
-														<th>Vision Count</th>
-														<th>Others Count</th>
-														<th>People serves</th>
-														<th>Fund Donated in Rupees</th>
-														<th>Lion hours</th>
-														<th>Total points obtained - Activities</th>
-
-													</tr>
-													</thead>
-													<tbody>
-														<span th:each="servicestemp,iter : ${services}">
-														<span th:each="serv : ${servicestemp.value}">
+												<span>
+													<table id="table" class="table zero-configuration">
+														<thead>
 															<tr>
-															<td th:text="${iter.index+1}"></td>
-															<td th:text="${serv.CompanyId}"></td>
-															<td th:text="${serv.CompanyName}"></td>
-															<td th:text="${serv.OverallActivityCount}"></td>
-															<td th:text="${serv.HungerCount}"></td>
-															<td th:text="${serv.EnvironmentCount}"></td>
-															<td th:text="${serv.PediatricCancerActivityCount}"></td>
-															<td th:text="${serv.DiabetesCount}"></td>
-															<td th:text="${serv.VisionCount}"></td>
-															<td th:text="${serv.NonCampaignActivityCount}"></td>
-															<td th:text="${serv.OverallNumberOfPeopleServed}"></td>
-															<td th:text="${serv.OverallFundsDonated}"></td>
-															<td th:text="${serv.OverallVolunteerHours}"></td>
-															<td th:text="${servicestemp.key}"></td>
-															
+																<th>S.No</th>
+																<th>Club Number</th>
+																<th>Club Name</th>
+																<th>Activities Count</th>
+																<th>Hunger Count</th>
+																<th>Environment Count</th>
+																<th>Childhood cancer Count</th>
+																<th>Diadetes Count</th>
+																<th>Vision Count</th>
+																<th>Others Count</th>
+																<th>People serves</th>
+																<th>Fund Donated in Rupees</th>
+																<th>Lion hours</th>
+																<th>Total points obtained - Activities</th>
+
 															</tr>
-		
-														</span>
-													</span>
+														</thead>
+														<tbody id="filterResult">
+															<span th:each="serv,iter : ${services}">
+																	<tr>
+																		<td th:text="${iter.index+1}"></td>
+																		<td th:text="${serv.CompanyId}"></td>
+																		<td th:text="${serv.CompanyName}"></td>
+																		<td th:text="${serv.OverallActivityCount}"></td>
+																		<td th:text="${serv.HungerCount}"></td>
+																		<td th:text="${serv.EnvironmentCount}"></td>
+																		<td th:text="${serv.PediatricCancerActivityCount}"></td>
+																		<td th:text="${serv.DiabetesCount}"></td>
+																		<td th:text="${serv.VisionCount}"></td>
+																		<td th:text="${serv.NonCampaignActivityCount}"></td>
+																		<td th:text="${serv.OverallNumberOfPeopleServed}"></td>
+																		<td th:text="${serv.OverallFundsDonated}"></td>
+																		<td th:text="${serv.OverallVolunteerHours}"></td>
+																		<td th:text="${serv.totalPoints}"></td>
 
-													</tbody>
-													<tfoot>
-														<tr>
-														<th>S.No</th>
-														<th>Club Number</th>
-														<th>Club Name</th>
-														<th>Activities Count</th>
-														<th>Hunger Count</th>
-														<th>Environment Count</th>
-														<th>Childhood cancer Count</th>
-														<th>Diadetes Count</th>
-														<th>Vision Count</th>
-														<th>Others Count</th>
-														<th>People serves</th>
-														<th>Fund Donated in Rupees</th>
-														<th>Lion hours</th>
-														<th>Total points obtained - Activities</th>
+																	</tr>
 
-													</tr>
-													</tfoot>
-												</table>
-												<input type="submit" class="btn btn-primary mr-1 mb-1"
+															</span>
+															</span>
+
+														</tbody>
+														<tfoot>
+															<tr>
+																<th>S.No</th>
+																<th>Club Number</th>
+																<th>Club Name</th>
+																<th>Activities Count</th>
+																<th>Hunger Count</th>
+																<th>Environment Count</th>
+																<th>Childhood cancer Count</th>
+																<th>Diadetes Count</th>
+																<th>Vision Count</th>
+																<th>Others Count</th>
+																<th>People serves</th>
+																<th>Fund Donated in Rupees</th>
+																<th>Lion hours</th>
+																<th>Total points obtained - Activities</th>
+
+															</tr>
+														</tfoot>
+													</table>
+												</span> <input type="submit" class="btn btn-primary mr-1 mb-1"
 													value="Update" />
 											</form>
 										</div>
@@ -279,16 +293,62 @@
 	<script th:src="@{/js/jquery.table2excel.min.js}"></script>
 	<script>
 		$(document).ready(function() {
-		    $('#export').on('click', function(e){
-		        $("#table").table2excel({
-		            exclude: ".noExport",
-		            name:"Worksheet Name",
-		            filename: "Service Report",
-		            exclude_links:true,		            
-		            fileext:".xls"
-		           // columns: [0, 1, 2] // export first three columns
-		        });
-		    });
+			$('#export').on('click', function(e) {
+				$("#table").table2excel({
+					exclude : ".noExport",
+					name : "Worksheet Name",
+					filename : "Service Report",
+					exclude_links : true,
+					fileext : ".xls"
+				// columns: [0, 1, 2] // export first three columns
+				});
+			});
+
+			$('#applyFilter').click(function() {
+				
+				
+				if ($("#FilterData").val() == "All") {
+					window.location.href ="servicereport";
+				} else {
+			
+					var formData = {
+						filterData : $("#FilterData").val()
+
+					}
+					// DO POST
+					$.ajax({
+						type : "POST",
+						url : "servicereportJS",
+						data : formData,
+						success : function(result) {
+							//console.log(result);
+							
+							$('#table').DataTable().destroy();
+							$('#table').find('tbody').html(result);
+							$('#table').DataTable().draw();
+														
+						},
+						error : function(e) {
+							console.log("ERROR: ", e);
+						}
+					});
+				}
+
+			});
+
+			//--------------------------------------------------------------------------------------------------------------------------------------		 
+			//--------------------------------------------------------------------------------------------------------------------------------------		 		
+
+			$(function() {
+				var token = $("input[name='_csrf']").val();
+				var header = 'X-CSRF-TOKEN';//$("meta[name='_csrf_header']").attr("content");
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+			});
+			//--------------------------------------------------------------------------------------------------------------------------------------		 
+			//--------------------------------------------------------------------------------------------------------------------------------------		 		
+
 		});
 	</script>
 </body>

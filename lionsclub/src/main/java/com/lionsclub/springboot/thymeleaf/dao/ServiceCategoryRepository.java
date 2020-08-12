@@ -13,5 +13,8 @@ public interface ServiceCategoryRepository extends JpaRepository<ServiceCategory
 
 	@Query("SELECT m FROM ServiceCategory m WHERE m.ClubID = ?1")
 	public List<ServiceCategory> getServiceUsingClubID(String ClubID);
+
+	@Query("Select m.ClubID FROM ServiceCategory m WHERE m.ClubCatogery= :filterData")
+	public List<String> getClubIDListUsingCateg(@Param("filterData") String filterData);
 	
 }

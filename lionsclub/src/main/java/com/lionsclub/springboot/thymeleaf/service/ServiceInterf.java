@@ -14,6 +14,8 @@ public interface ServiceInterf {
 	public void save(ServiceMaster theService);
 	
 	public void deleteById(int theId);
+
+	
 	
 	
 }

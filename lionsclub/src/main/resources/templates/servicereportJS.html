@@ -1,0 +1,22 @@
+
+															<span th:each="serv,iter : ${services}">
+																	<tr>
+																		<td th:text="${iter.index+1}"></td>
+																		<td th:text="${serv.CompanyId}"></td>
+																		<td th:text="${serv.CompanyName}"></td>
+																		<td th:text="${serv.OverallActivityCount}"></td>
+																		<td th:text="${serv.HungerCount}"></td>
+																		<td th:text="${serv.EnvironmentCount}"></td>
+																		<td th:text="${serv.PediatricCancerActivityCount}"></td>
+																		<td th:text="${serv.DiabetesCount}"></td>
+																		<td th:text="${serv.VisionCount}"></td>
+																		<td th:text="${serv.NonCampaignActivityCount}"></td>
+																		<td th:text="${serv.OverallNumberOfPeopleServed}"></td>
+																		<td th:text="${serv.OverallFundsDonated}"></td>
+																		<td th:text="${serv.OverallVolunteerHours}"></td>
+																		<td th:text="${serv.totalPoints}"></td>
+
+																	</tr>
+
+															</span>
+															

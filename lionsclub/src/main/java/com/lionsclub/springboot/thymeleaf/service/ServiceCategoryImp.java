@@ -63,4 +63,10 @@ public class ServiceCategoryImp implements ServiceCategoryInterf {
 		 //serviceCategoryRepository.updateCategory(clubIDtemp,clubCategoryTemp);
 	}
 
+	@Override
+	public List<String> getClubIDListUsingCateg(String filterData) {
+		// TODO Auto-generated method stub
+		return serviceCategoryRepository.getClubIDListUsingCateg(filterData);
+	}
+
 }

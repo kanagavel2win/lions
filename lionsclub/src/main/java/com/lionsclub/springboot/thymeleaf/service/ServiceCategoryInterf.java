@@ -19,4 +19,6 @@ public interface ServiceCategoryInterf {
 	public List<ServiceCategory> getServiceUsingClubID(String ClubID);
 
 	public void updateCategory(String clubIDtemp, String clubCategoryTemp);
+
+	public List<String> getClubIDListUsingCateg(String filterData);
 }
