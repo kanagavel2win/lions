@@ -131,13 +131,13 @@
                                                 	<span th:each="serv,iter : ${servicemaster}">
 															<tr>
 															<td th:text="${iter.index+1}"></td>
-															<td th:text="${serv.CompanyId}"></td>
-															<td th:text="${serv.CompanyName}"></td>
+															<td th:text="${serv.clubID}"></td>
+															<td th:text="${serv.name}"></td>
 															<!-- <td th:text="${serv.CompanyMembership}"></td> -->
 															 <td>
-															   <input type="text"  th:value="${serv.CompanyId}" name="CompanyId"  hidden=""/>
+															   <input type="text"  th:value="${serv.clubID}" name="name"  hidden=""/>
 																<select class="form-control" id="basicSelect" name="ClubCategory"> 
-																	<option th:value="${serv.CompanyMembership}" th:text="${serv.CompanyMembership}"></option>
+																	<option th:value="${serv.clubSpecialty}" th:text="${serv.clubSpecialty}"></option>
 																	<option value="A">A</option>
 																	<option value="B">B</option>
 																	<option value="C">C</option>

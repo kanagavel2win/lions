@@ -97,7 +97,7 @@
 								<div class="card-header">
 									<h4 class="card-title">
 										<!-- <a href="Serviceadd?id=0" class="btn btn-primary"style="float: left; margin-left: 10px">Add Service Item</a> -->
-										<a href="serviceupload" class="btn btn-primary"style="float: left; margin-left: 10px">Upload Service Data</a>
+										
 										<a href="servicereport" class="btn btn-primary"style="float: left; margin-left: 10px">Report</a>
 										<button id="export" class="btn btn-primary"style="float: left; margin-left: 10px">Export to Excel</button>
 									</h4>
@@ -109,25 +109,27 @@
 											<table  id="table" class="table zero-configuration">
 												<thead>
 													<tr>
-														<th>S.No</th>
+														
 														<th>Activity Name</th>
 														<th>Activity Point</th>
 														<th>Beneficiary</th>
 														<th>Donate(Rs.100)</th>
 														<th>Lions hours points</th>
+														<th>Volunteers</th>
 														
 
 													</tr>
 												</thead>
 												<tbody>
 													<tr th:each="ser,iter  : ${services}">
-														<td><span th:text="${iter.index+1}"></span></td>
+														
 														<td><a
 															th:href="'Serviceadd?id='  + @{{id} (id=${ser['id']})}"><span th:text="${ser['activityName']}"></span></a></td>
 														<td th:text="${ser['activityPoint']}"></td>
 														<td th:text="${ser['beneficiary']}"></td>
 														<td th:text="${ser['donate']}"></td>
 														<td th:text="${ser['lionshours']}"></td>
+														<td th:text="${ser['volunteers']}"></td>
 														
 													</tr>
 
@@ -136,12 +138,12 @@
 												</tbody>
 												<tfoot>
 													<tr>
-														<th>S.No</th>
 														<th>Activity Name</th>
 														<th>Activity Point</th>
 														<th>Beneficiary</th>
 														<th>Donate(Rs.100)</th>
 														<th>Lions hours points</th>
+														<th>Volunteers</th>
 															
 													</tr>
 												</tfoot>

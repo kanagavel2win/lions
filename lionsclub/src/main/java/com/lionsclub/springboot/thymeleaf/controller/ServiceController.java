@@ -1,17 +1,21 @@
 package com.lionsclub.springboot.thymeleaf.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,11 +30,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lionsclub.springboot.thymeleaf.dao.UserRepository;
 import com.lionsclub.springboot.thymeleaf.entity.ServiceCategory;
-import com.lionsclub.springboot.thymeleaf.entity.ServiceData;
+import com.lionsclub.springboot.thymeleaf.entity.ServiceDataNew;
 import com.lionsclub.springboot.thymeleaf.entity.ServiceMaster;
 import com.lionsclub.springboot.thymeleaf.entity.User;
 import com.lionsclub.springboot.thymeleaf.service.ServiceCategoryInterf;
-import com.lionsclub.springboot.thymeleaf.service.ServiceDataInterf;
+import com.lionsclub.springboot.thymeleaf.service.ServiceDataNewInterf;
 import com.lionsclub.springboot.thymeleaf.service.ServiceInterf;
 
 @Controller
@@ -42,7 +46,7 @@ public class ServiceController {
 	private ServiceInterf serviceRepository;
 
 	@Autowired
-	private ServiceDataInterf serviceDataRepository;
+	private ServiceDataNewInterf ServiceDataNewRepository;
 
 	@Autowired
 	private ServiceCategoryInterf serviceCategoryRepository;
@@ -116,631 +120,277 @@ public class ServiceController {
 		return "serviceuploadcsv";
 	}
 
+
 	@PostMapping("servicereportJS")
-	public String servicereportJS(Model model,@RequestParam("filterData") String filterData)
-	{
-		List<String> clubIDList= serviceCategoryRepository.getClubIDListUsingCateg(filterData);
+	public String servicereportJS(Model model, @RequestParam("filterData") String filterData) {
+		List<String> clubIDList = serviceCategoryRepository.getClubIDListUsingCateg(filterData);
+
 		
-		List<ServiceMaster> serviceMaster = serviceRepository.findAll();
-		HashMap<String, ServiceMaster> serviceMasterObj = new HashMap<String, ServiceMaster>();
 
-		for (ServiceMaster serviceMaster2 : serviceMaster) {
-			
-			serviceMasterObj.put(serviceMaster2.getActivityName(), serviceMaster2);
-		}
+		
+		TreeMap<Integer, ServiceDataNew> tMapServiceData=new TreeMap<Integer, ServiceDataNew>();
+		List<ServiceDataNew> serviceData = ServiceDataNewRepository.findAll();
+		
+		ServiceMaster serviceMaster = serviceRepository.findAll().get(0);
 
-		List<ServiceData> tMapServiceData = new ArrayList<ServiceData>();
-		List<ServiceData> serviceData = serviceDataRepository.findAll();
-		for (ServiceData serviceData2 : serviceData) {
-			if(clubIDList.contains(serviceData2.getCompanyId()))
-			{
-			
-			int Vision_ActivityPoint = Integer.parseInt(serviceData2.getVisionCount())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getActivityPoint());
-			int Hunger_ActivityPoint = Integer.parseInt(serviceData2.getHungerCount())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getActivityPoint());
-			int Environment_ActivityPoint = Integer.parseInt(serviceData2.getEnvironmentCount())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getActivityPoint());
-			int Diabetes_ActivityPoint = Integer.parseInt(serviceData2.getDiabetesCount())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getActivityPoint());
-			int PediatricCancer_ActivityPoint = Integer.parseInt(serviceData2.getPediatricCancerActivityCount())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getActivityPoint());
-			int NonCampaign_ActivityPoint = Integer.parseInt(serviceData2.getNonCampaignActivityCount())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getActivityPoint());
+		int beneficiaryPoint = Integer.parseInt(serviceMaster.getBeneficiary());
+		int donatePoint = Integer.parseInt(serviceMaster.getDonate());
+		int volunteersPoint = Integer.parseInt(serviceMaster.getVolunteers());
+		int activity_pointPoint = Integer.parseInt(serviceMaster.getActivityPoint());
+		int lionshoursPoint = Integer.parseInt(serviceMaster.getLionshours());
+		double totalPoint = 1;
 
-			int Vision_Beneficiary = Integer.parseInt(serviceData2.getVisionCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getBeneficiary());
-			int Hunger_Beneficiary = Integer.parseInt(serviceData2.getHungerCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getBeneficiary());
-			int Environment_Beneficiary = Integer
-					.parseInt(serviceData2.getEnvironmentCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getBeneficiary());
-			int Diabetes_Beneficiary = Integer.parseInt(serviceData2.getDiabetesCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getBeneficiary());
-			int PediatricCancer_Beneficiary = Integer.parseInt(serviceData2.getPediatricCancerNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getBeneficiary());
-			int NonCampaign_Beneficiary = Integer.parseInt(serviceData2.getNonCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getBeneficiary());
+		
+		for (ServiceDataNew serviceData2 : serviceData) {
+			if (clubIDList.contains(serviceData2.getClubID())) {
 
-			int Vision_Donate = Integer.parseInt(serviceData2.getVisionFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getDonate());
-			int Hunger_Donate = Integer.parseInt(serviceData2.getHungerFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getDonate());
-			int Environment_Donate = Integer.parseInt(serviceData2.getEnvironmentFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getDonate());
-			int Diabetes_Donate = Integer.parseInt(serviceData2.getDiabetesFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getDonate());
-			int PediatricCancer_Donate = Integer.parseInt(serviceData2.getPediatricCancerFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getDonate());
-			int NonCampaign_Donate = Integer.parseInt(serviceData2.getNonCampaignFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getDonate());
-
-			int Vision_LionHr = Integer.parseInt(serviceData2.getVisionVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getLionshours());
-			int Hunger_LionHr = Integer.parseInt(serviceData2.getHungerVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getLionshours());
-			int Environment_LionHr = Integer.parseInt(serviceData2.getEnvironmentVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getLionshours());
-			int Diabetes_LionHr = Integer.parseInt(serviceData2.getDiabetesVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getLionshours());
-			int PediatricCancer_LionHr = Integer.parseInt(serviceData2.getPediatricCancerVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getLionshours());
-			int NonCampaign_LionHr = Integer.parseInt(serviceData2.getNonCampaignVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getLionshours());
-
-			int totalPointActivity = Vision_ActivityPoint + Hunger_ActivityPoint + Environment_ActivityPoint
-					+ Diabetes_ActivityPoint + PediatricCancer_ActivityPoint + NonCampaign_ActivityPoint;
-
-			int totalPointBeneficiary = Vision_Beneficiary + Hunger_Beneficiary + Environment_Beneficiary
-					+ Diabetes_Beneficiary + PediatricCancer_Beneficiary + NonCampaign_Beneficiary;
-
-			int totalPointDonate = Vision_Donate + Hunger_Donate + Environment_Donate + Diabetes_Donate
-					+ PediatricCancer_Donate + NonCampaign_Donate;
-			int totalPointLionsHr = Vision_LionHr + Hunger_LionHr + Environment_LionHr + Diabetes_LionHr
-					+ PediatricCancer_LionHr + NonCampaign_LionHr;
-
-			int totalPoint = totalPointActivity + totalPointBeneficiary + totalPointDonate + totalPointLionsHr;
-			
-			serviceData2.setTotalPoints(totalPoint);
-			tMapServiceData.add(serviceData2);
+				totalPoint = (serviceData2.getPeopleServed() * beneficiaryPoint)
+						+ (serviceData2.getFundsDonatedUSD() * donatePoint)
+						+ (serviceData2.getTotalVolunteers() * volunteersPoint)
+						+ (serviceData2.getNumberOfActivities() * activity_pointPoint)
+						+ (serviceData2.getTotalVolunteerHours() * lionshoursPoint);
+				
+				
+				tMapServiceData.put((int)totalPoint, serviceData2);
 			}
 		}
-		Collections.sort(tMapServiceData, Collections.reverseOrder());  
-		model.addAttribute("services", tMapServiceData);
+		NavigableMap nmap=tMapServiceData.descendingMap();
+		model.addAttribute("services", nmap);
 
 		return "servicereportJS";
 	}
-	
 	@GetMapping("servicereport")
 	public String servicereport(Model model) {
 
-		List<ServiceMaster> serviceMaster = serviceRepository.findAll();
-		HashMap<String, ServiceMaster> serviceMasterObj = new HashMap<String, ServiceMaster>();
+		List<ServiceDataNew> serviceDataList = ServiceDataNewRepository.findAll();
+		ServiceMaster serviceMaster = serviceRepository.findAll().get(0);
 
-		for (ServiceMaster serviceMaster2 : serviceMaster) {
-			serviceMasterObj.put(serviceMaster2.getActivityName(), serviceMaster2);
+		int beneficiaryPoint = Integer.parseInt(serviceMaster.getBeneficiary());
+		int donatePoint = Integer.parseInt(serviceMaster.getDonate());
+		int volunteersPoint = Integer.parseInt(serviceMaster.getVolunteers());
+		int activity_pointPoint = Integer.parseInt(serviceMaster.getActivityPoint());
+		int lionshoursPoint = Integer.parseInt(serviceMaster.getLionshours());
+		double totalPoint = 1;
+
+		TreeMap<Integer, ServiceDataNew> services=new TreeMap<Integer, ServiceDataNew>(); 
+		for (ServiceDataNew serviceDataNew : serviceDataList) {
+			totalPoint = (serviceDataNew.getPeopleServed() * beneficiaryPoint)
+					+ (serviceDataNew.getFundsDonatedUSD() * donatePoint)
+					+ (serviceDataNew.getTotalVolunteers() * volunteersPoint)
+					+ (serviceDataNew.getNumberOfActivities() * activity_pointPoint)
+					+ (serviceDataNew.getTotalVolunteerHours() * lionshoursPoint);
+			
+			
+			services.put((int)totalPoint, serviceDataNew);
 		}
+		NavigableMap nmap=services.descendingMap();
 
-		List<ServiceData> tMapServiceData = new ArrayList<ServiceData>();
-		List<ServiceData> serviceData = serviceDataRepository.findAll();
-		for (ServiceData serviceData2 : serviceData) {
-
-			int Vision_ActivityPoint = Integer.parseInt(serviceData2.getVisionCount())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getActivityPoint());
-			int Hunger_ActivityPoint = Integer.parseInt(serviceData2.getHungerCount())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getActivityPoint());
-			int Environment_ActivityPoint = Integer.parseInt(serviceData2.getEnvironmentCount())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getActivityPoint());
-			int Diabetes_ActivityPoint = Integer.parseInt(serviceData2.getDiabetesCount())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getActivityPoint());
-			int PediatricCancer_ActivityPoint = Integer.parseInt(serviceData2.getPediatricCancerActivityCount())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getActivityPoint());
-			int NonCampaign_ActivityPoint = Integer.parseInt(serviceData2.getNonCampaignActivityCount())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getActivityPoint());
-
-			int Vision_Beneficiary = Integer.parseInt(serviceData2.getVisionCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getBeneficiary());
-			int Hunger_Beneficiary = Integer.parseInt(serviceData2.getHungerCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getBeneficiary());
-			int Environment_Beneficiary = Integer
-					.parseInt(serviceData2.getEnvironmentCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getBeneficiary());
-			int Diabetes_Beneficiary = Integer.parseInt(serviceData2.getDiabetesCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getBeneficiary());
-			int PediatricCancer_Beneficiary = Integer.parseInt(serviceData2.getPediatricCancerNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getBeneficiary());
-			int NonCampaign_Beneficiary = Integer.parseInt(serviceData2.getNonCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getBeneficiary());
-
-			int Vision_Donate = Integer.parseInt(serviceData2.getVisionFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getDonate());
-			int Hunger_Donate = Integer.parseInt(serviceData2.getHungerFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getDonate());
-			int Environment_Donate = Integer.parseInt(serviceData2.getEnvironmentFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getDonate());
-			int Diabetes_Donate = Integer.parseInt(serviceData2.getDiabetesFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getDonate());
-			int PediatricCancer_Donate = Integer.parseInt(serviceData2.getPediatricCancerFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getDonate());
-			int NonCampaign_Donate = Integer.parseInt(serviceData2.getNonCampaignFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getDonate());
-
-			int Vision_LionHr = Integer.parseInt(serviceData2.getVisionVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getLionshours());
-			int Hunger_LionHr = Integer.parseInt(serviceData2.getHungerVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getLionshours());
-			int Environment_LionHr = Integer.parseInt(serviceData2.getEnvironmentVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getLionshours());
-			int Diabetes_LionHr = Integer.parseInt(serviceData2.getDiabetesVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getLionshours());
-			int PediatricCancer_LionHr = Integer.parseInt(serviceData2.getPediatricCancerVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getLionshours());
-			int NonCampaign_LionHr = Integer.parseInt(serviceData2.getNonCampaignVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getLionshours());
-
-			int totalPointActivity = Vision_ActivityPoint + Hunger_ActivityPoint + Environment_ActivityPoint
-					+ Diabetes_ActivityPoint + PediatricCancer_ActivityPoint + NonCampaign_ActivityPoint;
-
-			int totalPointBeneficiary = Vision_Beneficiary + Hunger_Beneficiary + Environment_Beneficiary
-					+ Diabetes_Beneficiary + PediatricCancer_Beneficiary + NonCampaign_Beneficiary;
-
-			int totalPointDonate = Vision_Donate + Hunger_Donate + Environment_Donate + Diabetes_Donate
-					+ PediatricCancer_Donate + NonCampaign_Donate;
-			int totalPointLionsHr = Vision_LionHr + Hunger_LionHr + Environment_LionHr + Diabetes_LionHr
-					+ PediatricCancer_LionHr + NonCampaign_LionHr;
-
-			int totalPoint = totalPointActivity + totalPointBeneficiary + totalPointDonate + totalPointLionsHr;
-
-			serviceData2.setTotalPoints(totalPoint);
-			tMapServiceData.add(serviceData2);
-		}
-
-		Collections.sort(tMapServiceData, Collections.reverseOrder());
-		model.addAttribute("services", tMapServiceData);
-
+		model.addAttribute("services", nmap);
 		return "servicereport";
 	}
 
-	@GetMapping("servicedetailedreport")
-	public String servicedetailedreport(Model model) {
-
-		List<ServiceMaster> serviceMaster = serviceRepository.findAll();
-		HashMap<String, ServiceMaster> serviceMasterObj = new HashMap<String, ServiceMaster>();
-
-		for (ServiceMaster serviceMaster2 : serviceMaster) {
-			serviceMasterObj.put(serviceMaster2.getActivityName(), serviceMaster2);
-		}
-
-		List<ServiceData> tMapServiceData = new ArrayList<ServiceData>();
-		List<ServiceData> serviceData = serviceDataRepository.findAll();
-		HashMap<String, ArrayList<Integer>> tempArrMap = new HashMap<String,  ArrayList<Integer>>();
-		
-		for (ServiceData serviceData2 : serviceData) {
-
-			int Vision_ActivityPoint = Integer.parseInt(serviceData2.getVisionCount())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getActivityPoint());
-			int Hunger_ActivityPoint = Integer.parseInt(serviceData2.getHungerCount())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getActivityPoint());
-			int Environment_ActivityPoint = Integer.parseInt(serviceData2.getEnvironmentCount())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getActivityPoint());
-			int Diabetes_ActivityPoint = Integer.parseInt(serviceData2.getDiabetesCount())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getActivityPoint());
-			int PediatricCancer_ActivityPoint = Integer.parseInt(serviceData2.getPediatricCancerActivityCount())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getActivityPoint());
-			int NonCampaign_ActivityPoint = Integer.parseInt(serviceData2.getNonCampaignActivityCount())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getActivityPoint());
-
-			int Vision_Beneficiary = Integer.parseInt(serviceData2.getVisionCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getBeneficiary());
-			int Hunger_Beneficiary = Integer.parseInt(serviceData2.getHungerCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getBeneficiary());
-			int Environment_Beneficiary = Integer
-					.parseInt(serviceData2.getEnvironmentCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getBeneficiary());
-			int Diabetes_Beneficiary = Integer.parseInt(serviceData2.getDiabetesCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getBeneficiary());
-			int PediatricCancer_Beneficiary = Integer.parseInt(serviceData2.getPediatricCancerNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getBeneficiary());
-			int NonCampaign_Beneficiary = Integer.parseInt(serviceData2.getNonCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getBeneficiary());
-
-			int Vision_Donate = Integer.parseInt(serviceData2.getVisionFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getDonate());
-			int Hunger_Donate = Integer.parseInt(serviceData2.getHungerFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getDonate());
-			int Environment_Donate = Integer.parseInt(serviceData2.getEnvironmentFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getDonate());
-			int Diabetes_Donate = Integer.parseInt(serviceData2.getDiabetesFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getDonate());
-			int PediatricCancer_Donate = Integer.parseInt(serviceData2.getPediatricCancerFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getDonate());
-			int NonCampaign_Donate = Integer.parseInt(serviceData2.getNonCampaignFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getDonate());
-
-			int Vision_LionHr = Integer.parseInt(serviceData2.getVisionVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getLionshours());
-			int Hunger_LionHr = Integer.parseInt(serviceData2.getHungerVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getLionshours());
-			int Environment_LionHr = Integer.parseInt(serviceData2.getEnvironmentVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getLionshours());
-			int Diabetes_LionHr = Integer.parseInt(serviceData2.getDiabetesVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getLionshours());
-			int PediatricCancer_LionHr = Integer.parseInt(serviceData2.getPediatricCancerVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getLionshours());
-			int NonCampaign_LionHr = Integer.parseInt(serviceData2.getNonCampaignVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getLionshours());
-
-			int totalPointActivity = Vision_ActivityPoint + Hunger_ActivityPoint + Environment_ActivityPoint
-					+ Diabetes_ActivityPoint + PediatricCancer_ActivityPoint + NonCampaign_ActivityPoint;
-
-			int totalPointBeneficiary = Vision_Beneficiary + Hunger_Beneficiary + Environment_Beneficiary
-					+ Diabetes_Beneficiary + PediatricCancer_Beneficiary + NonCampaign_Beneficiary;
-
-			int totalPointDonate = Vision_Donate + Hunger_Donate + Environment_Donate + Diabetes_Donate
-					+ PediatricCancer_Donate + NonCampaign_Donate;
-			int totalPointLionsHr = Vision_LionHr + Hunger_LionHr + Environment_LionHr + Diabetes_LionHr
-					+ PediatricCancer_LionHr + NonCampaign_LionHr;
-
-			int totalPoint = totalPointActivity + totalPointBeneficiary + totalPointDonate + totalPointLionsHr;
-
-			ArrayList<Integer> CountingValue = new ArrayList<>();
-			CountingValue.add(Vision_ActivityPoint);
-			CountingValue.add(Hunger_ActivityPoint);
-			CountingValue.add(Environment_ActivityPoint);
-			CountingValue.add(Diabetes_ActivityPoint);
-			CountingValue.add(PediatricCancer_ActivityPoint);
-			CountingValue.add(NonCampaign_ActivityPoint);
-
-			CountingValue.add(totalPointBeneficiary);
-			CountingValue.add(totalPointDonate);
-			CountingValue.add(totalPointLionsHr);
-
-			serviceData2.setTotalPoints(totalPoint);
-
-			tempArrMap.put(serviceData2.getCompanyId(), CountingValue);
-			tMapServiceData.add(serviceData2);
-		}
-
-		Collections.sort(tMapServiceData, Collections.reverseOrder());
-		
-		
-		model.addAttribute("services", tMapServiceData);
-		model.addAttribute("points", tempArrMap);
-
-		return "servicedetailedreport";
-	}
-
-	@GetMapping("servicedetailedReportprint")
-	public String servicedetailedReportptint(Model model) {
-
-		List<ServiceMaster> serviceMaster_temp = serviceRepository.findAll();
-		List<ServiceMaster> serviceMaster = new ArrayList<ServiceMaster>();
-		serviceMaster.addAll(serviceMaster_temp);
-
-		HashMap<String, ServiceMaster> serviceMasterObj = new HashMap<String, ServiceMaster>();
-
-		for (ServiceMaster serviceMaster2 : serviceMaster) {
-			serviceMasterObj.put(serviceMaster2.getActivityName(), serviceMaster2);
-		}
-
-		TreeMap<Integer, Object> tMapServiceData = new TreeMap<Integer, Object>(Collections.reverseOrder());
-		List<ServiceData> serviceData = serviceDataRepository.findAll();
-
-		for (ServiceData serviceData2 : serviceData) {
-
-			int Vision_ActivityPoint = Integer.parseInt(serviceData2.getVisionCount())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getActivityPoint());
-
-			int Hunger_ActivityPoint = Integer.parseInt(serviceData2.getHungerCount())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getActivityPoint());
-
-			int Environment_ActivityPoint = Integer.parseInt(serviceData2.getEnvironmentCount())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getActivityPoint());
-
-			int Diabetes_ActivityPoint = Integer.parseInt(serviceData2.getDiabetesCount())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getActivityPoint());
-
-			int PediatricCancer_ActivityPoint = Integer.parseInt(serviceData2.getPediatricCancerActivityCount())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getActivityPoint());
-
-			int NonCampaign_ActivityPoint = Integer.parseInt(serviceData2.getNonCampaignActivityCount())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getActivityPoint());
-
-			int Vision_Beneficiary = Integer.parseInt(serviceData2.getVisionCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getBeneficiary());
-
-			int Hunger_Beneficiary = Integer.parseInt(serviceData2.getHungerCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getBeneficiary());
-
-			int Environment_Beneficiary = Integer
-					.parseInt(serviceData2.getEnvironmentCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getBeneficiary());
-
-			int Diabetes_Beneficiary = Integer.parseInt(serviceData2.getDiabetesCountCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getBeneficiary());
-
-			int PediatricCancer_Beneficiary = Integer.parseInt(serviceData2.getPediatricCancerNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getBeneficiary());
-
-			int NonCampaign_Beneficiary = Integer.parseInt(serviceData2.getNonCampaignNumberOfPeopleServed())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getBeneficiary());
-
-			int Vision_Donate = Integer.parseInt(serviceData2.getVisionFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getDonate());
-
-			int Hunger_Donate = Integer.parseInt(serviceData2.getHungerFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getDonate());
-
-			int Environment_Donate = Integer.parseInt(serviceData2.getEnvironmentFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getDonate());
-
-			int Diabetes_Donate = Integer.parseInt(serviceData2.getDiabetesFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getDonate());
-
-			int PediatricCancer_Donate = Integer.parseInt(serviceData2.getPediatricCancerFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getDonate());
-
-			int NonCampaign_Donate = Integer.parseInt(serviceData2.getNonCampaignFundsDonated())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getDonate());
-
-			int Vision_LionHr = Integer.parseInt(serviceData2.getVisionVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Vision").getLionshours());
-
-			int Hunger_LionHr = Integer.parseInt(serviceData2.getHungerVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Hunger").getLionshours());
-
-			int Environment_LionHr = Integer.parseInt(serviceData2.getEnvironmentVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Environment").getLionshours());
-
-			int Diabetes_LionHr = Integer.parseInt(serviceData2.getDiabetesVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("Diabetes").getLionshours());
-
-			int PediatricCancer_LionHr = Integer.parseInt(serviceData2.getPediatricCancerVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("PediatricCancer").getLionshours());
-
-			int NonCampaign_LionHr = Integer.parseInt(serviceData2.getNonCampaignVolunteerHours())
-					* Integer.parseInt(serviceMasterObj.get("NonCampaign").getLionshours());
-
-			int totalPointActivity = Vision_ActivityPoint + Hunger_ActivityPoint + Environment_ActivityPoint
-					+ Diabetes_ActivityPoint + PediatricCancer_ActivityPoint + NonCampaign_ActivityPoint;
-
-			int totalPointBeneficiary = Vision_Beneficiary + Hunger_Beneficiary + Environment_Beneficiary
-					+ Diabetes_Beneficiary + PediatricCancer_Beneficiary + NonCampaign_Beneficiary;
-
-			int totalPointDonate = Vision_Donate + Hunger_Donate + Environment_Donate + Diabetes_Donate
-					+ PediatricCancer_Donate + NonCampaign_Donate;
-			int totalPointLionsHr = Vision_LionHr + Hunger_LionHr + Environment_LionHr + Diabetes_LionHr
-					+ PediatricCancer_LionHr + NonCampaign_LionHr;
-
-			int totalPoint = totalPointActivity + totalPointBeneficiary + totalPointDonate + totalPointLionsHr;
-
-			ArrayList<Integer> CountingValue = new ArrayList<>();
-			CountingValue.add(Vision_ActivityPoint);
-			CountingValue.add(Hunger_ActivityPoint);
-			CountingValue.add(Environment_ActivityPoint);
-			CountingValue.add(Diabetes_ActivityPoint);
-			CountingValue.add(PediatricCancer_ActivityPoint);
-			CountingValue.add(NonCampaign_ActivityPoint);
-
-			CountingValue.add(totalPointBeneficiary);
-			CountingValue.add(totalPointDonate);
-			CountingValue.add(totalPointLionsHr);
-
-			Map<ArrayList, ServiceData> obj = new HashMap<ArrayList, ServiceData>();
-			obj.put(CountingValue, serviceData2);
-
-			tMapServiceData.put(totalPoint, obj);
-		}
-
-		model.addAttribute("servicestempObj", tMapServiceData);
-
-		return "servicedetailedReportprint";
-	}
-
 	@PostMapping("serviceupload")
-	public String servicepostUploadcsv(@RequestParam("file") MultipartFile file, Model model,
+	public String servicepostUploadcsv(@RequestParam("file") MultipartFile fileSrc, Model model,
 			RedirectAttributes redirectAttributes) {
 
-		int newMemberIDdetailsCount = 0;
 		// validate file
-		if (file.isEmpty()) {
+		if (fileSrc.isEmpty()) {
 			model.addAttribute("message", "Please select a CSV file to upload.");
 			model.addAttribute("status", false);
 		} else {
 
-			serviceDataRepository.deleteAll();
+			ServiceDataNewRepository.deleteAll();
+			HashMap<String, ServiceDataNew> ServiceDataMap = new HashMap<String, ServiceDataNew>();
+			try {
 
-			try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-				String line = br.readLine(); // Reading header, Ignoring
-				while ((line = br.readLine()) != null && !line.isEmpty()) {
+				XSSFWorkbook wb = new XSSFWorkbook(fileSrc.getInputStream());
+				XSSFSheet sheet = wb.getSheetAt(0);
+				Iterator<Row> itr = sheet.iterator();
+				itr.next();
+				while (itr.hasNext()) {
+					Row row = itr.next();
+					Iterator<Cell> cellIterator = row.cellIterator();
 
-					String[] fields = new String[47];
-					fields = line.split(",");
-					// ------------------------------------------------------------------------------------
-					// ------------------------------------------------------------------------------------
-					// Split data from csv field level
-					String TotalRowCount = fields[0];
-					String VisionCount = fields[1];
-					String HungerCount = fields[2];
-					String EnvironmentCount = fields[3];
-					String DiabetesCount = fields[4];
-					String PediatricCancerActivityCount = fields[5];
-					String PediatricCancerNumberOfPeopleServed = fields[6];
-					String OverallActivityCount = fields[7];
-					String OverallNumberOfPeopleServed = fields[8];
-					String VisionCountCampaignNumberOfPeopleServed = fields[9];
-					String HungerCountCampaignNumberOfPeopleServed = fields[10];
-					String EnvironmentCountCampaignNumberOfPeopleServed = fields[11];
-					String DiabetesCountCampaignNumberOfPeopleServed = fields[12];
-					String NonCampaignActivityCount = fields[13];
-					String NonCampaignNumberOfPeopleServed = fields[14];
-					String CompanyId = fields[15];
-					String CompanyName = fields[16];
-					String OverallVolunteerHours = fields[17];
-					String DiabetesVolunteerHours = fields[18];
-					String EnvironmentVolunteerHours = fields[19];
-					String PediatricCancerVolunteerHours = fields[20];
-					String HungerVolunteerHours = fields[21];
-					String VisionVolunteerHours = fields[22];
-					String NonCampaignVolunteerHours = fields[23];
-					String OverallNumberOfPeopleServedPerMember = fields[24];
-					String DiabetesCountCampaignNumberOfPeopleServedPerMember = fields[25];
-					String EnvironmentCountCampaignNumberOfPeopleServedPerMember = fields[26];
-					String PediatricCancerNumberOfPeopleServedPerMember = fields[27];
-					String HungerCountCampaignNumberOfPeopleServedPerMember = fields[28];
-					String VisionCountCampaignNumberOfPeopleServedPerMember = fields[29];
-					String NonCampaignNumberOfPeopleServedPerMember = fields[30];
-					String CompanyMembership = fields[31];
-					String FundsDonated = fields[32];
-					String VisionFundsDonated = fields[33];
-					String HungerFundsDonated = fields[34];
-					String EnvironmentFundsDonated = fields[35];
-					String DiabetesFundsDonated = fields[36];
-					String PediatricCancerFundsDonated = fields[37];
-					String OverallFundsDonated = fields[38];
-					String VisionFundsRaised = fields[39];
-					String HungerFundsRaised = fields[40];
-					String EnvironmentFundsRaised = fields[41];
-					String DiabetesFundsRaised = fields[42];
-					String PediatricCancerFundsRaised = fields[43];
-					String OverallFundsRaised = fields[44];
-					String NonCampaignFundsDonated = fields[45];
-					String NonCampaignFundsRaised = fields[46];
+					int cellLooper = 1;
+					String Name = "";
+					String ID = "";
+					String Club_Type = "";
+					String Club_Specialty = "";
+					String Activity_Type = "";
+					double Number_of_Activities = 0;
+					double People_Served = 0;
+					double Total_Volunteers = 0;
+					double Total_Volunteer_Hours = 0;
+					double Funds_Donated_USD = 0;
+					double Funds_Raised_USD = 0;
 
-					ServiceData serObj = new ServiceData();
-					serObj.setTotalRowCount(TotalRowCount);
-					serObj.setVisionCount(VisionCount);
-					serObj.setHungerCount(HungerCount);
-					serObj.setEnvironmentCount(EnvironmentCount);
-					serObj.setDiabetesCount(DiabetesCount);
-					serObj.setPediatricCancerActivityCount(PediatricCancerActivityCount);
-					serObj.setPediatricCancerNumberOfPeopleServed(PediatricCancerNumberOfPeopleServed);
-					serObj.setOverallActivityCount(OverallActivityCount);
-					serObj.setOverallNumberOfPeopleServed(OverallNumberOfPeopleServed);
-					serObj.setVisionCountCampaignNumberOfPeopleServed(VisionCountCampaignNumberOfPeopleServed);
-					serObj.setHungerCountCampaignNumberOfPeopleServed(HungerCountCampaignNumberOfPeopleServed);
-					serObj.setEnvironmentCountCampaignNumberOfPeopleServed(
-							EnvironmentCountCampaignNumberOfPeopleServed);
-					serObj.setDiabetesCountCampaignNumberOfPeopleServed(DiabetesCountCampaignNumberOfPeopleServed);
-					serObj.setNonCampaignActivityCount(NonCampaignActivityCount);
-					serObj.setNonCampaignNumberOfPeopleServed(NonCampaignNumberOfPeopleServed);
-					serObj.setCompanyId(CompanyId);
-					serObj.setCompanyName(CompanyName);
-					serObj.setOverallVolunteerHours(OverallVolunteerHours);
-					serObj.setDiabetesVolunteerHours(DiabetesVolunteerHours);
-					serObj.setEnvironmentVolunteerHours(EnvironmentVolunteerHours);
-					serObj.setPediatricCancerVolunteerHours(PediatricCancerVolunteerHours);
-					serObj.setHungerVolunteerHours(HungerVolunteerHours);
-					serObj.setVisionVolunteerHours(VisionVolunteerHours);
-					serObj.setNonCampaignVolunteerHours(NonCampaignVolunteerHours);
-					serObj.setOverallNumberOfPeopleServedPerMember(OverallNumberOfPeopleServedPerMember);
-					serObj.setDiabetesCountCampaignNumberOfPeopleServedPerMember(
-							DiabetesCountCampaignNumberOfPeopleServedPerMember);
-					serObj.setEnvironmentCountCampaignNumberOfPeopleServedPerMember(
-							EnvironmentCountCampaignNumberOfPeopleServedPerMember);
-					serObj.setPediatricCancerNumberOfPeopleServedPerMember(
-							PediatricCancerNumberOfPeopleServedPerMember);
-					serObj.setHungerCountCampaignNumberOfPeopleServedPerMember(
-							HungerCountCampaignNumberOfPeopleServedPerMember);
-					serObj.setVisionCountCampaignNumberOfPeopleServedPerMember(
-							VisionCountCampaignNumberOfPeopleServedPerMember);
-					serObj.setNonCampaignNumberOfPeopleServedPerMember(NonCampaignNumberOfPeopleServedPerMember);
-					serObj.setCompanyMembership(CompanyMembership);
-					serObj.setFundsDonated(FundsDonated);
-					serObj.setVisionFundsDonated(VisionFundsDonated);
-					serObj.setHungerFundsDonated(HungerFundsDonated);
-					serObj.setEnvironmentFundsDonated(EnvironmentFundsDonated);
-					serObj.setDiabetesFundsDonated(DiabetesFundsDonated);
-					serObj.setPediatricCancerFundsDonated(PediatricCancerFundsDonated);
-					serObj.setOverallFundsDonated(OverallFundsDonated);
-					serObj.setVisionFundsRaised(VisionFundsRaised);
-					serObj.setHungerFundsRaised(HungerFundsRaised);
-					serObj.setEnvironmentFundsRaised(EnvironmentFundsRaised);
-					serObj.setDiabetesFundsRaised(DiabetesFundsRaised);
-					serObj.setPediatricCancerFundsRaised(PediatricCancerFundsRaised);
-					serObj.setOverallFundsRaised(OverallFundsRaised);
-					serObj.setNonCampaignFundsDonated(NonCampaignFundsDonated);
-					serObj.setNonCampaignFundsRaised(NonCampaignFundsRaised);
-					serviceDataRepository.save(serObj);
+					while (cellIterator.hasNext()) {
+						Cell cell = cellIterator.next();
+
+						switch (cellLooper) {
+						case 1:
+							Name = cell.getStringCellValue().toString();
+							break;
+						case 2:
+							ID = getExcelCellValues(cell);
+							break;
+						case 3:
+							Club_Type = getExcelCellValues(cell);
+							break;
+						case 4:
+							Club_Specialty = getExcelCellValues(cell);
+							break;
+						case 5:
+							Activity_Type = getExcelCellValues(cell);
+							break;
+						case 6:
+							Number_of_Activities = Double.parseDouble(getExcelCellValues(cell));
+							break;
+						case 7:
+							People_Served = Double.parseDouble(getExcelCellValues(cell));
+							break;
+						case 8:
+							Total_Volunteers = Double.parseDouble(getExcelCellValues(cell));
+							break;
+						case 9:
+							Total_Volunteer_Hours = Double.parseDouble(getExcelCellValues(cell));
+							break;
+						case 10:
+							Funds_Donated_USD = (int) cell.getNumericCellValue();
+							break;
+						case 11:
+							Funds_Raised_USD = (int) cell.getNumericCellValue();
+							break;
+
+						default:
+						}
+						cellLooper++;
+					}
+
+					if (ServiceDataMap.containsKey(ID)) {
+						ServiceDataNew serObj = ServiceDataMap.get(ID);
+						serObj.setNumberOfActivities(serObj.getNumberOfActivities() + Number_of_Activities);
+						serObj.setPeopleServed(serObj.getPeopleServed() + People_Served);
+						serObj.setTotalVolunteers(serObj.getTotalVolunteers() + Total_Volunteers);
+						serObj.setTotalVolunteerHours(serObj.getTotalVolunteerHours() + Total_Volunteer_Hours);
+						serObj.setFundsDonatedUSD(serObj.getFundsDonatedUSD() + Funds_Donated_USD);
+						serObj.setFundsRaisedUSD(serObj.getFundsRaisedUSD() + Funds_Raised_USD);
+						ServiceDataMap.replace(ID, serObj);
+
+					} else {
+						ServiceDataNew serObj = new ServiceDataNew();
+						serObj.setName(Name);
+						serObj.setClubID(ID);
+						serObj.setClubType(Club_Type);
+						serObj.setClubSpecialty(Club_Specialty);
+						serObj.setActivityType(Activity_Type);
+						serObj.setNumberOfActivities(Number_of_Activities);
+						serObj.setPeopleServed(People_Served);
+						serObj.setTotalVolunteers(Total_Volunteers);
+						serObj.setTotalVolunteerHours(Total_Volunteer_Hours);
+						serObj.setFundsDonatedUSD(Funds_Donated_USD);
+						serObj.setFundsRaisedUSD(Funds_Raised_USD);
+						ServiceDataMap.put(ID, serObj);
+					}
+
 				}
-				br.close();
+				wb.close();
+
+				// Save
+				for (Map.Entry<String, ServiceDataNew> SerObj : ServiceDataMap.entrySet()) {
+					ServiceDataNewRepository.save(SerObj.getValue());
+
+				}
+
 			} catch (Exception e) {
-
-				System.out.println(e.getMessage());
+				e.printStackTrace();
 			}
-
-			model.addAttribute("status", true);
 
 		}
 
 		return "serviceuploadcsv";
 	}
 
+	public String getExcelCellValues(Cell cell) {
+
+		Object str = "";
+		switch (cell.getCellType()) {
+		case Cell.CELL_TYPE_BOOLEAN:
+			str = cell.getBooleanCellValue();
+			break;
+		case Cell.CELL_TYPE_NUMERIC:
+			str = cell.getNumericCellValue();
+			break;
+		case Cell.CELL_TYPE_STRING:
+			str = cell.getRichStringCellValue();
+			break;
+		default:
+		}
+		return String.valueOf(str);
+	}
+
 	@GetMapping("serviceClubCategory")
 	public String serviceClubCategory(Model model) {
 
-		List<ServiceData> servicemaster = serviceDataRepository.findAll();
+		List<ServiceDataNew> servicemaster = ServiceDataNewRepository.findAll();
 
-		List<ServiceData> servicemastertemp = new ArrayList<ServiceData>();
-		for (ServiceData serviceData : servicemaster) {
+		List<ServiceDataNew> servicemastertemp = new ArrayList<ServiceDataNew>();
+		for (ServiceDataNew ServiceDataNew : servicemaster) {
 
 			List<ServiceCategory> serviceCategorylist = serviceCategoryRepository
-					.getServiceUsingClubID(serviceData.getCompanyId());
+					.getServiceUsingClubID(ServiceDataNew.getClubID());
 			if (serviceCategorylist.size() > 0) {
-				serviceData.setCompanyMembership(serviceCategorylist.get(0).getClubCatogery());
+				ServiceDataNew.setClubSpecialty(serviceCategorylist.get(0).getClubCatogery());
 
 			} else {
-				serviceData.setCompanyMembership("Not_in_AnyCategory");
+				ServiceDataNew.setClubSpecialty("Not_in_AnyCategory");
 			}
 
-			servicemastertemp.add(serviceData);
+			servicemastertemp.add(ServiceDataNew);
 		}
 
 		model.addAttribute("servicemaster", servicemastertemp);
+
 		return "serviceClubCategory";
 	}
 
 	@PostMapping("serviceClubCategory")
-	public String serviceClubCategoryPost(Model model, @RequestParam("CompanyId") String[] CompanyIdArr,
+	public String serviceClubCategoryPost(Model model, @RequestParam("name") String[] CompanyIdArr,
 			@RequestParam("ClubCategory") String[] ClubCategoryArr) {
 
-		for (int i = 0; i < ClubCategoryArr.length; i++) {
-
-			String clubIDtemp = CompanyIdArr[i];
-			String clubCategoryTemp = ClubCategoryArr[i];
-
-			List<ServiceCategory> serviceCategorylist = serviceCategoryRepository.getServiceUsingClubID(clubIDtemp);
-			if (serviceCategorylist.size() > 0) {
-
-				ServiceCategory obj = serviceCategorylist.get(0);
-				obj.setClubCatogery(clubCategoryTemp);
-				serviceCategoryRepository.save(obj);
-			} else {
-				ServiceCategory obj = new ServiceCategory();
-				obj.setClubCatogery(clubCategoryTemp);
-				obj.setClubID(clubIDtemp);
-				serviceCategoryRepository.save(obj);
-			}
-
-		}
-
-		List<ServiceData> servicemaster = serviceDataRepository.findAll();
-		List<ServiceData> servicemastertemp = new ArrayList<ServiceData>();
-		for (ServiceData serviceData : servicemaster) {
-
-			List<ServiceCategory> serviceCategorylist = serviceCategoryRepository
-					.getServiceUsingClubID(serviceData.getCompanyId());
-			if (serviceCategorylist.size() > 0) {
-				serviceData.setCompanyMembership(serviceCategorylist.get(0).getClubCatogery());
-
-			} else {
-				serviceData.setCompanyMembership("Not_in_AnyCategory");
-			}
-
-			servicemastertemp.add(serviceData);
-		}
-		model.addAttribute("savestatus", true);
-		model.addAttribute("servicemaster", servicemastertemp);
+		
+		  for (int i = 0; i < ClubCategoryArr.length; i++) {
+		  
+		  String clubIDtemp = CompanyIdArr[i]; String clubCategoryTemp =
+		  ClubCategoryArr[i];
+		  
+		  List<ServiceCategory> serviceCategorylist =
+		  serviceCategoryRepository.getServiceUsingClubID(clubIDtemp); if
+		  (serviceCategorylist.size() > 0) {
+		  
+		  ServiceCategory obj = serviceCategorylist.get(0);
+		  obj.setClubCatogery(clubCategoryTemp); serviceCategoryRepository.save(obj); }
+		  else { ServiceCategory obj = new ServiceCategory();
+		  obj.setClubCatogery(clubCategoryTemp); obj.setClubID(clubIDtemp);
+		  serviceCategoryRepository.save(obj); }
+		  
+		  }
+		  
+		  List<ServiceDataNew> servicemaster = ServiceDataNewRepository.findAll();
+		  List<ServiceDataNew> servicemastertemp = new ArrayList<ServiceDataNew>(); for
+		  (ServiceDataNew ServiceDataNew : servicemaster) {
+		  
+		  List<ServiceCategory> serviceCategorylist = serviceCategoryRepository
+		  .getServiceUsingClubID(ServiceDataNew.getClubID()); if
+		  (serviceCategorylist.size() > 0) {
+		  ServiceDataNew.setClubSpecialty(serviceCategorylist.get(0).
+		  getClubCatogery());
+		  
+		  } else { ServiceDataNew.setClubSpecialty("Not_in_AnyCategory"); }
+		  
+		  servicemastertemp.add(ServiceDataNew); } model.addAttribute("savestatus",
+		  true); model.addAttribute("servicemaster", servicemastertemp);
+		 
 		return "serviceClubCategory";
 	}
 

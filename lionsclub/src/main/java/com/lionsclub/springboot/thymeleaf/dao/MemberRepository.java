@@ -12,7 +12,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
 	
 	
-	
 	@Query("SELECT m FROM Member m WHERE m.MemberID = ?1")
 	public List<Member> getMemberID(String MemberID);
 

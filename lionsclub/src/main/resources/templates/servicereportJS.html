@@ -1,22 +1,18 @@
 
-															<span th:each="serv,iter : ${services}">
+															<span th:each="servSrc,iter : ${services}">
+																<span th:each="serv: ${servSrc.value}">
 																	<tr>
 																		<td th:text="${iter.index+1}"></td>
-																		<td th:text="${serv.CompanyId}"></td>
-																		<td th:text="${serv.CompanyName}"></td>
-																		<td th:text="${serv.OverallActivityCount}"></td>
-																		<td th:text="${serv.HungerCount}"></td>
-																		<td th:text="${serv.EnvironmentCount}"></td>
-																		<td th:text="${serv.PediatricCancerActivityCount}"></td>
-																		<td th:text="${serv.DiabetesCount}"></td>
-																		<td th:text="${serv.VisionCount}"></td>
-																		<td th:text="${serv.NonCampaignActivityCount}"></td>
-																		<td th:text="${serv.OverallNumberOfPeopleServed}"></td>
-																		<td th:text="${serv.OverallFundsDonated}"></td>
-																		<td th:text="${serv.OverallVolunteerHours}"></td>
-																		<td th:text="${serv.totalPoints}"></td>
+																		<td th:utext="${#strings.replace(serv.clubID,'.0','')}"></td>
+																		<td th:text="${serv.name}"></td>																		
+																		<td th:utext="${#strings.replace(serv.numberOfActivities,'.0','')}"></td>
+																		<td th:utext="${#strings.replace(serv.peopleServed,'.0','')}"></td>
+																		<td th:utext="${#strings.replace(serv.totalVolunteers,'.0','')}"></td>
+																		<td th:utext="${#strings.replace(serv.totalVolunteerHours,'.0','')}"></td>
+																		<td th:utext="${#strings.replace(serv.fundsDonatedUSD,'.0','')}"></td>
+																		<td th:text="${servSrc.key}"></td>
 
 																	</tr>
-
+																</span>
 															</span>
 															
