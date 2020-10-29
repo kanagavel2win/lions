@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "serviceDataNew")
-public class ServiceDataNew {
+public class ServiceDataNew implements Comparable<ServiceDataNew> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,10 @@ public class ServiceDataNew {
 	@Column
 	private double fundsRaisedUSD;
 	
-
+	@Column
+	private Integer totalPoints;
+	
+	
 	public ServiceDataNew() {
 
 	}
@@ -140,18 +143,30 @@ public class ServiceDataNew {
 		this.fundsRaisedUSD = fundsRaisedUSD;
 	}
 
+
+	public Integer getTotalPoints() {
+		return totalPoints;
+	}
+
+
+	public void setTotalPoints(Integer totalPoints) {
+		this.totalPoints = totalPoints;
+	}
+
+
 	@Override
 	public String toString() {
 		return "ServiceDataNew [id=" + id + ", name=" + name + ", clubID=" + clubID + ", clubType=" + clubType
 				+ ", clubSpecialty=" + clubSpecialty + ", activityType=" + activityType + ", numberOfActivities="
 				+ numberOfActivities + ", peopleServed=" + peopleServed + ", totalVolunteers=" + totalVolunteers
 				+ ", totalVolunteerHours=" + totalVolunteerHours + ", fundsDonatedUSD=" + fundsDonatedUSD
-				+ ", fundsRaisedUSD=" + fundsRaisedUSD + "]";
+				+ ", fundsRaisedUSD=" + fundsRaisedUSD + ", totalPoints=" + totalPoints + "]";
 	}
+
 
 	public ServiceDataNew(int id, String name, String clubID, String clubType, String clubSpecialty,
 			String activityType, double numberOfActivities, double peopleServed, double totalVolunteers,
-			double totalVolunteerHours, double fundsDonatedUSD, double fundsRaisedUSD) {
+			double totalVolunteerHours, double fundsDonatedUSD, double fundsRaisedUSD, Integer totalPoints) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -165,9 +180,14 @@ public class ServiceDataNew {
 		this.totalVolunteerHours = totalVolunteerHours;
 		this.fundsDonatedUSD = fundsDonatedUSD;
 		this.fundsRaisedUSD = fundsRaisedUSD;
-		
+		this.totalPoints = totalPoints;
 	}
 
+	@Override
+	public int compareTo(ServiceDataNew o) {
+		
+		return this.totalPoints.compareTo(o.totalPoints);
+	}
 	
 
 }

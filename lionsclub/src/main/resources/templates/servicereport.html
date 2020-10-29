@@ -172,8 +172,7 @@
 															</tr>
 														</thead>
 														<tbody id="filterResult">
-															<span th:each="servSrc,iter : ${services}">
-																<span th:each="serv: ${servSrc.value}">
+															<span th:each="serv,iter : ${services}">
 																	<tr>
 																		<td th:text="${iter.index+1}"></td>
 																		<td th:utext="${#strings.replace(serv.clubID,'.0','')}"></td>
@@ -183,10 +182,8 @@
 																		<td th:utext="${#strings.replace(serv.totalVolunteers,'.0','')}"></td>
 																		<td th:utext="${#strings.replace(serv.totalVolunteerHours,'.0','')}"></td>
 																		<td th:utext="${#strings.replace(serv.fundsDonatedUSD,'.0','')}"></td>
-																		<td th:text="${servSrc.key}"></td>
-
+																		<td th:text="${serv.totalPoints}"></td>
 																	</tr>
-																</span>
 															</span>
 															
 														</tbody>

@@ -127,8 +127,7 @@ public class ServiceController {
 
 		
 
-		
-		TreeMap<Integer, ServiceDataNew> tMapServiceData=new TreeMap<Integer, ServiceDataNew>();
+		ArrayList<ServiceDataNew> tMapServiceData=new ArrayList< ServiceDataNew>();
 		List<ServiceDataNew> serviceData = ServiceDataNewRepository.findAll();
 		
 		ServiceMaster serviceMaster = serviceRepository.findAll().get(0);
@@ -150,12 +149,11 @@ public class ServiceController {
 						+ (serviceData2.getNumberOfActivities() * activity_pointPoint)
 						+ (serviceData2.getTotalVolunteerHours() * lionshoursPoint);
 				
-				
-				tMapServiceData.put((int)totalPoint, serviceData2);
+				tMapServiceData.add(serviceData2);
 			}
 		}
-		NavigableMap nmap=tMapServiceData.descendingMap();
-		model.addAttribute("services", nmap);
+		Collections.sort(tMapServiceData, Collections.reverseOrder());
+		model.addAttribute("services", tMapServiceData);
 
 		return "servicereportJS";
 	}
@@ -172,7 +170,7 @@ public class ServiceController {
 		int lionshoursPoint = Integer.parseInt(serviceMaster.getLionshours());
 		double totalPoint = 1;
 
-		TreeMap<Integer, ServiceDataNew> services=new TreeMap<Integer, ServiceDataNew>(); 
+		ArrayList<ServiceDataNew> services=new ArrayList< ServiceDataNew>(); 
 		for (ServiceDataNew serviceDataNew : serviceDataList) {
 			totalPoint = (serviceDataNew.getPeopleServed() * beneficiaryPoint)
 					+ (serviceDataNew.getFundsDonatedUSD() * donatePoint)
@@ -180,12 +178,12 @@ public class ServiceController {
 					+ (serviceDataNew.getNumberOfActivities() * activity_pointPoint)
 					+ (serviceDataNew.getTotalVolunteerHours() * lionshoursPoint);
 			
-			
-			services.put((int)totalPoint, serviceDataNew);
+			serviceDataNew.setTotalPoints((int)totalPoint);
+			services.add(serviceDataNew);
 		}
-		NavigableMap nmap=services.descendingMap();
+		Collections.sort(services, Collections.reverseOrder());
 
-		model.addAttribute("services", nmap);
+		model.addAttribute("services", services);
 		return "servicereport";
 	}
 

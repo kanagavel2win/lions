@@ -131,7 +131,7 @@
                                                 	<span th:each="serv,iter : ${servicemaster}">
 															<tr>
 															<td th:text="${iter.index+1}"></td>
-															<td th:text="${serv.clubID}"></td>
+															<td th:utext="${#strings.replace(serv.clubID,'.0','')}"></td>
 															<td th:text="${serv.name}"></td>
 															<!-- <td th:text="${serv.CompanyMembership}"></td> -->
 															 <td>
