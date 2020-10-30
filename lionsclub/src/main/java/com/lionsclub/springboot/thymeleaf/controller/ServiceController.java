@@ -149,6 +149,7 @@ public class ServiceController {
 						+ (serviceData2.getNumberOfActivities() * activity_pointPoint)
 						+ (serviceData2.getTotalVolunteerHours() * lionshoursPoint);
 				
+				serviceData2.setTotalPoints((int)totalPoint);
 				tMapServiceData.add(serviceData2);
 			}
 		}
