@@ -304,7 +304,7 @@ public class ServiceController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
+			model.addAttribute("status", true);
 		}
 
 		return "serviceuploadcsv";
