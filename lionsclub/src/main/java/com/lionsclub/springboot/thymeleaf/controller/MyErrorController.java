@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -29,8 +31,7 @@ public class MyErrorController implements ErrorController {
 			// display specific error page
 			if (statusCode == HttpStatus.UNAUTHORIZED.value()) {
 				return "error/401Unaut";
-			}
-			else if (statusCode == HttpStatus.NOT_FOUND.value()) {
+			} else if (statusCode == HttpStatus.NOT_FOUND.value()) {
 				return "error/404Pagenotfound";
 			} else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
 				return "error/500";
@@ -42,7 +43,17 @@ public class MyErrorController implements ErrorController {
 		// display generic error
 		return "error";
 	}
-	
-	
 
+	/*@GetMapping("login")
+	public String login(Model model) {
+
+		return "login";
+	}
+*/
+/*	@GetMapping("403")
+	public String accessDenied(Model model) {
+
+		return "403";
+	}
+*/
 }
